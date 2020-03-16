@@ -1,7 +1,7 @@
 {
-  "name": "full-stack-project",
+  "name": "burgers-n-brew",
   "version": "1.0.0",
-  "description": "A Full Stack Node.js &amp; React app.",
+  "description": "A dynamic web application for hungry workers who want to find lunch break deals on a classic combo - burgers and beer.",
   "main": "server/index.js",
   "scripts": {
     "dev": "npm-run-all --silent --parallel dev:*",
