@@ -4,10 +4,10 @@ class SideBar extends React.Component {
     return (
       <div>
         <div className="location">
-
+          <div className="location-icon" />
         </div>
         <div className="account">
-
+          <div className="account-icon" />
         </div>
         <div className="price-filter">
 
