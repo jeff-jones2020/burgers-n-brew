@@ -10,13 +10,13 @@ class SideBar extends React.Component {
           <div className="account-icon" />
         </div>
         <div className="price-filter">
-
+          <div className="filter-icon" />
         </div>
         <div className="proximity-filter">
-
+          <div className="filter-icon" />
         </div>
         <div className="vegetarian-filter">
-
+          <div className="filter-icon" />
         </div>
         <div className="ratings">
 
