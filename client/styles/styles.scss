@@ -1,0 +1,21 @@
+.location {
+  .location-icon {
+    background-image: url('images/location-icon.svg');
+  }
+}
+
+.account {
+  .account-icon {
+    background-image: url('images/account-icon.svg');
+  }
+}
+
+.filter-icon {
+  background-image: url('images/filter-icon')
+}
+
+img {
+  width: 30%;
+  height: 30%;
+  object-fit: cover;
+}
