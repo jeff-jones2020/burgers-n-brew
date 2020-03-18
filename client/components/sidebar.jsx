@@ -7,7 +7,7 @@ class SideBar extends React.Component {
 
     if (open) {
       return (
-        <div className="sidebar">
+        <div className="sidebar" onClick={this.props.openSideBar}>
           <div className="sidebar-container">
             <div className="location">
               <DropDown />

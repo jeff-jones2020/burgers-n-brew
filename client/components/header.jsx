@@ -10,8 +10,11 @@ class Header extends Component {
     this.displaySideBar = this.displaySideBar.bind(this);
   }
 
-  displaySideBar() {
-    this.setState({ opened: !this.state.opened });
+  displaySideBar(event) {
+    if (event.target.classList.value === 'sidebar' ||
+      event.target.classList.value === 'sidebar-icon') {
+      this.setState({ opened: !this.state.opened });
+    }
   }
 
   render() {
