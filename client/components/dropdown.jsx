@@ -1,25 +1,77 @@
 import React, { Component } from 'react';
+import CurrentCity from './currentCity.jsx';
 
 class DropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initial: 0
+      isOpen: false,
+      cities: [],
+      init: 1
     };
+    this.handleIsOpen = this.handleIsOpen.bind(this);
+    this.handleInit = this.handleInit.bind(this);
   }
 
-  // getCity() {
-  //   fetch('/dummy')
-  //     .then(data => data.json())
-  //     .then(data => console.log(data));
-  // }
+  handleInit(e) {
+    const newInit = Number(e.target.id);
+    this.setState({
+      init: newInit
+    });
+  }
 
-  // componentDidMount() {
-  //   this.getCity();
-  // }
+  handleIsOpen() {
+    const { isOpen } = this.state;
+    this.setState({
+      isOpen: !isOpen
+    });
+  }
+
+  getCity() {
+    fetch('/api')
+      .then(data => data.json())
+      .then(cities => {
+        this.setState({ cities });
+      });
+  }
+
+  componentDidMount() {
+    this.getCity();
+  }
 
   render() {
-    return <div>hi</div>;
+    const { cities, isOpen, init } = this.state;
+    return (
+      <div>
+        {cities.map((city, i) => {
+          if (isOpen) {
+            return (
+              <CurrentCity
+                id={city.id}
+                init={init}
+                isOpen={isOpen}
+                city={city}
+                key={city.name}
+                handleInit={this.handleInit}
+                handleIsOpen={this.handleIsOpen}
+              />
+            );
+          } else {
+            if (init === city.id) {
+              return (
+                <CurrentCity
+                  isOpen={isOpen}
+                  handleIsOpen={this.handleIsOpen}
+                  city={city}
+                  id={city.id}
+                  key={city.name}
+                />
+              );
+            }
+          }
+        })}
+      </div>
+    );
   }
 }
 
