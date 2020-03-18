@@ -7,6 +7,11 @@ class Header extends React.Component {
     this.state = {
       opened: false
     };
+    this.displaySideBar = this.displaySideBar.bind(this);
+  }
+
+  displaySideBar() {
+    this.setState({ opened: !this.state.opened });
   }
 
   render() {
