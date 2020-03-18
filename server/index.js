@@ -3,6 +3,7 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const app = express();
+const cors = require('cors');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
@@ -10,11 +11,15 @@ const db = low(adapter);
 
 app.use(staticMiddleware);
 app.use(express.json());
+app.use(cors());
 
-app.get('/api', (req, res) => {
+app.get('/api/city', (req, res) => {
   const data = db.get('city').value();
   res.json(data);
 });
-
-app.listen(process.env.PORT, () => {
+app.get('/api/user', (req, res) => {
+  const data = db.get('user').value();
+  res.json(data);
 });
+
+app.listen(process.env.PORT, () => {});

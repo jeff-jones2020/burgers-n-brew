@@ -22,5 +22,21 @@
       "zipCode": 10038
     }
   ],
-  "user": {}
+  "user": [
+    {
+      "id": 1,
+      "name": "Jeff",
+      "city": "Irvine"
+    },
+    {
+      "id": 2,
+      "name": "Jinho",
+      "city": "Chicago"
+    },
+    {
+      "id": 3,
+      "name": "Lawrence",
+      "city": "NewYork"
+    }
+  ]
 }
