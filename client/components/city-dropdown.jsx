@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import CurrentCity from './currentCity.jsx';
 
-class DropDown extends Component {
+class CityDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
       cities: [],
-      init: 1
+      currentCityId: this.props.currentUserId
     };
     this.handleIsOpen = this.handleIsOpen.bind(this);
     this.handleInit = this.handleInit.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { currentUserId } = this.props;
+    if (this.props.currentUserId !== prevProps.currentUserId) {
+      this.setState({
+        currentCityId: currentUserId
+      });
+    }
+  }
+
   handleInit(e) {
     const newInit = Number(e.target.id);
     this.setState({
-      init: newInit
+      currentCityId: newInit
     });
   }
 
@@ -28,7 +37,7 @@ class DropDown extends Component {
   }
 
   getCity() {
-    fetch('/api')
+    fetch('/api/city')
       .then(data => data.json())
       .then(cities => {
         this.setState({ cities });
@@ -40,7 +49,7 @@ class DropDown extends Component {
   }
 
   render() {
-    const { cities, isOpen, init } = this.state;
+    const { cities, isOpen, currentCityId } = this.state;
     return (
       <div>
         {cities.map((city, i) => {
@@ -48,7 +57,6 @@ class DropDown extends Component {
             return (
               <CurrentCity
                 id={city.id}
-                init={init}
                 isOpen={isOpen}
                 city={city}
                 key={city.name}
@@ -57,7 +65,7 @@ class DropDown extends Component {
               />
             );
           } else {
-            if (init === city.id) {
+            if (currentCityId === city.id) {
               return (
                 <CurrentCity
                   isOpen={isOpen}
@@ -75,4 +83,4 @@ class DropDown extends Component {
   }
 }
 
-export default DropDown;
+export default CityDropDown;
