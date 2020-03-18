@@ -10,20 +10,30 @@
 
 .location .location-icon {
   background-image: url("images/location-icon.svg");
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 .account .account-icon {
   background-image: url("images/account-icon.svg");
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 .filter-icon {
   background-image: url("images/filter-icon.svg");
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 .sidebar-icon {
   background-image: url("images/sidebar.svg");
   width: 24px;
   height: 24px;
+  object-fit: cover;
 }
 
 img {
