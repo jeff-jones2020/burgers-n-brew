@@ -16,9 +16,9 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="header">
         <h1>Burgers N Brew</h1>
-        <SideBar opened={this.state.opened} openSideBar={this.displaySideBar} />
+        <SideBar className="sidebar" opened={this.state.opened} openSideBar={this.displaySideBar} />
       </div>
     );
   }

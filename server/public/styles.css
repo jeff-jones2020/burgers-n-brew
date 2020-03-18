@@ -1,3 +1,13 @@
+.header {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.header h1 {
+  color: white;
+}
+
 .location .location-icon {
   background-image: url("images/location-icon.svg");
 }
@@ -10,10 +20,10 @@
   background-image: url("images/filter-icon.svg");
 }
 
-.sidebar {
+.sidebar-icon {
   background-image: url("images/sidebar.svg");
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
 }
 
 img {
