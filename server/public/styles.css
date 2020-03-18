@@ -9,9 +9,17 @@
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   position: fixed;
-  width: 80%;
-  background-color: red;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 2em;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .account .account-icon {
