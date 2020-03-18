@@ -14,7 +14,6 @@ app.use(staticMiddleware);
 // app.use(sessionMiddleware);
 app.use(express.json());
 
-// db.defaults({ posts: [], user: {} }).write();
 app.get('/api', (req, res) => {
   const data = db.get('city').value();
   res.json(data);

@@ -4,7 +4,7 @@ const CurrentCity = props => {
   const { handleIsOpen, handleInit, city, isOpen } = props;
   if (isOpen) {
     return (
-      <div>
+      <div className="currentCity">
         <div
           id={city.id}
           onClick={id => {
@@ -18,13 +18,14 @@ const CurrentCity = props => {
     );
   } else {
     return (
-      <div>
+      <div className="currentCity">
         <div
           onClick={() => {
             handleIsOpen();
           }}
         >
-          {city.name}
+          <i className="fas fa-map-marker-alt"></i>
+          &nbsp; <span>{city.name}</span>, <span>{city.zipCode}</span>
         </div>
       </div>
     );
