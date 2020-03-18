@@ -8,6 +8,10 @@
   color: white;
 }
 
+.sidebar {
+  background-color: red;
+}
+
 .location .location-icon {
   background-image: url("images/location-icon.svg");
   width: 24px;

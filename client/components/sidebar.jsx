@@ -1,13 +1,16 @@
 import React from 'react';
+import DropDown from './dropdown.jsx';
+
 class SideBar extends React.Component {
   render() {
     const open = this.props.opened;
 
     if (open) {
       return (
-        <div>
+        <div className="sidebar">
           <div className="location">
             <div className="location-icon" />
+            <DropDown />
           </div>
           <div className="account">
             <div className="account-icon" />

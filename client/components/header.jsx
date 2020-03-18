@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DropDown from './dropdown.jsx';
 import SideBar from './sidebar';
 
 class Header extends Component {
@@ -19,8 +18,7 @@ class Header extends Component {
     return (
       <div className="header">
         <h1>Burgers N Brew</h1>
-        <DropDown />
-        <SideBar className="sidebar" opened={this.state.opened} openSideBar={this.displaySideBar} />
+        <SideBar opened={this.state.opened} openSideBar={this.displaySideBar} />
       </div>
     );
   }
