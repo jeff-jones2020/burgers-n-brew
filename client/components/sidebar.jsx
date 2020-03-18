@@ -8,20 +8,22 @@ class SideBar extends React.Component {
     if (open) {
       return (
         <div className="sidebar">
-          <div className="location">
-            <DropDown />
-          </div>
-          <div className="account">
-            <div className="account-icon" />
-          </div>
-          <div className="price-filter">
-            <div className="filter-icon" />
-          </div>
-          <div className="proximity-filter">
-            <div className="filter-icon" />
-          </div>
-          <div className="vegetarian-filter">
-            <div className="filter-icon" />
+          <div className="sidebar-container">
+            <div className="location">
+              <DropDown />
+            </div>
+            <div className="account">
+              <div className="account-icon" />
+            </div>
+            <div className="price-filter">
+              <div className="filter-icon" />
+            </div>
+            <div className="proximity-filter">
+              <div className="filter-icon" />
+            </div>
+            <div className="vegetarian-filter">
+              <div className="filter-icon" />
+            </div>
           </div>
         </div>
       );
