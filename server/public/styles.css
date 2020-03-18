@@ -9,26 +9,21 @@
 }
 
 .sidebar {
+  position: fixed;
+  width: 80%;
   background-color: red;
-}
-
-.location .location-icon {
-  background-image: url("images/location-icon.svg");
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
 }
 
 .account .account-icon {
   background-image: url("images/account-icon.svg");
-  width: 24px;
-  height: 24px;
+  width: 42px;
+  height: 42px;
   object-fit: cover;
 }
 
 .filter-icon {
   background-image: url("images/filter-icon.svg");
-  width: 24px;
+  width: 38px;
   height: 24px;
   object-fit: cover;
 }

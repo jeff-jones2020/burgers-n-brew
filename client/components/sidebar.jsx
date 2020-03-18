@@ -9,7 +9,6 @@ class SideBar extends React.Component {
       return (
         <div className="sidebar">
           <div className="location">
-            <div className="location-icon" />
             <DropDown />
           </div>
           <div className="account">
@@ -23,9 +22,6 @@ class SideBar extends React.Component {
           </div>
           <div className="vegetarian-filter">
             <div className="filter-icon" />
-          </div>
-          <div className="ratings">
-
           </div>
         </div>
       );
