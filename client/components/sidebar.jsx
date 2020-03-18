@@ -28,7 +28,7 @@ class SideBar extends React.Component {
       );
     }
     return (
-      <div className="sidebar" />
+      <div className="sidebar" onClick={this.props.openSideBar} />
     );
   }
 }
