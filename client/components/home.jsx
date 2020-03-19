@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Header from './header.jsx';
-import Section from './section.jsx';
+import DealsFeed from './deals-feed';
 
 class Home extends Component {
   render() {
     return (
       <>
         <Header />
-        <Section />
+        <DealsFeed />
       </>
     );
   }

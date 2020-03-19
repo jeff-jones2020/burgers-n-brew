@@ -86,7 +86,7 @@ class App extends Component {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/">Not a Found</Route>
+            <Route path="/">Page Not Found</Route>
           </Switch>
         </div>
       </Router>
