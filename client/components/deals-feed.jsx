@@ -6,6 +6,7 @@ const DealsFeed = props => {
   }
 
   const { restaurants } = props;
+  console.log(restaurants);
   const restaurantEls = restaurants.map((restaurant, index) => {
     const flexReverser = index % 2 === 0 ? ' flex-row-reverse ' : ' ';
     return (
@@ -16,8 +17,8 @@ const DealsFeed = props => {
         className={'d-flex' + flexReverser + 'align-items-center deal col-11 mx-auto p-0'}>
         <img src={restaurant.photos[0]}/>
         <div className='d-flex flex-column col'>
-          <h5 className='mb-0'>{restaurant.name}</h5>
-          <p>Spicy jalapeno bacon ipsum dolor amet dolor chislic lager.</p>
+          <h5 className='restaurant-name mb-0'>{restaurant.name}</h5>
+          <p className='deal-description'>Spicy jalapeno bacon ipsum dolor amet dolor chislic lager.</p>
         </div>
       </div>
     );

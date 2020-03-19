@@ -9,6 +9,18 @@
   color: white;
 }
 
+#bnb-title {
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                    url('images/bnb-banner.jpg');
+  background-size: cover;
+  height: 185px;
+}
+
+#bnb-title, #fresh-deals-title {
+  letter-spacing: normal;
+  text-align: center;
+}
+
 img {
   object-fit: contain;
   height: 150px;
@@ -20,7 +32,10 @@ img {
   height: 150px;
 }
 
-#bnb-title, #fresh-deals-title {
-  letter-spacing: normal;
-  text-align: center;
+.restaurant-name{
+  letter-spacing: 0.15em;
+}
+
+.deal-description {
+  font-family: 'Scope One', serif;
 }
