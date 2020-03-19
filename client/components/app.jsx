@@ -13,38 +13,48 @@ class App extends Component {
       restaurants: [],
       deals: []
     };
+
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
   }
 
-  filterForBurgersAndBeer(restaurants) {
-    const newArray = restaurants.filter(biz => {
-      let hasBurger = false;
-      let hasBar = false;
-      for (let i = 0; i < biz.categories.length; i++) {
-        if (biz.categories[i].alias.includes('burger')) {
-          hasBurger = true;
-        } else if (biz.categories[i].alias.includes('bars')) {
-          hasBar = true;
-        }
+  getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
+    // index = 0 means it will use 0 unless passed a different value for index
+    if (newRestaurants.length === 5 || index === restaurants.length - 1) { // maximum 5 results to ensure we don't send too many requests
+      this.setState({
+        restaurants: newRestaurants
+      });
+      return;
+    }
+    let hasBurger = false;
+    let hasBar = false;
+    for (let k = 0; k < restaurants[index].categories.length; k++) {
+      if (restaurants[index].categories[k].alias.includes('burger')) {
+        hasBurger = true;
       }
-      return (hasBurger && hasBar); // if both are true, add to newArray
-    });
-    console.log(newArray);
-    return newArray;
+      if (restaurants[index].categories[k].alias.includes('bar')) {
+        hasBar = true;
+      }
+    }
+    if (hasBurger && hasBar) {
+      fetch('/api/yelp/businesses/' + restaurants[index].id)
+        .then(response => response.json())
+        .then(data => {
+          newRestaurants.push(data);
+        })
+        .then(() => this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants));
+    } else {
+      this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
+    }
   }
 
   componentDidMount() {
-    const tempLat = 33.6846;
-    const tempLong = -117.8265;
+    const tempLat = 33.6846; // hard coded latitude for Irvine for now, change to use state
+    const tempLong = -117.8265; // hard coded longitude for Irvine for now, change to use state
     const queries = `latitude=${tempLat}&longitude=${tempLong}&categories=burgers&limit=50`;
-    console.log(queries);
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        const restaurants = this.filterForBurgersAndBeer(data.businesses);
-        this.setState({
-          restaurants: restaurants
-        });
+        this.getMatchingRestaurantDetails(data.businesses);
       });
   }
 

@@ -32,5 +32,20 @@ app.get('/api/yelp/businesses/search/:query', (req, res) => {
     });
 });
 
+app.get('/api/yelp/businesses/:id', (req, res) => {
+  const queryUrl = 'https://api.yelp.com/v3/businesses/' + req.params.id;
+
+  fetch(queryUrl, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer 9HcPGXUHzz5uL3aILr3VUEa1tJan5EDWc8KHQEsHNm-0BP5YnEgjRaH3letAt5mW7d1xkEiTYaQy1nnZ3aHXXBTpNCiATlesAI5ulAvYzdkSxSFv_iilb2Jnhr1rXnYx'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      res.status(200).json(data);
+    });
+});
+
 app.listen(process.env.PORT, () => {
 });
