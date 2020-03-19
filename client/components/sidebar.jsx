@@ -62,7 +62,6 @@ class SideBar extends React.Component {
                   users={users}
                   currentUserId={currentUserId}
                 />
-
               </div>
               <div className="account">
                 {users.map((user, i) => {

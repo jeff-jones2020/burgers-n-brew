@@ -17,18 +17,6 @@ class Header extends Component {
     }
   }
 
-  getUser() {
-    fetch('/api/user')
-      .then(data => data.json())
-      .then(users => {
-        this.setState({ users });
-      });
-  }
-
-  componentDidMount() {
-    this.getUser();
-  }
-
   render() {
 
     return (
