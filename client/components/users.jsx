@@ -8,10 +8,10 @@ class Users extends Component {
       longitude: null
     };
     this.askForCoords = this.askForCoords.bind(this);
-    this.handleGeoSucces = this.handleGeoSucces.bind(this);
+    this.handleGeoSuccess = this.handleGeoSuccess.bind(this);
   }
 
-  handleGeoSucces(position) {
+  handleGeoSuccess(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     this.setState({
@@ -27,7 +27,7 @@ class Users extends Component {
 
   askForCoords() {
     navigator.geolocation.getCurrentPosition(
-      this.handleGeoSucces,
+      this.handleGeoSuccess,
       this.handleGeoErr
     );
   }
