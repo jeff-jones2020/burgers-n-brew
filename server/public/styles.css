@@ -1,5 +1,19 @@
+* {
+  margin: 0;
+}
+
+#root {
+  background-color: black;
+  color: white;
+}
+
 img {
-  width: 30%;
-  height: 30%;
-  object-fit: cover;
+  object-fit: contain;
+  height: 150px;
+  max-width: 33%;
+  max-height: 70%;
+}
+
+.deal {
+  height: 150px;
 }
