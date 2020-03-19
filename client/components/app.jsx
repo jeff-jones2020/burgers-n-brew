@@ -84,7 +84,7 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home />
+              <Home restaurants={this.state.restaurants}/>
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>

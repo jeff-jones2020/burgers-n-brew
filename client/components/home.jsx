@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <>
         <Header />
-        <DealsFeed />
+        <DealsFeed restaurants={this.props.restaurants}/>
       </>
     );
   }
