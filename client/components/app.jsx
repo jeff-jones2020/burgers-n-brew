@@ -15,18 +15,36 @@ class App extends Component {
     };
   }
 
+  filterForBurgersAndBeer(restaurants) {
+    const newArray = restaurants.filter(biz => {
+      let hasBurger = false;
+      let hasBar = false;
+      for (let i = 0; i < biz.categories.length; i++) {
+        if (biz.categories[i].alias.includes('burger')) {
+          hasBurger = true;
+        } else if (biz.categories[i].alias.includes('bars')) {
+          hasBar = true;
+        }
+      }
+      return (hasBurger && hasBar); // if both are true, add to newArray
+    });
+    console.log(newArray);
+    return newArray;
+  }
+
   componentDidMount() {
     const tempLat = 33.6846;
     const tempLong = -117.8265;
-    const queries = `latitude=${tempLat}&longitude=${tempLong}&categories=burgers,bars&limit=50`;
+    const queries = `latitude=${tempLat}&longitude=${tempLong}&categories=burgers&limit=50`;
     console.log(queries);
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        this.setState = {
-          restaurants: data.businesses
-        };
+        const restaurants = this.filterForBurgersAndBeer(data.businesses);
+        this.setState({
+          restaurants: restaurants
+        });
       });
   }
 
