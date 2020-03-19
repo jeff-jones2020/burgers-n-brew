@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Rock Salt';
+    src: url('RockSalt-webfont.eot');
+    src: url('RockSalt-webfont.woff') format('woff'),
+         url('RockSalt-webfont.ttf') format('truetype'),
+         url('RockSalt-webfont.svg#rock_saltregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

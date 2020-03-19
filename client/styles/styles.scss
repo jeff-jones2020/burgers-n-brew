@@ -1,9 +1,19 @@
+$fonts: 'Rock Salt', 'Times', 'sans-serif';
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: $fonts;
+}
+
 .header {
   background-color: black;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-evenly;
   h1 {
+    font-size: 1em;
     color: white;
   }
 }
@@ -17,7 +27,7 @@
   top: 0;
   left: 0;
   color: white;
-  font-size: 2em;
+  font-size: 1.5em;
   background-color: rgba(0, 0, 0, 0.5);
     &:empty {
     display: none;
