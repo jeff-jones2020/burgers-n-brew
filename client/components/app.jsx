@@ -17,6 +17,16 @@ class App extends Component {
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
     );
+    this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
+  }
+
+  getRestaurantByCity(city) {
+    const queries = `location=${city}&categories=burgers&limit=10`;
+    fetch('api/yelp/businesses/search/' + queries)
+      .then(response => response.json())
+      .then(data => {
+        this.getMatchingRestaurantDetails(data.businesses);
+      });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
