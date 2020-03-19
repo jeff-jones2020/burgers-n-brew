@@ -1,6 +1,7 @@
 * {
   margin: 0;
   font-family: 'Rock Salt', cursive;
+  letter-spacing: 0.1em;
 }
 
 #root {
@@ -17,4 +18,9 @@ img {
 
 .deal {
   height: 150px;
+}
+
+#bnb-title, #fresh-deals-title {
+  letter-spacing: normal;
+  text-align: center;
 }

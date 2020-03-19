@@ -26,7 +26,7 @@ const DealsFeed = props => {
   return (
     <div>
       <div>
-        <h4>Fresh Deals</h4>
+        <h3 id='fresh-deals-title'>Fresh Deals</h3>
       </div>
       {restaurantEls}
     </div>

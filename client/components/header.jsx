@@ -76,7 +76,7 @@ class Header extends Component {
             }
           }
         })}
-        <h1>Burgers N Brew</h1>
+        <div id='bnb-title'><h1>Burgers N Brew</h1></div>
       </div>
     );
   }
