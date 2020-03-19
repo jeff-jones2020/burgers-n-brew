@@ -11,7 +11,7 @@ class Header extends Component {
   }
 
   displaySideBar(event) {
-    if (event.target.classList.value === 'sidebar' ||
+    if (event.target.classList.value === 'sidebar slide-in-enter-done' ||
       event.target.classList.value === 'sidebar-icon') {
       this.setState({ opened: !this.state.opened });
     }

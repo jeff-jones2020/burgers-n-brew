@@ -58,4 +58,22 @@ img {
   object-fit: cover;
 }
 
+.slide-in-enter {
+  opacity: 0;
+}
+
+.slide-in-enter.slide-in-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.slide-in-exit {
+  opacity: 1;
+}
+
+.slide-in-exit.slide-in-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
 /*# sourceMappingURL=styles.css.map */
