@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "name": "NewYork",
+      "name": "New York",
       "lat": 40.7127,
       "long": 74.0059,
       "zipCode": 10038
@@ -36,7 +36,7 @@
     {
       "id": 3,
       "name": "Lawrence",
-      "city": "NewYork"
+      "city": "New York"
     }
   ]
 }
