@@ -1,18 +1,18 @@
 import React from 'react';
 
-const CurrentCity = props => {
-  const { handleIsOpen, handleInit, city, isOpen } = props;
+const CurrentUser = props => {
+  const { handleIsOpen, handleInit, user, isOpen } = props;
   if (isOpen) {
     return (
       <div>
         <div
-          id={city.id}
+          id={user.id}
           onClick={id => {
             handleIsOpen();
             handleInit(id);
           }}
         >
-          {city.name}
+          {user.name}
         </div>
       </div>
     );
@@ -24,12 +24,12 @@ const CurrentCity = props => {
             handleIsOpen();
           }}
         >
-          <i className="fas fa-map-marker-alt"></i>
-          &nbsp; <span>{city.name}</span>, <span>{city.zipCode}</span>
+          <i className="far fa-user-circle"></i>
+          &nbsp; <span>{user.name}</span>
         </div>
       </div>
     );
   }
 };
 
-export default CurrentCity;
+export default CurrentUser;

@@ -17,7 +17,20 @@ class Header extends Component {
     }
   }
 
+  getUser() {
+    fetch('/api/user')
+      .then(data => data.json())
+      .then(users => {
+        this.setState({ users });
+      });
+  }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
   render() {
+
     return (
       <div className="header">
         <h1>Burgers N Brew</h1>

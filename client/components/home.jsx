@@ -4,9 +4,10 @@ import Section from './section.jsx';
 
 class Home extends Component {
   render() {
+    const { getRestaurantByCity } = this.props;
     return (
       <>
-        <Header />
+        <Header getRestaurantByCity={getRestaurantByCity} />
         <Section />
       </>
     );
