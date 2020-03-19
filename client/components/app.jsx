@@ -16,10 +16,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('api/yelp/businesses/search/location=' + this.state.currentLocation)
+    const tempLat = 33.6846;
+    const tempLong = -117.8265;
+    const queries = `latitude=${tempLat}&longitude=${tempLong}&categories=burgers,bars&limit=50`;
+    console.log(queries);
+    fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
-      // eslint-disable-next-line no-console
-      .then(data => console.log(data));
+      .then(data => {
+        console.log(data);
+        this.setState = {
+          restaurants: data.businesses
+        };
+      });
   }
 
   render() {
