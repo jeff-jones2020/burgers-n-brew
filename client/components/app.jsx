@@ -103,7 +103,7 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home />
+              <Home getRestaurantByCity={this.getRestaurantByCity} />
             </Route>
             <Route path="/">Not a Found</Route>
           </Switch>
