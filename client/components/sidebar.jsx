@@ -11,28 +11,34 @@ class SideBar extends React.Component {
         <div className="sidebar-icon" onClick={this.props.openSideBar} />
         <CSSTransition
           in={open}
-          classNames="slide-in"
+          classNames="appear"
           unmountOnExit
-          timeout={1000}
+          timeout={500}
         >
           <div className="sidebar" onClick={this.props.openSideBar}>
-            <div className="sidebar-container">
-              <div className="location">
-                <DropDown />
+            <CSSTransition
+              in={open}
+              classNames="slide-in"
+              unmountOnExit
+              timeout={500}>
+              <div className="sidebar-container">
+                <div className="location">
+                  <DropDown />
+                </div>
+                <div className="account">
+                  <div className="account-icon" />
+                </div>
+                <div className="price-filter">
+                  <div className="filter-icon" />
+                </div>
+                <div className="proximity-filter">
+                  <div className="filter-icon" />
+                </div>
+                <div className="vegetarian-filter">
+                  <div className="filter-icon" />
+                </div>
               </div>
-              <div className="account">
-                <div className="account-icon" />
-              </div>
-              <div className="price-filter">
-                <div className="filter-icon" />
-              </div>
-              <div className="proximity-filter">
-                <div className="filter-icon" />
-              </div>
-              <div className="vegetarian-filter">
-                <div className="filter-icon" />
-              </div>
-            </div>
+            </CSSTransition>
           </div>
         </CSSTransition>
       </>
