@@ -12,8 +12,13 @@ const fetch = require('node-fetch');
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.get('/api', (req, res) => {
+app.get('/api/city', (req, res) => {
   const data = db.get('city').value();
+  res.json(data);
+});
+
+app.get('/api/user', (req, res) => {
+  const data = db.get('user').value();
   res.json(data);
 });
 
@@ -47,5 +52,4 @@ app.get('/api/yelp/businesses/:id', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT, () => {
-});
+app.listen(process.env.PORT, () => {});
