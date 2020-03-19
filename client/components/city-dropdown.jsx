@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CurrentCity from './currentCity.jsx';
+import SearchCityForm from './search-city-form.jsx';
 
 class CityDropDown extends Component {
   constructor(props) {
@@ -50,35 +51,43 @@ class CityDropDown extends Component {
 
   render() {
     const { cities, isOpen, currentCityId } = this.state;
+    const { getRestaurantByCity } = this.props;
     return (
-      <div>
-        {cities.map((city, i) => {
-          if (isOpen) {
-            return (
-              <CurrentCity
-                id={city.id}
-                isOpen={isOpen}
-                city={city}
-                key={city.name}
-                handleInit={this.handleInit}
-                handleIsOpen={this.handleIsOpen}
-              />
-            );
-          } else {
-            if (currentCityId === city.id) {
+      <>
+        <div>
+          {cities.map((city, i) => {
+            if (isOpen) {
               return (
                 <CurrentCity
-                  isOpen={isOpen}
-                  handleIsOpen={this.handleIsOpen}
-                  city={city}
                   id={city.id}
+                  isOpen={isOpen}
+                  city={city}
                   key={city.name}
+                  handleInit={this.handleInit}
+                  handleIsOpen={this.handleIsOpen}
                 />
               );
+            } else {
+              if (currentCityId === city.id) {
+                return (
+                  <CurrentCity
+                    isOpen={isOpen}
+                    handleIsOpen={this.handleIsOpen}
+                    city={city}
+                    id={city.id}
+                    key={city.name}
+                  />
+                );
+              }
             }
-          }
-        })}
-      </div>
+          })}
+        </div>
+        {isOpen ? (
+          <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
+        ) : (
+          ''
+        )}
+      </>
     );
   }
 }

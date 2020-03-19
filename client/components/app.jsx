@@ -15,11 +15,22 @@ class App extends Component {
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
+    this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
+  }
+
+  getRestaurantByCity(city) {
+    const queries = `location=${city}&categories=burgers&limit=10`;
+    fetch('api/yelp/businesses/search/' + queries)
+      .then(response => response.json())
+      .then(data => {
+        this.getMatchingRestaurantDetails(data.businesses);
+      });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
     // index = 0 means it will use 0 unless passed a different value for index
-    if (newRestaurants.length === 5 || index === restaurants.length - 1) { // maximum 5 results to ensure we don't send too many requests
+    if (newRestaurants.length === 5 || index === restaurants.length - 1) {
+      // maximum 5 results to ensure we don't send too many requests
       this.setState({
         restaurants: newRestaurants
       });
@@ -41,7 +52,13 @@ class App extends Component {
         .then(data => {
           newRestaurants.push(data);
         })
-        .then(() => this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants));
+        .then(() =>
+          this.getMatchingRestaurantDetails(
+            restaurants,
+            ++index,
+            newRestaurants
+          )
+        );
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
@@ -84,7 +101,7 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home />
+              <Home getRestaurantByCity={this.getRestaurantByCity} />
             </Route>
             <Route path="/">Not a Found</Route>
           </Switch>

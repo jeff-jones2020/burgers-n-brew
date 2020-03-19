@@ -43,9 +43,15 @@ class Header extends Component {
 
   render() {
     const { users, isOpen, currentUserId } = this.state;
+    const { getRestaurantByCity } = this.props;
+
     return (
       <div>
-        <CityDropDown users={users} currentUserId={currentUserId} />
+        <CityDropDown
+          getRestaurantByCity={getRestaurantByCity}
+          users={users}
+          currentUserId={currentUserId}
+        />
         {users.map((user, i) => {
           if (isOpen) {
             return (
