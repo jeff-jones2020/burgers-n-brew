@@ -20,6 +20,9 @@
   font-size: 2em;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.sidebar:empty {
+  display: none;
+}
 
 .sidebar-container {
   height: 100%;
@@ -58,36 +61,22 @@ img {
   object-fit: cover;
 }
 
-.appear-enter {
-  opacity: 0;
-}
-.appear-enter.appear-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.appear-exit {
-  opacity: 1;
-}
-.appear-exit.appear-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-out;
-}
-
 .slide-in-enter {
-  transform: translate(500px);
+  opacity: 0;
+  transform: translate(100%);
 }
 .slide-in-enter.slide-in-enter-active {
-  transform: translate(0px);
-  transition: all 500ms ease-in;
+  opacity: 1;
+  transform: translate(0%);
+  transition: all 500ms;
 }
 
 .slide-in-exit {
-  transform: translate(0px);
+  transform: translate(0);
 }
 .slide-in-exit.slide-in-exit-active {
-  transform: translate(500px);
-  transition: all 500ms ease-in;
+  transform: translate(100%);
+  transition: all 500ms;
 }
 
 /*# sourceMappingURL=styles.css.map */
