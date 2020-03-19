@@ -9,3 +9,14 @@ ReactDOM.render(
   </BrowserRouter>,
   document.querySelector('#root')
 );
+
+const fetchOptions = {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
+
+fetch('api/yelp/businesses/search/' + 'location=irvine', fetchOptions)
+  .then(response => response.json())
+  .then(data => console.log(data));
