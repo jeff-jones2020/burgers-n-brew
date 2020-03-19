@@ -10,11 +10,18 @@ class SearchCityForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  resetForm() {
+    this.setState({
+      city: ''
+    });
+  }
+
   handleSubmit(e) {
     const { getRestaurantByCity } = this.props;
     const { city } = this.state;
     getRestaurantByCity(city);
     e.preventDefault();
+    this.resetForm();
   }
 
   handleChange(e) {
