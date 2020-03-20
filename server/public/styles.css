@@ -88,12 +88,17 @@
 #fresh-deals-title {
   letter-spacing: normal;
   text-align: center;
+  font-size: 14px;
 }
 
 img {
   width: 30%;
   height: 30%;
   object-fit: cover;
+}
+
+.deal-description {
+  font-family: 'Scope One', serif;
 }
 
 .slide-in-enter {
