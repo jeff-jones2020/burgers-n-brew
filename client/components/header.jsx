@@ -11,18 +11,18 @@ class Header extends Component {
   }
 
   displaySideBar(event) {
-    if (event.target.classList.value === 'sidebar' ||
-      event.target.classList.value === 'sidebar-icon') {
+    if (
+      event.target.classList.value === 'sidebar' ||
+      event.target.classList.value === 'sidebar-icon'
+    ) {
       this.setState({ opened: !this.state.opened });
     }
   }
 
   render() {
-
     return (
-      <div id='bnb-banner' className='mb-3 header'>
-          <div id='banner-background'></div>
-        <h1 id='bnb-title'>Burgers N Brew</h1>
+      <div id="bnb-banner" className="mb-3 header">
+        <h1>Burgers N Brew</h1>
         <SideBar opened={this.state.opened} openSideBar={this.displaySideBar} />
       </div>
     );
