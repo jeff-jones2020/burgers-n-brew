@@ -49,16 +49,13 @@ class CurrentLocation extends Component {
 
   render() {
     return (
-      <>
-        <div
-          onClick={e => {
-            this.handleSubmit(e);
-          }}
-        >
-          <i className="fas fa-street-view"></i>
-          &nbsp; <span>CurrentLocation</span>
-        </div>
-      </>
+      <span
+        onClick={e => {
+          this.handleSubmit(e);
+        }}
+      >
+        <i className="fas fa-map-marker-alt"></i>
+      </span>
     );
   }
 }

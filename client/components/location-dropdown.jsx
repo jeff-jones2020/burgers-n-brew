@@ -29,6 +29,7 @@ class LocationDropDown extends Component {
     return (
       <>
         <div>
+          <CurrentLocation getRestaurantByLatLong={getRestaurantByLatLong} />
           {users.map((user, i) => {
             if (currentUserId === user.id) {
               return (
@@ -42,7 +43,6 @@ class LocationDropDown extends Component {
             }
           })}
         </div>
-        <CurrentLocation getRestaurantByLatLong={getRestaurantByLatLong} />
         <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
       </>
     );
