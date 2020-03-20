@@ -14,12 +14,15 @@ class App extends Component {
       deals: []
     };
 
-    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
+      this
+    );
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
+    this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
   }
 
   getRestaurantByCity(city) {
-    const queries = `location=${city}&categories=burgers&limit=10`;
+    const queries = `location=${city}&categories=burgers&limit=50`;
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
       .then(data => {
@@ -68,15 +71,21 @@ class App extends Component {
     // add code for navigating to detail view page based on Yelp business ID
   }
 
-  componentDidMount() {
-    const tempLat = 33.6846; // hard coded latitude for Irvine for now, change to use state
-    const tempLong = -117.8265; // hard coded longitude for Irvine for now, change to use state
-    const queries = `latitude=${tempLat}&longitude=${tempLong}&categories=burgers&limit=50`;
+  getRestaurantByLatLong(latitude = 33.6846, longitude = -117.8265) {
+    // latitude, longitude means it will use
+    // unless passed a different value for latitude, longitude
+    // hard coded latitude for Irvine for now, change to use state
+    // hard coded longitude for Irvine for now, change to use state
+    const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
       });
+  }
+
+  componentDidMount() {
+    this.getRestaurantByLatLong();
   }
 
   render() {
@@ -105,7 +114,12 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home getRestaurantByCity={this.getRestaurantByCity} setDetailViewCallback={this.setDetailView} restaurants={this.state.restaurants}/>
+              <Home
+                getRestaurantByLatLong={this.getRestaurantByLatLong}
+                getRestaurantByCity={this.getRestaurantByCity}
+                setDetailView={this.setDetailView}
+                restaurants={this.state.restaurants}
+              />
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>

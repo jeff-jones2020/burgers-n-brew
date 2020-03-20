@@ -1,5 +1,5 @@
 import React from 'react';
-import CityDropDown from './city-dropdown.jsx';
+import LocationDropDown from './location-dropdown.jsx';
 import CurrentUser from './currentUser.jsx';
 import { CSSTransition } from 'react-transition-group';
 
@@ -42,22 +42,27 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const open = this.props.opened;
     const { users, isOpen, currentUserId } = this.state;
-    const { getRestaurantByCity } = this.props;
-
+    const {
+      getRestaurantByCity,
+      getRestaurantByLatLong,
+      openSideBar,
+      opened
+    } = this.props;
     return (
       <>
-        <div className="sidebar-icon" onClick={this.props.openSideBar} />
-        <div className="sidebar" onClick={this.props.openSideBar}>
+        <div className="sidebar-icon" onClick={openSideBar} />
+        <div className="sidebar" onClick={openSideBar}>
           <CSSTransition
-            in={open}
+            in={opened}
             classNames="slide-in"
             unmountOnExit
-            timeout={500}>
+            timeout={500}
+          >
             <div className="sidebar-container">
               <div className="location">
-                <CityDropDown
+                <LocationDropDown
+                  getRestaurantByLatLong={getRestaurantByLatLong}
                   getRestaurantByCity={getRestaurantByCity}
                   users={users}
                   currentUserId={currentUserId}

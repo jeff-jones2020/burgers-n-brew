@@ -36,12 +36,14 @@ class SearchCityForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <span>City:</span>
+          <i className="fas fa-search"></i>
+          &nbsp; <span>Search:</span>
           <input
             type="text"
             name="city"
             value={this.state.city}
             onChange={this.handleChange}
+            placeholder="City name, CA"
           />
         </form>
       </div>
