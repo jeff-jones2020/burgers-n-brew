@@ -26,7 +26,7 @@ class DetailView extends Component {
     const restaurant = this.props.restaurant;
     const restaurantTags = restaurant.categories.map(category => {
       return (
-        <span key={category.alias}>| {category.title}</span>
+        <span key={category.alias}> | {category.title}</span>
       );
     });
     const restaurantOpen = restaurant.hours[0].open.map(day => {
@@ -34,25 +34,27 @@ class DetailView extends Component {
       const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       let openMorn;
       let closeMorn;
-      if (parseInt(openTime[1]) > 12) {
+      openTime[1] = parseInt(openTime[1]);
+      closeTime[1] = parseInt(closeTime[1]);
+      if (openTime[1] >= 12) {
         openMorn = 'PM';
       } else {
         openMorn = 'AM';
       }
-      if (parseInt(closeTime[1] > 12)) {
+      if (closeTime[1] >= 12) {
         closeMorn = 'PM';
       } else {
         closeMorn = 'AM';
       }
       if (openTime[1] === '00') {
         openTime[1] = '12';
-      } else if (parseInt(openTime[1]) > 12) {
-        openTime[1] = parseInt(openTime[1]) - 12;
+      } else if (openTime[1] > 12) {
+        openTime[1] = openTime[1] - 12;
       }
       if (closeTime[1] === '00') {
         closeTime[1] = '12';
-      } else if (parseInt(closeTime[1]) > 12) {
-        closeTime[1] = parseInt(closeTime[1]) - 12;
+      } else if (closeTime[1] > 12) {
+        closeTime[1] = closeTime[1] - 12;
       }
       const opening = `${openTime[1]}:${openTime[2]}`;
       const closing = `${closeTime[1]}:${closeTime[2]}`;
@@ -96,7 +98,7 @@ class DetailView extends Component {
         </div>
         <div>
           <div>
-            {restaurant.price} | {restaurantTags}
+            {restaurant.price}{restaurantTags}
           </div>
           <div>
             {restaurantOpen}
