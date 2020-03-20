@@ -4,14 +4,19 @@ import DealsFeed from './deals-feed';
 
 class Home extends Component {
   render() {
-    const { getRestaurantByCity, setDetailView } = this.props;
+    const {
+      getRestaurantByCity,
+      getRestaurantByLatLong,
+      setDetailView,
+      restaurants
+    } = this.props;
     return (
       <>
-        <Header getRestaurantByCity={getRestaurantByCity} />
-        <DealsFeed
-          restaurants={this.props.restaurants}
-          setDetailView={setDetailView}
+        <Header
+          getRestaurantByLatLong={getRestaurantByLatLong}
+          getRestaurantByCity={getRestaurantByCity}
         />
+        <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
       </>
     );
   }

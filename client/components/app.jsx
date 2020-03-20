@@ -115,6 +115,7 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
+                getRestaurantByLatLong={this.getRestaurantByLatLong}
                 getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
                 restaurants={this.state.restaurants}
