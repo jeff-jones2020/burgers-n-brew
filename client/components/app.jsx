@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   getRestaurantByCity(city) {
-    const queries = `location=${city}&categories=burgers&limit=10`;
+    const queries = `location=${city}&categories=burgers&limit=50`;
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
       .then(data => {
