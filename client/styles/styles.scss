@@ -1,21 +1,49 @@
-$fonts: 'Rock Salt', 'Times', 'sans-serif';
+$fonts: 'Rock Salt', cursive;
 
-body {
-  box-sizing: border-box;
+* {
   margin: 0;
+  box-sizing: border-box;
   font-family: $fonts;
+  letter-spacing: 0.1em;
 }
 
-.header {
+#root {
   background-color: black;
+  color: white;
+}
+
+#bnb-banner {
+  height: 185px;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  h1 {
+  h1, .sidebar-icon {
     font-size: 1.5em;
-    color: white;
+    position: relative;
+    z-index: 1;
   }
+}
+
+.sidebar-icon {
+  background-image: url('images/sidebar.svg');
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+#banner-background {
+  position: absolute;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('images/bnb-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: inherit;
+  width: 100%;
+  z-index: 0;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 }
 
 .sidebar {
@@ -28,6 +56,7 @@ body {
   left: 0;
   color: white;
   font-size: 1em;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
     &:empty {
     display: none;
@@ -42,13 +71,26 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  .location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 }
 
-.sidebar-icon {
-  background-image: url('images/sidebar.svg');
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
+#bnb-title {
+  transform: translateY(-200%);
+}
+
+#bnb-title,
+#fresh-deals-title {
+  letter-spacing: normal;
+  text-align: center;
 }
 
 img {
