@@ -1,46 +1,19 @@
-* {
-  margin: 0;
+body {
   box-sizing: border-box;
-  font-family: "Rock Salt", cursive;
-  letter-spacing: 0.1em;
+  margin: 0;
+  font-family: 'Rock Salt', 'Times', 'sans-serif';
 }
 
-#root {
+.header {
   background-color: black;
-  color: white;
-}
-
-#bnb-banner {
-  height: 185px;
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
 }
-#bnb-banner h1, #bnb-banner .sidebar-icon {
+.header h1 {
   font-size: 1.5em;
-  position: relative;
-  z-index: 1;
-}
-
-.sidebar-icon {
-  background-image: url("images/sidebar.svg");
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
-}
-
-#banner-background {
-  position: absolute;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url("images/bnb-banner.jpg");
-  background-size: cover;
-  background-position: center;
-  height: inherit;
-  width: 100%;
-  z-index: 0;
-  filter: blur(1px);
-  -webkit-filter: blur(1px);
+  color: white;
 }
 
 .sidebar {
@@ -53,7 +26,6 @@
   left: 0;
   color: white;
   font-size: 1em;
-  z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
 }
 .sidebar:empty {
@@ -69,31 +41,31 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.sidebar-container .location {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.sidebar-container .location div form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-#bnb-title {
-  transform: translateY(-200%);
-}
-
-#bnb-title,
-#fresh-deals-title {
-  letter-spacing: normal;
-  text-align: center;
+.sidebar-icon {
+  background-image: url('images/sidebar.svg');
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 img {
-  width: 30%;
-  height: 30%;
-  object-fit: cover;
+  object-fit: contain;
+  height: 150px;
+  max-width: 33%;
+  max-height: 70%;
+}
+
+.deal {
+  height: 150px;
+}
+
+.restaurant-name {
+  letter-spacing: 0.15em;
+}
+
+.deal-description {
+  font-family: 'Scope One', serif;
 }
 
 .slide-in-enter {
