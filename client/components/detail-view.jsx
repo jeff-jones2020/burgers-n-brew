@@ -26,7 +26,7 @@ class DetailView extends Component {
     const restaurant = this.props.restaurant;
     const restaurantTags = restaurant.categories.map(category => {
       return (
-        <div key={category.alias}>{category.title}</div>
+        <span key={category.alias}>| {category.title}</span>
       );
     });
     return (
@@ -37,7 +37,7 @@ class DetailView extends Component {
         </div>
         <div>
           <div>
-            {restaurantTags}
+            {restaurant.price} | {restaurantTags}
           </div>
           <div>
             {/* Times Open/Closed */}
