@@ -107,7 +107,11 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home getRestaurantByCity={this.getRestaurantByCity} setDetailViewCallback={this.setDetailView} restaurants={this.state.restaurants}/>
+              <Home
+                getRestaurantByCity={this.getRestaurantByCity}
+                setDetailViewCallback={this.setDetailView}
+                restaurants={this.state.restaurants}
+              />
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>
