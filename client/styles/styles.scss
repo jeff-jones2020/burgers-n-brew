@@ -14,40 +14,33 @@ $fonts: 'Rock Salt', cursive;
 
 #bnb-banner {
   height: 185px;
-}
-
-#banner-background {
-  height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-    url('images/bnb-banner.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: blur(1px);
-  -webkit-filter: blur(1px);
-}
-
-#bnb-title {
-  z-index: 1;
-  transform: translateY(-200%);
-}
-
-#bnb-title,
-#fresh-deals-title {
-  letter-spacing: normal;
-  text-align: center;
-}
-
-
-.header {
-  background-color: black;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  h1 {
+  h1, .sidebar-icon {
     font-size: 1.5em;
-    color: white;
+    position: relative;
+    z-index: 1;
+    background-image: url('images/sidebar.svg');
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
   }
+}
+
+#banner-background {
+  position: absolute;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('images/bnb-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: inherit;
+  width: 100%;
+  z-index: 0;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 }
 
 .sidebar {
@@ -60,6 +53,7 @@ $fonts: 'Rock Salt', cursive;
   left: 0;
   color: white;
   font-size: 1em;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
     &:empty {
     display: none;
@@ -76,11 +70,14 @@ $fonts: 'Rock Salt', cursive;
   justify-content: space-evenly;
 }
 
-.sidebar-icon {
-  background-image: url('images/sidebar.svg');
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
+#bnb-title {
+  transform: translateY(-200%);
+}
+
+#bnb-title,
+#fresh-deals-title {
+  letter-spacing: normal;
+  text-align: center;
 }
 
 img {
