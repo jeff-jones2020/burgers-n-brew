@@ -109,6 +109,7 @@ class App extends Component {
 
   render() {
     const { users, currentUserId } = this.state;
+    // console.log(users);
     return (
       <Router>
         <div>
