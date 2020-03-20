@@ -70,6 +70,10 @@ class App extends Component {
     }
   }
 
+  setFilters(formData) {
+    // add code to set state with formData
+  }
+
   setDetailView(id) {
     // add code for navigating to detail view page based on Yelp business ID
   }
