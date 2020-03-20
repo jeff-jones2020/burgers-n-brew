@@ -18,7 +18,7 @@ class DetailView extends Component {
   }
 
   componentDidMount() {
-    setInterval(this.startTimer, 2000);
+    setInterval(this.startTimer, 5000);
   }
 
   render() {
@@ -29,11 +29,16 @@ class DetailView extends Component {
         <span key={category.alias}>| {category.title}</span>
       );
     });
-    const restaurantOpen = restaurant.open.map(day => {
-      // const openTime = day.start.match(/^([01]\d|2[0-3])(:)([0-5]\d)$/);
-      // const closeTime = day.end.match(/^([01]\d|2[0-3])(:)([0-5]\d)$/);
+    const restaurantOpen = restaurant.hours[0].open.map(day => {
+      const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
+      const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
+      if (openTime[1] === '00') {
+        openTime[1] = '12';
+      }
+      const opening = `${openTime[1]}:${openTime[2]}`;
+      const closing = `${closeTime[1]}:${closeTime[2]}`;
       let dayOfWeek;
-      switch (day.day) {
+      switch (day.day.toString()) {
         case '0':
           dayOfWeek = 'Sunday';
           break;
@@ -59,7 +64,7 @@ class DetailView extends Component {
           break;
       }
       return (
-        <div key={day.day}>{dayOfWeek} {day.start}</div>
+        <div key={day.day}>{dayOfWeek} {opening} - {closing}</div>
       );
     });
     return (
