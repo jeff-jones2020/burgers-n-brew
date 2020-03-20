@@ -20,7 +20,7 @@ class Header extends Component {
   }
 
   render() {
-    const { getRestaurantByLatLong, getRestaurantByCity } = this.props;
+    const { getRestaurantByLatLong, getRestaurantByCity, setFilters } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
@@ -30,6 +30,7 @@ class Header extends Component {
           getRestaurantByCity={getRestaurantByCity}
           opened={this.state.opened}
           openSideBar={this.displaySideBar}
+          setFilters={setFilters}
         />
       </div>
     );

@@ -130,6 +130,7 @@ class App extends Component {
                 getRestaurantByLatLong={this.getRestaurantByLatLong}
                 getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
+                setFilters={this.setFilters}
                 restaurants={this.state.restaurants}
               />
             </Route>

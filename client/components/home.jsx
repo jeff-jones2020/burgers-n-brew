@@ -8,7 +8,8 @@ class Home extends Component {
       getRestaurantByCity,
       getRestaurantByLatLong,
       setDetailView,
-      restaurants
+      restaurants,
+      setFilters
     } = this.props;
     if (restaurants.length === 0) {
       return <h3>Loading...</h3>;
@@ -18,6 +19,7 @@ class Home extends Component {
           <Header
             getRestaurantByLatLong={getRestaurantByLatLong}
             getRestaurantByCity={getRestaurantByCity}
+            setFilters={setFilters}
           />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>
