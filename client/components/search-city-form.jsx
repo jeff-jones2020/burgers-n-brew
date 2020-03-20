@@ -36,10 +36,8 @@ class SearchCityForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <i className="fas fa-search"></i>
-            &nbsp; <span>Search:</span>
-          </div>
+          <i className="fas fa-search"></i>
+          &nbsp; <span>Search:</span>
           <input
             type="text"
             name="city"

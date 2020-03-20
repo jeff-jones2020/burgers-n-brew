@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  font-family: 'Rock Salt', cursive;
+  letter-spacing: 0.1em;
+}
+
+#root {
+  background-color: black;
+  color: white;
+}
+
+#bnb-banner {
+  height: 185px;
+}
+
+#banner-background {
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('images/bnb-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+}
+
+#bnb-title {
+  z-index: 1;
+  transform: translateY(-200%);
+}
+
+#bnb-title,
+#fresh-deals-title {
+  letter-spacing: normal;
+  text-align: center;
+}
