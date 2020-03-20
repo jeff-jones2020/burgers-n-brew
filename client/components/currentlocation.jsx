@@ -41,7 +41,10 @@ class CurrentLocation extends Component {
   }
 
   componentDidMount() {
-    this.askForCoords();
+    const { latitude, longitude } = this.state;
+    if (latitude === null && longitude === null) {
+      this.askForCoords();
+    }
   }
 
   render() {
