@@ -47,6 +47,10 @@ class App extends Component {
     }
   }
 
+  setDetailView(id) {
+    // add code for navigating to detail view page based on Yelp business ID
+  }
+
   componentDidMount() {
     const tempLat = 33.6846; // hard coded latitude for Irvine for now, change to use state
     const tempLong = -117.8265; // hard coded longitude for Irvine for now, change to use state
@@ -84,7 +88,7 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home restaurants={this.state.restaurants}/>
+              <Home setDetailViewCallback={this.setDetailView} restaurants={this.state.restaurants}/>
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>

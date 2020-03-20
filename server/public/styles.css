@@ -9,11 +9,23 @@
   color: white;
 }
 
-#bnb-title {
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+#bnb-banner {
+  height: 185px;
+}
+
+#banner-background {
+  height: 100%;
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
                     url('images/bnb-banner.jpg');
   background-size: cover;
-  height: 185px;
+  background-position: center;
+   filter: blur(1px);
+  -webkit-filter: blur(1px);
+}
+
+#bnb-title {
+  z-index: 1;
+  transform: translateY(-200%);
 }
 
 #bnb-title, #fresh-deals-title {

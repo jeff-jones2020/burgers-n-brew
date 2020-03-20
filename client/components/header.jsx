@@ -76,7 +76,10 @@ class Header extends Component {
             }
           }
         })}
-        <div id='bnb-title'><h1>Burgers N Brew</h1></div>
+        <div id='bnb-banner' className='mb-3'>
+          <div id='banner-background'></div>
+          <h2 id='bnb-title'>Burgers N Brew</h2>
+        </div>
       </div>
     );
   }

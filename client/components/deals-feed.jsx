@@ -2,13 +2,12 @@ import React from 'react';
 
 const DealsFeed = props => {
   function setDetailView(e) {
-    props.setDetailViewCallback(e.id);
+    props.setDetailViewCallback(e.target.id);
   }
 
   const { restaurants } = props;
-  console.log(restaurants);
   const restaurantEls = restaurants.map((restaurant, index) => {
-    const flexReverser = index % 2 === 0 ? ' flex-row-reverse ' : ' ';
+    const flexReverser = index % 2 === 0 ? ' flex-row-reverse ' : ' '; // affects every other item
     return (
       <div
         key={index}
