@@ -20,22 +20,7 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const { isOpen } = this.state;
     const { getRestaurantByCity, users, currentUserId } = this.props;
-
-    const location = () => {
-      if (isOpen) {
-        return (
-          <>
-            <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
-            <CurrentLocation />
-          </>
-        );
-      } else {
-        return '';
-      }
-    };
-
     return (
       <>
         <div>
@@ -52,7 +37,8 @@ class LocationDropDown extends Component {
             }
           })}
         </div>
-        {location()}
+        <CurrentLocation />
+        <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
       </>
     );
   }

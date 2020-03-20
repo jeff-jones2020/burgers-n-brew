@@ -37,11 +37,12 @@ class CurrentLocation extends Component {
   }
 
   render() {
-    const { latitude, longitude } = this.state;
     return (
       <>
-        <div>{`latitude: ${latitude}`}</div>
-        <div>{`longitude: ${longitude}`}</div>
+        <div>
+          <i className="fas fa-street-view"></i>
+          &nbsp; <span>CurrentLocation</span>
+        </div>
       </>
     );
   }
