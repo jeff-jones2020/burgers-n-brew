@@ -9,6 +9,14 @@ class CurrentLocation extends Component {
     };
     this.askForCoords = this.askForCoords.bind(this);
     this.handleGeoSuccess = this.handleGeoSuccess.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    const { getRestaurantByLatLong } = this.props;
+    const { latitude, longitude } = this.state;
+    getRestaurantByLatLong(latitude, longitude);
+    e.preventDefault();
   }
 
   handleGeoSuccess(position) {
@@ -39,7 +47,11 @@ class CurrentLocation extends Component {
   render() {
     return (
       <>
-        <div>
+        <div
+          onClick={e => {
+            this.handleSubmit(e);
+          }}
+        >
           <i className="fas fa-street-view"></i>
           &nbsp; <span>CurrentLocation</span>
         </div>

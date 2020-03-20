@@ -43,7 +43,12 @@ class SideBar extends React.Component {
 
   render() {
     const { users, isOpen, currentUserId } = this.state;
-    const { getRestaurantByCity, openSideBar, opened } = this.props;
+    const {
+      getRestaurantByCity,
+      getRestaurantByLatLong,
+      openSideBar,
+      opened
+    } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={openSideBar} />
@@ -57,6 +62,7 @@ class SideBar extends React.Component {
             <div className="sidebar-container">
               <div className="location">
                 <LocationDropDown
+                  getRestaurantByLatLong={getRestaurantByLatLong}
                   getRestaurantByCity={getRestaurantByCity}
                   users={users}
                   currentUserId={currentUserId}

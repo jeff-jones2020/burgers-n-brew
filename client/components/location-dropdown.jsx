@@ -20,7 +20,12 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const { getRestaurantByCity, users, currentUserId } = this.props;
+    const {
+      getRestaurantByCity,
+      getRestaurantByLatLong,
+      users,
+      currentUserId
+    } = this.props;
     return (
       <>
         <div>
@@ -37,7 +42,7 @@ class LocationDropDown extends Component {
             }
           })}
         </div>
-        <CurrentLocation />
+        <CurrentLocation getRestaurantByLatLong={getRestaurantByLatLong} />
         <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
       </>
     );
