@@ -29,6 +29,39 @@ class DetailView extends Component {
         <span key={category.alias}>| {category.title}</span>
       );
     });
+    const restaurantOpen = restaurant.open.map(day => {
+      // const openTime = day.start.match(/^([01]\d|2[0-3])(:)([0-5]\d)$/);
+      // const closeTime = day.end.match(/^([01]\d|2[0-3])(:)([0-5]\d)$/);
+      let dayOfWeek;
+      switch (day.day) {
+        case '0':
+          dayOfWeek = 'Sunday';
+          break;
+        case '1':
+          dayOfWeek = 'Monday';
+          break;
+        case '2':
+          dayOfWeek = 'Tuesday';
+          break;
+        case '3':
+          dayOfWeek = 'Wednesday';
+          break;
+        case '4':
+          dayOfWeek = 'Thursday';
+          break;
+        case '5':
+          dayOfWeek = 'Friday';
+          break;
+        case '6':
+          dayOfWeek = 'Saturday';
+          break;
+        default:
+          break;
+      }
+      return (
+        <div key={day.day}>{dayOfWeek} {day.start}</div>
+      );
+    });
     return (
       <div>
         <div className="carousel">
@@ -40,7 +73,7 @@ class DetailView extends Component {
             {restaurant.price} | {restaurantTags}
           </div>
           <div>
-            {/* Times Open/Closed */}
+            {restaurantOpen}
           </div>
           <div>
             {/* Map? */}
