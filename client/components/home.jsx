@@ -10,15 +10,19 @@ class Home extends Component {
       setDetailView,
       restaurants
     } = this.props;
-    return (
-      <>
-        <Header
-          getRestaurantByLatLong={getRestaurantByLatLong}
-          getRestaurantByCity={getRestaurantByCity}
-        />
-        <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
-      </>
-    );
+    if (restaurants.length === 0) {
+      return <h3>Loading...</h3>;
+    } else {
+      return (
+        <>
+          <Header
+            getRestaurantByLatLong={getRestaurantByLatLong}
+            getRestaurantByCity={getRestaurantByCity}
+          />
+          <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
+        </>
+      );
+    }
   }
 }
 
