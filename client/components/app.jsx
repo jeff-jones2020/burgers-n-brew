@@ -11,7 +11,10 @@ class App extends Component {
       currentLat: null,
       currentLong: null,
       restaurants: [],
-      deals: []
+      deals: [],
+      filters: {
+        price: null
+      }
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
@@ -76,8 +79,13 @@ class App extends Component {
     // unless passed a different value for latitude, longitude
     // hard coded latitude for Irvine for now, change to use state
     // hard coded longitude for Irvine for now, change to use state
+    const { filters } = this.state;
+    let queryFilters = '';
+    if (filters.price) {
+      queryFilters += filters.price;
+    }
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries)
+    fetch('api/yelp/businesses/search/' + queries + queryFilters)
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
