@@ -3,18 +3,15 @@ import Header from './header.jsx';
 import DealsFeed from './deals-feed';
 
 class Home extends Component {
-  setDetailView(id) {
-    this.props.setDetailViewCallback(id);
-  }
-
   render() {
-    const { getRestaurantByCity } = this.props;
+    const { getRestaurantByCity, setDetailView } = this.props;
     return (
       <>
-        <Header getRestaurantByCity={getRestaurantByCity}/>
+        <Header getRestaurantByCity={getRestaurantByCity} />
         <DealsFeed
           restaurants={this.props.restaurants}
-          setDetailViewCallback={this.setDetailView} />
+          setDetailView={setDetailView}
+        />
       </>
     );
   }

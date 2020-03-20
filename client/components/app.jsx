@@ -109,7 +109,7 @@ class App extends Component {
             <Route exact path="/">
               <Home
                 getRestaurantByCity={this.getRestaurantByCity}
-                setDetailViewCallback={this.setDetailView}
+                setDetailView={this.setDetailView}
                 restaurants={this.state.restaurants}
               />
             </Route>

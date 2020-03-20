@@ -1,11 +1,7 @@
 import React from 'react';
 
 const DealsFeed = props => {
-  function setDetailView(e) {
-    props.setDetailViewCallback(e.target.id);
-  }
-
-  const { restaurants } = props;
+  const { restaurants, setDetailView } = props;
   const restaurantEls = restaurants.map((restaurant, index) => {
     const flexReverser = index % 2 === 0 ? ' flex-row-reverse ' : ' '; // affects every other item
     if (restaurant.error) {
@@ -15,7 +11,9 @@ const DealsFeed = props => {
         <div
           key={index}
           id={restaurant.id}
-          onClick={setDetailView}
+          onClick={id => {
+            setDetailView(id);
+          }}
           className={
             'd-flex' +
             flexReverser +
