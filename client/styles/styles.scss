@@ -1,0 +1,76 @@
+$fonts: 'Rock Salt', 'Times', 'sans-serif';
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: $fonts;
+}
+
+.header {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  h1 {
+    font-size: 1.5em;
+    color: white;
+  }
+}
+
+.sidebar {
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 1em;
+  background-color: rgba(0, 0, 0, 0.5);
+    &:empty {
+    display: none;
+  }
+}
+
+.sidebar-container {
+  height: 100%;
+  width: 75%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.sidebar-icon {
+  background-image: url('images/sidebar.svg');
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+}
+
+img {
+  width: 30%;
+  height: 30%;
+  object-fit: cover;
+}
+
+.slide-in-enter {
+  opacity: 0;
+  transform: translate(100%);
+  &.slide-in-enter-active{
+    opacity: 1;
+    transform: translate(0%);
+    transition: all 500ms;
+  }
+}
+
+.slide-in-exit {
+  transform: translate(0);
+  &.slide-in-exit-active{
+    transform: translate(100%);
+    transition: all 500ms;
+  }
+}

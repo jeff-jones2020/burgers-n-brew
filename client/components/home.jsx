@@ -8,9 +8,10 @@ class Home extends Component {
   }
 
   render() {
+    const { getRestaurantByCity } = this.props;
     return (
       <>
-        <Header />
+        <Header getRestaurantByCity={getRestaurantByCity}/>
         <DealsFeed
           restaurants={this.props.restaurants}
           setDetailViewCallback={this.setDetailView} />
