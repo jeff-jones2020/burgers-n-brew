@@ -125,7 +125,9 @@ class App extends Component {
     )
       .then(res => res.json())
       .then(data => {
-        // console.log(data);
+        const latitude = data.results[0].geometry.location.lat;
+        const longitude = data.results[0].geometry.location.lng;
+        this.getRestaurantByLatLong(latitude, longitude);
       });
   }
 
@@ -143,6 +145,7 @@ class App extends Component {
 
   render() {
     const { users, currentUserId } = this.state;
+    // console.log(currentUserId);
     return (
       <Router>
         <div>
