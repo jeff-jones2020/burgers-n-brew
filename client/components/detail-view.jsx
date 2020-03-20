@@ -85,9 +85,9 @@ class DetailView extends Component {
           break;
       }
       return (
-        <div key={day.day}>
-          {dayOfWeek} {opening}{openMorn} - {closing}{closeMorn}
-        </div>
+        <li key={day.day}>
+          {dayOfWeek}: {opening}{openMorn} - {closing}{closeMorn}
+        </li>
       );
     });
     return (
@@ -100,9 +100,9 @@ class DetailView extends Component {
           <div>
             {restaurant.price}{restaurantTags}
           </div>
-          <div>
+          <ul>
             {restaurantOpen}
-          </div>
+          </ul>
           <div>
             {/* Map? */}
           </div>
