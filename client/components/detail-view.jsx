@@ -24,14 +24,20 @@ class DetailView extends Component {
   render() {
     const { imageNumber } = this.state;
     const restaurant = this.props.restaurant;
+    const restaurantTags = restaurant.categories.map(category => {
+      return (
+        <div key={category.alias}>{category.title}</div>
+      );
+    });
     return (
       <div>
         <div className="carousel">
           <img src={restaurant.photos[imageNumber]}/>
+          <div>{restaurant.name}</div>
         </div>
         <div>
           <div>
-            {/* Restaurant Tag Headers */}
+            {restaurantTags}
           </div>
           <div>
             {/* Times Open/Closed */}
