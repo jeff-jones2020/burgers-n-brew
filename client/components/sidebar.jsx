@@ -42,15 +42,14 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const open = this.props.opened;
     const { users, isOpen, currentUserId } = this.state;
-    const { getRestaurantByCity } = this.props;
+    const { getRestaurantByCity, openSideBar, opened } = this.props;
     return (
       <>
-        <div className="sidebar-icon" onClick={this.props.openSideBar} />
-        <div className="sidebar" onClick={this.props.openSideBar}>
+        <div className="sidebar-icon" onClick={openSideBar} />
+        <div className="sidebar" onClick={openSideBar}>
           <CSSTransition
-            in={open}
+            in={opened}
             classNames="slide-in"
             unmountOnExit
             timeout={500}
