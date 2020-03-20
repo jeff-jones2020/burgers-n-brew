@@ -20,8 +20,9 @@ class Header extends Component {
   render() {
 
     return (
-      <div className="header">
-        <h1>Burgers N Brew</h1>
+      <div id='bnb-banner' className='mb-3 header'>
+          <div id='banner-background'></div>
+        <h1 id='bnb-title'>Burgers N Brew</h1>
         <SideBar opened={this.state.opened} openSideBar={this.displaySideBar} />
       </div>
     );
