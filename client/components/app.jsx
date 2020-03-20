@@ -74,17 +74,15 @@ class App extends Component {
     // add code for navigating to detail view page based on Yelp business ID
   }
 
-  getRestaurantByLatLong(latitude = 33.6846, longitude = -117.8265) {
-    // latitude, longitude means it will use
-    // unless passed a different value for latitude, longitude
-    // hard coded latitude for Irvine for now, change to use state
-    // hard coded longitude for Irvine for now, change to use state
-    const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries)
-      .then(response => response.json())
-      .then(data => {
-        this.getMatchingRestaurantDetails(data.businesses);
-      });
+  getRestaurantByLatLong(latitude, longitude) {
+    if (latitude && longitude) {
+      const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
+      fetch('api/yelp/businesses/search/' + queries)
+        .then(response => response.json())
+        .then(data => {
+          this.getMatchingRestaurantDetails(data.businesses);
+        });
+    }
   }
 
   getUser() {
@@ -116,6 +114,8 @@ class App extends Component {
   }
 
   getLatitudeAndLongitude() {
+    // console.log('work?');
+    // const { users } = this.state;
     const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
     const CITYNAME = 'la mirada';
     fetch(
@@ -130,6 +130,13 @@ class App extends Component {
   componentDidMount() {
     this.getRestaurantByLatLong();
     this.getUser();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { users } = this.state;
+    if (prevState.users !== users) {
+      this.getLatitudeAndLongitude();
+    }
   }
 
   render() {
