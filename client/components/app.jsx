@@ -114,16 +114,18 @@ class App extends Component {
   }
 
   getLatitudeAndLongitude() {
-    // console.log('work?');
-    // const { users } = this.state;
+    const { users, currentUserId } = this.state;
+    const user = users.filter((user, i) => {
+      return currentUserId === user.id;
+    });
     const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
-    const CITYNAME = 'la mirada';
+    const CITYNAME = user[0].city;
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${CITYNAME},+CA&key=${KEY}`
     )
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
+        // console.log(data);
       });
   }
 
@@ -141,7 +143,6 @@ class App extends Component {
 
   render() {
     const { users, currentUserId } = this.state;
-    // console.log(users);
     return (
       <Router>
         <div>
