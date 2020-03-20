@@ -102,6 +102,31 @@ class App extends Component {
     });
   }
 
+  getCityNameAndZipCode() {
+    const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
+    const latitude = 33.6846;
+    const longitude = -117.8265;
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data)
+      });
+  }
+
+  getLatitudeAndLongitude() {
+    const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
+    const CITYNAME = 'la mirada';
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${CITYNAME},+CA&key=${KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data)
+      });
+  }
+
   componentDidMount() {
     this.getRestaurantByLatLong();
     this.getUser();
