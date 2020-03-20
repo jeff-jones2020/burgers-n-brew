@@ -1,35 +1,23 @@
 import React from 'react';
 
 const CurrentCity = props => {
-  const { handleIsOpen, handleInit, city, isOpen } = props;
-  if (isOpen) {
-    return (
+  const { user, handleIsOpen } = props;
+  return (
+    <div>
       <div>
-        <div
-          id={city.id}
-          onClick={id => {
-            handleIsOpen();
-            handleInit(id);
-          }}
-        >
-          {city.name}
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <div
+        <i className="fas fa-map-marker-alt"></i>
+        &nbsp; <span>{user.city}</span>, <span>{user.zipCode}</span>
+        <p
           onClick={() => {
             handleIsOpen();
           }}
         >
-          <i className="fas fa-map-marker-alt"></i>
-          &nbsp; <span>{city.name}</span>, <span>{city.zipCode}</span>
-        </div>
+          <i className="fas fa-search"></i>
+          &nbsp; <span>Click Here</span>
+        </p>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default CurrentCity;

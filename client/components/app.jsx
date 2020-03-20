@@ -14,7 +14,9 @@ class App extends Component {
       deals: []
     };
 
-    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
+      this
+    );
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
   }
 

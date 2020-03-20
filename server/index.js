@@ -12,10 +12,10 @@ const fetch = require('node-fetch');
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.get('/api/city', (req, res) => {
-  const data = db.get('city').value();
-  res.json(data);
-});
+// app.get('/api/city', (req, res) => {
+//   const data = db.get('city').value();
+//   res.json(data);
+// });
 
 app.get('/api/user', (req, res) => {
   const data = db.get('user').value();
