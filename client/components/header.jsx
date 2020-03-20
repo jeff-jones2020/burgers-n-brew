@@ -20,12 +20,21 @@ class Header extends Component {
   }
 
   render() {
-    const { getRestaurantByLatLong, getRestaurantByCity } = this.props;
+    const {
+      getRestaurantByLatLong,
+      getRestaurantByCity,
+      users,
+      currentUserId,
+      handleInit
+    } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
         <SideBar
+          handleInit={handleInit}
+          users={users}
+          currentUserId={currentUserId}
           getRestaurantByLatLong={getRestaurantByLatLong}
           getRestaurantByCity={getRestaurantByCity}
           opened={this.state.opened}

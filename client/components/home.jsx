@@ -8,7 +8,10 @@ class Home extends Component {
       getRestaurantByCity,
       getRestaurantByLatLong,
       setDetailView,
-      restaurants
+      restaurants,
+      users,
+      currentUserId,
+      handleInit
     } = this.props;
     if (restaurants.length === 0) {
       return <h3>Loading...</h3>;
@@ -16,6 +19,9 @@ class Home extends Component {
       return (
         <>
           <Header
+            handleInit={handleInit}
+            users={users}
+            currentUserId={currentUserId}
             getRestaurantByLatLong={getRestaurantByLatLong}
             getRestaurantByCity={getRestaurantByCity}
           />

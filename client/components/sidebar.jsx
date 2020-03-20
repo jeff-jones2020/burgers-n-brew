@@ -7,18 +7,9 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
-      currentUserId: 1
+      isOpen: false
     };
     this.handleIsOpen = this.handleIsOpen.bind(this);
-    this.handleInit = this.handleInit.bind(this);
-  }
-
-  handleInit(e) {
-    const newInit = Number(e.target.id);
-    this.setState({
-      currentUserId: newInit
-    });
   }
 
   handleIsOpen() {
@@ -29,25 +20,16 @@ class SideBar extends React.Component {
     });
   }
 
-  getUser() {
-    fetch('/api/user')
-      .then(data => data.json())
-      .then(users => {
-        this.setState({ users });
-      });
-  }
-
-  componentDidMount() {
-    this.getUser();
-  }
-
   render() {
-    const { users, isOpen, currentUserId } = this.state;
+    const { isOpen } = this.state;
     const {
       getRestaurantByCity,
       getRestaurantByLatLong,
       openSideBar,
-      opened
+      opened,
+      users,
+      currentUserId,
+      handleInit
     } = this.props;
     return (
       <>
@@ -78,7 +60,7 @@ class SideBar extends React.Component {
                           isOpen={isOpen}
                           user={user}
                           key={user.city}
-                          handleInit={this.handleInit}
+                          handleInit={handleInit}
                           handleIsOpen={this.handleIsOpen}
                         />
                       </div>

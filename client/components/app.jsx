@@ -11,7 +11,9 @@ class App extends Component {
       currentLat: null,
       currentLong: null,
       restaurants: [],
-      deals: []
+      deals: [],
+      users: [],
+      currentUserId: 1
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
@@ -19,6 +21,7 @@ class App extends Component {
     );
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
     this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
+    this.handleInit = this.handleInit.bind(this);
   }
 
   getRestaurantByCity(city) {
@@ -84,11 +87,28 @@ class App extends Component {
       });
   }
 
+  getUser() {
+    fetch('/api/user')
+      .then(data => data.json())
+      .then(users => {
+        this.setState({ users });
+      });
+  }
+
+  handleInit(e) {
+    const newInit = Number(e.target.id);
+    this.setState({
+      currentUserId: newInit
+    });
+  }
+
   componentDidMount() {
     this.getRestaurantByLatLong();
+    this.getUser();
   }
 
   render() {
+    const { users, currentUserId } = this.state;
     return (
       <Router>
         <div>
@@ -115,6 +135,9 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
+                handleInit={this.handleInit}
+                users={users}
+                currentUserId={currentUserId}
                 getRestaurantByLatLong={this.getRestaurantByLatLong}
                 getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
