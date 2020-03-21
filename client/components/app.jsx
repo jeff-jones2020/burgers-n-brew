@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
 import About from './about.jsx';
+import KEY from './key.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class App extends Component {
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
     this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
     this.handleInit = this.handleInit.bind(this);
+    this.getLatitudeAndLongitude = this.getLatitudeAndLongitude.bind(this);
+    this.getCityNameAndZipCode = this.getCityNameAndZipCode.bind(this);
   }
 
   getRestaurantByCity(city) {
@@ -75,14 +78,12 @@ class App extends Component {
   }
 
   getRestaurantByLatLong(latitude, longitude) {
-    if (latitude && longitude) {
-      const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-      fetch('api/yelp/businesses/search/' + queries)
-        .then(response => response.json())
-        .then(data => {
-          this.getMatchingRestaurantDetails(data.businesses);
-        });
-    }
+    const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
+    fetch('api/yelp/businesses/search/' + queries)
+      .then(response => response.json())
+      .then(data => {
+        this.getMatchingRestaurantDetails(data.businesses);
+      });
   }
 
   getUser() {
@@ -101,11 +102,11 @@ class App extends Component {
   }
 
   getCityNameAndZipCode() {
-    const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
+    const GOOGLE_KEY = KEY();
     const latitude = 33.6846;
     const longitude = -117.8265;
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KEY}`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_KEY}`
     )
       .then(res => res.json())
       .then(data => {
@@ -115,37 +116,40 @@ class App extends Component {
 
   getLatitudeAndLongitude() {
     const { users, currentUserId } = this.state;
-    const user = users.filter((user, i) => {
-      return currentUserId === user.id;
-    });
-    const KEY = 'AIzaSyA7IMKemqRAjBy6Rut55LAvHiip_ - TH_X0';
-    const CITYNAME = user[0].city;
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${CITYNAME},+CA&key=${KEY}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        const latitude = data.results[0].geometry.location.lat;
-        const longitude = data.results[0].geometry.location.lng;
-        this.getRestaurantByLatLong(latitude, longitude);
+    if (users.length > 0) {
+      const user = users.filter((user, i) => {
+        return currentUserId === user.id;
       });
+      const GOOGLE_KEY = KEY();
+      const CITYNAME = user[0].city;
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${CITYNAME},+CA&key=${GOOGLE_KEY}`
+      )
+        .then(res => res.json())
+        .then(data => {
+          const currentLat = data.results[0].geometry.location.lat;
+          const currentLong = data.results[0].geometry.location.lng;
+          this.getRestaurantByLatLong(currentLat, currentLong);
+        });
+    }
   }
 
   componentDidMount() {
-    this.getRestaurantByLatLong();
     this.getUser();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { users } = this.state;
-    if (prevState.users !== users) {
+  componentDidUpdate(prevState, prevProps) {
+    const { users, currentUserId } = this.state;
+    if (prevProps.users !== users) {
+      this.getLatitudeAndLongitude();
+    }
+    if (prevProps.currentUserId !== currentUserId) {
       this.getLatitudeAndLongitude();
     }
   }
 
   render() {
     const { users, currentUserId } = this.state;
-    // console.log(currentUserId);
     return (
       <Router>
         <div>
