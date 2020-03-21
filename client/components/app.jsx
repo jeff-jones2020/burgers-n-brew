@@ -115,18 +115,18 @@ class App extends Component {
     });
   }
 
-  getCityNameAndZipCodeFromLatLong() {
+  getCityNameAndZipCodeFromLatLong(latitude, longitude) {
     const GOOGLE_KEY = KEY();
-    const latitude = 33.6846;
-    const longitude = -117.8265;
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_KEY}`
     )
       .then(res => res.json())
       .then(data => {
-        // console.log(data);
-        // const addressArr = data.results[0].formatted_address.split(',');
-        // console.log(addressArr);
+        const addressArr = data.results[0].formatted_address.split(',');
+        this.setState({
+          city: addressArr[1],
+          zipCode: addressArr[2]
+        });
       });
   }
 
@@ -152,7 +152,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
-    this.getCityNameAndZipCodeFromLatLong();
   }
 
   componentDidUpdate(prevState, prevProps) {
@@ -166,8 +165,15 @@ class App extends Component {
   }
 
   render() {
-    const { users, currentUserId } = this.state;
-    // console.log(currentLat, currentLong); currentLat, currentLong
+    const {
+      users,
+      currentUserId,
+      // currentLat,
+      // currentLong,
+      city,
+      zipCode
+    } = this.state;
+    // console.log(currentLat, currentLong);
     return (
       <Router>
         <div>
@@ -194,6 +200,8 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
+                city={city}
+                zipCode={zipCode}
                 updateLatAndLong={this.updateLatAndLong}
                 handleInit={this.handleInit}
                 users={users}
