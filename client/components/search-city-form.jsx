@@ -17,6 +17,9 @@ class SearchCityForm extends Component {
   }
 
   handleSubmit(e) {
+    const { updatecity } = this.props;
+    const { city } = this.state;
+    updatecity(city);
     e.preventDefault();
     this.resetForm();
   }

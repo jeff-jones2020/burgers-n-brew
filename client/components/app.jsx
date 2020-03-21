@@ -15,8 +15,8 @@ class App extends Component {
       deals: [],
       users: [],
       currentUserId: 1,
-      city: '',
-      zipCode: ''
+      city: null,
+      zipCode: null
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
@@ -30,6 +30,14 @@ class App extends Component {
       this
     );
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
+    this.updatecity = this.updatecity.bind(this);
+    this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+  }
+
+  updatecity(city) {
+    this.setState({
+      city
+    });
   }
 
   updateLatAndLong(latitude, longitude) {
@@ -130,21 +138,25 @@ class App extends Component {
       const user = users.filter((user, i) => {
         return currentUserId === user.id;
       });
-      const GOOGLE_KEY = KEY();
       const CITYNAME = user[0].city;
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${CITYNAME},+CA&key=${GOOGLE_KEY}`
-      )
-        .then(res => res.json())
-        .then(data => {
-          const currentLat = data.results[0].geometry.location.lat;
-          const currentLong = data.results[0].geometry.location.lng;
-          this.setState({
-            currentLat,
-            currentLong
-          });
-        });
+      this.fetchGoogleAPI(CITYNAME);
     }
+  }
+
+  fetchGoogleAPI(city) {
+    const GOOGLE_KEY = KEY();
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        const currentLat = data.results[0].geometry.location.lat;
+        const currentLong = data.results[0].geometry.location.lng;
+        this.setState({
+          currentLat,
+          currentLong
+        });
+      });
   }
 
   componentDidMount() {
@@ -152,12 +164,15 @@ class App extends Component {
   }
 
   componentDidUpdate(prevState, prevProps) {
-    const { users, currentUserId, currentLat, currentLong } = this.state;
+    const { users, currentUserId, currentLat, currentLong, city } = this.state;
     if (prevProps.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevProps.currentUserId !== currentUserId) {
       this.getLatitudeAndLongitudeFromCityName();
+    }
+    if (prevProps.city !== city) {
+      this.fetchGoogleAPI(city);
     }
     if (
       prevProps.currentLat !== currentLat &&
@@ -168,14 +183,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      users,
-      currentUserId,
-      // currentLat,
-      // currentLong,
-      city,
-      zipCode
-    } = this.state;
+    const { users, currentUserId, city, zipCode } = this.state;
     return (
       <Router>
         <div>
@@ -204,6 +212,7 @@ class App extends Component {
               <Home
                 city={city}
                 zipCode={zipCode}
+                updatecity={this.updatecity}
                 updateLatAndLong={this.updateLatAndLong}
                 handleInit={this.handleInit}
                 users={users}

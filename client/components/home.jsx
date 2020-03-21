@@ -12,7 +12,8 @@ class Home extends Component {
       handleInit,
       updateLatAndLong,
       city,
-      zipCode
+      zipCode,
+      updatecity
     } = this.props;
     if (restaurants.length === 0) {
       return <h3>Loading...</h3>;
@@ -20,6 +21,7 @@ class Home extends Component {
       return (
         <>
           <Header
+            updatecity={updatecity}
             city={city}
             zipCode={zipCode}
             updateLatAndLong={updateLatAndLong}

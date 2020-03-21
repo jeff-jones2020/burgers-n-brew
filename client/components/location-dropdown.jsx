@@ -25,7 +25,8 @@ class LocationDropDown extends Component {
       currentUserId,
       updateLatAndLong,
       city,
-      zipCode
+      zipCode,
+      updatecity
     } = this.props;
     return (
       <>
@@ -46,7 +47,7 @@ class LocationDropDown extends Component {
             }
           })}
         </div>
-        <SearchCityForm />
+        <SearchCityForm updatecity={updatecity} />
       </>
     );
   }
