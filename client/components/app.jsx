@@ -32,6 +32,7 @@ class App extends Component {
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
     this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+    // this.updateUserDefault = this.updateUserDefault.bind(this);
   }
 
   updatecity(city) {

@@ -29,7 +29,12 @@ class CurrentCity extends Component {
           &nbsp; <span>{city}</span>, <span>{zipCode}</span>
         </span>
         <p>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onClick={() => {
+              // console.log('hey');
+            }}
+          />
           &nbsp; Default
         </p>
       </>

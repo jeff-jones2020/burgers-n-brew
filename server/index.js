@@ -14,12 +14,16 @@ app.use(express.json());
 
 app.patch('/api/user/:id', (req, res) => {
   const id = Number(req.params.id);
+  const city = req.body.city.toUpperCase();
   db.get('user')
     .find({ id })
-    .assign({ city: 'LA' })
+    .assign({ city })
     .write();
-  // const data = db.get('city').value();
-  // res.json(data);
+  const data = db
+    .get('user')
+    .find({ id })
+    .value();
+  res.json(data);
 });
 
 app.get('/api/user', (req, res) => {
