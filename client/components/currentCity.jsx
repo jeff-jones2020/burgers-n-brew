@@ -23,6 +23,7 @@ class CurrentCity extends Component {
 
   render() {
     const { city, zipCode } = this.state;
+    const { updateUserDefault } = this.props;
     return (
       <>
         <span>
@@ -31,8 +32,8 @@ class CurrentCity extends Component {
         <p>
           <input
             type="checkbox"
-            onClick={() => {
-              // console.log('hey');
+            onClick={city => {
+              updateUserDefault(city);
             }}
           />
           &nbsp; Default

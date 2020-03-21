@@ -32,7 +32,7 @@ class App extends Component {
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
     this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
-    // this.updateUserDefault = this.updateUserDefault.bind(this);
+    this.updateUserDefault = this.updateUserDefault.bind(this);
   }
 
   updatecity(city) {
@@ -104,6 +104,18 @@ class App extends Component {
       .then(users => {
         this.setState({ users });
       });
+  }
+
+  updateUserDefault(city) {
+    const { currentUserId } = this.state;
+    fetch(`/api/user/${currentUserId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: city
+    }).then(data => data.json());
+    // .then(data => console.log(data));
   }
 
   handleInit(e) {
@@ -211,6 +223,7 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
+                updateUserDefault={this.updateUserDefault}
                 city={city}
                 zipCode={zipCode}
                 updatecity={this.updatecity}

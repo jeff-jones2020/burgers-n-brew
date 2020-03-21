@@ -27,13 +27,15 @@ class Header extends Component {
       updateLatAndLong,
       city,
       zipCode,
-      updatecity
+      updatecity,
+      updateUserDefault
     } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
         <SideBar
+          updateUserDefault={updateUserDefault}
           updatecity={updatecity}
           city={city}
           zipCode={zipCode}
