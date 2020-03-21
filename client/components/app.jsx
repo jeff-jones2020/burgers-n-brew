@@ -147,10 +147,12 @@ class App extends Component {
       )
         .then(res => res.json())
         .then(data => {
-          // console.log(data);
           const currentLat = data.results[0].geometry.location.lat;
           const currentLong = data.results[0].geometry.location.lng;
-          this.getRestaurantByLatLong(currentLat, currentLong);
+          this.setState({
+            currentLat,
+            currentLong
+          });
         });
     }
   }

@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class CurrentCity extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const { city, zipCode } = this.props;
     this.state = {
-      city: user.city,
-      zipCode: user.zipCode,
+      city: city,
+      zipCode: zipCode,
       checkBox: false
     };
   }
@@ -16,33 +16,24 @@ class CurrentCity extends Component {
     if (prevProps.city !== city && prevProps.zipCode !== zipCode) {
       this.setState({
         city,
-        zipCode,
-        checkBox: true
+        zipCode
       });
     }
   }
 
   render() {
-    const { city, zipCode, checkBox } = this.state;
-    if (checkBox) {
-      return (
-        <>
-          <span>
-            &nbsp; <span>{city}</span>, <span>{zipCode}</span>
-          </span>
-          <p>
-            <input type="checkbox" />
-            &nbsp; Default
-          </p>
-        </>
-      );
-    } else {
-      return (
+    const { city, zipCode } = this.state;
+    return (
+      <>
         <span>
           &nbsp; <span>{city}</span>, <span>{zipCode}</span>
         </span>
-      );
-    }
+        <p>
+          <input type="checkbox" />
+          &nbsp; Default
+        </p>
+      </>
+    );
   }
 }
 
