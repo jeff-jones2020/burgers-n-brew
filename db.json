@@ -4,20 +4,17 @@
     {
       "id": 1,
       "name": "Jeff",
-      "city": "Irvine",
-      "zipCode": "CA 92623"
+      "city": "Irvine"
     },
     {
       "id": 2,
       "name": "Jinho",
-      "city": "LA",
-      "zipCode": "CA 60604"
+      "city": "LA"
     },
     {
       "id": 3,
       "name": "Lawrence",
-      "city": "New York",
-      "zipCode": "CA 10038"
+      "city": "New York"
     }
   ]
 }

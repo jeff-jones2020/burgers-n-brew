@@ -6,7 +6,8 @@ class CurrentCity extends Component {
     const { user } = this.props;
     this.state = {
       city: user.city,
-      zipCode: user.zipCode
+      zipCode: user.zipCode,
+      checkBox: false
     };
   }
 
@@ -15,18 +16,33 @@ class CurrentCity extends Component {
     if (prevProps.city !== city && prevProps.zipCode !== zipCode) {
       this.setState({
         city,
-        zipCode
+        zipCode,
+        checkBox: true
       });
     }
   }
 
   render() {
-    const { city, zipCode } = this.state;
-    return (
-      <span>
-        &nbsp; <span>{city}</span>, <span>{zipCode}</span>
-      </span>
-    );
+    const { city, zipCode, checkBox } = this.state;
+    if (checkBox) {
+      return (
+        <>
+          <span>
+            &nbsp; <span>{city}</span>, <span>{zipCode}</span>
+          </span>
+          <p>
+            <input type="checkbox" />
+            &nbsp; Default
+          </p>
+        </>
+      );
+    } else {
+      return (
+        <span>
+          &nbsp; <span>{city}</span>, <span>{zipCode}</span>
+        </span>
+      );
+    }
   }
 }
 
