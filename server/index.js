@@ -12,7 +12,7 @@ const fetch = require('node-fetch');
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.patch('/api/user/:id', (req, res) => {
+app.put('/api/user/:id', (req, res) => {
   const id = Number(req.params.id);
   const city = req.body.city.toUpperCase();
   db.get('user')

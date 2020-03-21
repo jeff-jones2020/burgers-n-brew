@@ -6,8 +6,7 @@ class CurrentCity extends Component {
     const { city, zipCode } = this.props;
     this.state = {
       city: city,
-      zipCode: zipCode,
-      checkBox: false
+      zipCode: zipCode
     };
   }
 
@@ -32,7 +31,7 @@ class CurrentCity extends Component {
         <p>
           <input
             type="checkbox"
-            onClick={city => {
+            onClick={() => {
               updateUserDefault(city);
             }}
           />
