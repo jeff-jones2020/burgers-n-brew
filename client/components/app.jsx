@@ -183,7 +183,6 @@ class App extends Component {
       city,
       zipCode
     } = this.state;
-    // console.log(currentLat, currentLong, city, zipCode);
     return (
       <Router>
         <div>

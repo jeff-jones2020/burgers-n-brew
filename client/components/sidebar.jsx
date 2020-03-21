@@ -29,7 +29,9 @@ class SideBar extends React.Component {
       users,
       currentUserId,
       handleInit,
-      updateLatAndLong
+      updateLatAndLong,
+      city,
+      zipCode
     } = this.props;
     return (
       <>
@@ -44,6 +46,8 @@ class SideBar extends React.Component {
             <div className="sidebar-container">
               <div className="location">
                 <LocationDropDown
+                  city={city}
+                  zipCode={zipCode}
                   updateLatAndLong={updateLatAndLong}
                   getRestaurantByCity={getRestaurantByCity}
                   users={users}
