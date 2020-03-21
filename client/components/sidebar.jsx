@@ -24,7 +24,6 @@ class SideBar extends React.Component {
     const { isOpen } = this.state;
     const {
       getRestaurantByCity,
-      getRestaurantByLatLong,
       openSideBar,
       opened,
       users,
@@ -46,7 +45,6 @@ class SideBar extends React.Component {
               <div className="location">
                 <LocationDropDown
                   updateLatAndLong={updateLatAndLong}
-                  getRestaurantByLatLong={getRestaurantByLatLong}
                   getRestaurantByCity={getRestaurantByCity}
                   users={users}
                   currentUserId={currentUserId}

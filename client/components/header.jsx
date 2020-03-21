@@ -21,7 +21,6 @@ class Header extends Component {
 
   render() {
     const {
-      getRestaurantByLatLong,
       getRestaurantByCity,
       users,
       currentUserId,
@@ -37,7 +36,6 @@ class Header extends Component {
           handleInit={handleInit}
           users={users}
           currentUserId={currentUserId}
-          getRestaurantByLatLong={getRestaurantByLatLong}
           getRestaurantByCity={getRestaurantByCity}
           opened={this.state.opened}
           openSideBar={this.displaySideBar}

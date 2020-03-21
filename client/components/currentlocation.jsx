@@ -13,9 +13,8 @@ class CurrentLocation extends Component {
   }
 
   handleSubmit(e) {
-    const { getRestaurantByLatLong, updateLatAndLong } = this.props;
+    const { updateLatAndLong } = this.props;
     const { latitude, longitude } = this.state;
-    getRestaurantByLatLong(latitude, longitude);
     updateLatAndLong(latitude, longitude);
     e.preventDefault();
   }

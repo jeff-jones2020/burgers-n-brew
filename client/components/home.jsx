@@ -6,7 +6,6 @@ class Home extends Component {
   render() {
     const {
       getRestaurantByCity,
-      getRestaurantByLatLong,
       setDetailView,
       restaurants,
       users,
@@ -24,7 +23,6 @@ class Home extends Component {
             handleInit={handleInit}
             users={users}
             currentUserId={currentUserId}
-            getRestaurantByLatLong={getRestaurantByLatLong}
             getRestaurantByCity={getRestaurantByCity}
           />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />

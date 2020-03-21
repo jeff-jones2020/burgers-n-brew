@@ -23,7 +23,6 @@ class App extends Component {
       this
     );
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
-    this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
     this.handleInit = this.handleInit.bind(this);
     this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
       this
@@ -123,10 +122,15 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         const addressArr = data.results[0].formatted_address.split(',');
-        this.setState({
-          city: addressArr[1],
-          zipCode: addressArr[2]
-        });
+        this.setState(
+          {
+            city: addressArr[1],
+            zipCode: addressArr[2]
+          },
+          () => {
+            this.getRestaurantByLatLong(latitude, longitude);
+          }
+        );
       });
   }
 
@@ -155,12 +159,18 @@ class App extends Component {
   }
 
   componentDidUpdate(prevState, prevProps) {
-    const { users, currentUserId } = this.state;
+    const { users, currentUserId, currentLat, currentLong } = this.state;
     if (prevProps.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevProps.currentUserId !== currentUserId) {
       this.getLatitudeAndLongitudeFromCityName();
+    }
+    if (
+      prevProps.currentLat !== currentLat &&
+      prevProps.currentLong !== currentLong
+    ) {
+      this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
   }
 
@@ -173,7 +183,7 @@ class App extends Component {
       city,
       zipCode
     } = this.state;
-    // console.log(currentLat, currentLong);
+    // console.log(currentLat, currentLong, city, zipCode);
     return (
       <Router>
         <div>
@@ -206,7 +216,6 @@ class App extends Component {
                 handleInit={this.handleInit}
                 users={users}
                 currentUserId={currentUserId}
-                getRestaurantByLatLong={this.getRestaurantByLatLong}
                 getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
                 restaurants={this.state.restaurants}

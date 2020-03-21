@@ -5,19 +5,19 @@
       "id": 1,
       "name": "Jeff",
       "city": "Irvine",
-      "zipCode": 92623
+      "zipCode": "CA 92623"
     },
     {
       "id": 2,
       "name": "Jinho",
       "city": "LA",
-      "zipCode": 60604
+      "zipCode": "CA 60604"
     },
     {
       "id": 3,
       "name": "Lawrence",
       "city": "New York",
-      "zipCode": 10038
+      "zipCode": "CA 10038"
     }
   ]
 }
