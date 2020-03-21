@@ -22,7 +22,6 @@ class App extends Component {
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
     );
-    this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
     this.handleInit = this.handleInit.bind(this);
     this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
       this
@@ -38,15 +37,6 @@ class App extends Component {
       currentLat: latitude,
       currentLong: longitude
     });
-  }
-
-  getRestaurantByCity(city) {
-    const queries = `location=${city}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries)
-      .then(response => response.json())
-      .then(data => {
-        this.getMatchingRestaurantDetails(data.businesses);
-      });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {

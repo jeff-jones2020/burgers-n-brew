@@ -5,7 +5,6 @@ import DealsFeed from './deals-feed';
 class Home extends Component {
   render() {
     const {
-      getRestaurantByCity,
       setDetailView,
       restaurants,
       users,
@@ -27,7 +26,6 @@ class Home extends Component {
             handleInit={handleInit}
             users={users}
             currentUserId={currentUserId}
-            getRestaurantByCity={getRestaurantByCity}
           />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>

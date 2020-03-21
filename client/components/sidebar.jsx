@@ -23,7 +23,6 @@ class SideBar extends React.Component {
   render() {
     const { isOpen } = this.state;
     const {
-      getRestaurantByCity,
       openSideBar,
       opened,
       users,
@@ -49,7 +48,6 @@ class SideBar extends React.Component {
                   city={city}
                   zipCode={zipCode}
                   updateLatAndLong={updateLatAndLong}
-                  getRestaurantByCity={getRestaurantByCity}
                   users={users}
                   currentUserId={currentUserId}
                 />

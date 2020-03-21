@@ -21,7 +21,6 @@ class Header extends Component {
 
   render() {
     const {
-      getRestaurantByCity,
       users,
       currentUserId,
       handleInit,
@@ -40,7 +39,6 @@ class Header extends Component {
           handleInit={handleInit}
           users={users}
           currentUserId={currentUserId}
-          getRestaurantByCity={getRestaurantByCity}
           opened={this.state.opened}
           openSideBar={this.displaySideBar}
         />
