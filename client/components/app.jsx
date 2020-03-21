@@ -14,7 +14,9 @@ class App extends Component {
       restaurants: [],
       deals: [],
       users: [],
-      currentUserId: 1
+      currentUserId: 1,
+      city: '',
+      zipCode: ''
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
@@ -23,8 +25,20 @@ class App extends Component {
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
     this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
     this.handleInit = this.handleInit.bind(this);
-    this.getLatitudeAndLongitude = this.getLatitudeAndLongitude.bind(this);
-    this.getCityNameAndZipCode = this.getCityNameAndZipCode.bind(this);
+    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
+      this
+    );
+    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
+      this
+    );
+    this.updateLatAndLong = this.updateLatAndLong.bind(this);
+  }
+
+  updateLatAndLong(latitude, longitude) {
+    this.setState({
+      currentLat: latitude,
+      currentLong: longitude
+    });
   }
 
   getRestaurantByCity(city) {
@@ -101,7 +115,7 @@ class App extends Component {
     });
   }
 
-  getCityNameAndZipCode() {
+  getCityNameAndZipCodeFromLatLong() {
     const GOOGLE_KEY = KEY();
     const latitude = 33.6846;
     const longitude = -117.8265;
@@ -110,11 +124,13 @@ class App extends Component {
     )
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
+        // console.log(data);
+        // const addressArr = data.results[0].formatted_address.split(',');
+        // console.log(addressArr);
       });
   }
 
-  getLatitudeAndLongitude() {
+  getLatitudeAndLongitudeFromCityName() {
     const { users, currentUserId } = this.state;
     if (users.length > 0) {
       const user = users.filter((user, i) => {
@@ -136,20 +152,22 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
+    this.getCityNameAndZipCodeFromLatLong();
   }
 
   componentDidUpdate(prevState, prevProps) {
     const { users, currentUserId } = this.state;
     if (prevProps.users !== users) {
-      this.getLatitudeAndLongitude();
+      this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevProps.currentUserId !== currentUserId) {
-      this.getLatitudeAndLongitude();
+      this.getLatitudeAndLongitudeFromCityName();
     }
   }
 
   render() {
     const { users, currentUserId } = this.state;
+    // console.log(currentLat, currentLong); currentLat, currentLong
     return (
       <Router>
         <div>
@@ -176,6 +194,7 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
+                updateLatAndLong={this.updateLatAndLong}
                 handleInit={this.handleInit}
                 users={users}
                 currentUserId={currentUserId}
