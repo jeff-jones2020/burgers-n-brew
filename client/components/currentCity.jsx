@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const CurrentCity = props => {
-  const { user } = props;
-  return (
-    <div>
-      <div>
-        <i className="fas fa-map-marker-alt"></i>
-        &nbsp; <span>{user.city}</span>, <span>{user.zipCode}</span>
-      </div>
-    </div>
-  );
-};
+class CurrentCity extends Component {
+  constructor(props) {
+    super(props);
+    const { city, zipCode } = this.props;
+    this.state = {
+      city: city,
+      zipCode: zipCode
+    };
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    const { city, zipCode } = this.props;
+    if (prevProps.city !== city && prevProps.zipCode !== zipCode) {
+      this.setState({
+        city,
+        zipCode
+      });
+    }
+  }
+
+  render() {
+    const { city, zipCode } = this.state;
+    const { updateUserDefault } = this.props;
+    return (
+      <>
+        <span>
+          &nbsp; <span>{city}</span>, <span>{zipCode}</span>
+        </span>
+        <p>
+          <input
+            type="checkbox"
+            onClick={() => {
+              updateUserDefault(city);
+            }}
+          />
+          &nbsp; Default
+        </p>
+      </>
+    );
+  }
+}
 
 export default CurrentCity;

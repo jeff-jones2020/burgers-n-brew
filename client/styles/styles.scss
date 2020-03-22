@@ -19,7 +19,8 @@ $fonts: 'Rock Salt', cursive;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  h1, .sidebar-icon {
+  h1,
+  .sidebar-icon {
     font-size: 1.5em;
     position: relative;
     z-index: 1;
@@ -28,9 +29,9 @@ $fonts: 'Rock Salt', cursive;
 
 .sidebar-icon {
   background-image: url('images/sidebar.svg');
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 #banner-background {
@@ -58,7 +59,7 @@ $fonts: 'Rock Salt', cursive;
   font-size: 1em;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
-    &:empty {
+  &:empty {
     display: none;
   }
 }
@@ -66,7 +67,7 @@ $fonts: 'Rock Salt', cursive;
 .sidebar-container {
   height: 100%;
   width: 75%;
-  background-color: red;
+  background-color: rgb(176, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +75,7 @@ $fonts: 'Rock Salt', cursive;
   .location {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     div form {
       display: flex;
       flex-direction: column;
@@ -136,7 +137,7 @@ img {
 .slide-in-enter {
   opacity: 0;
   transform: translate(100%);
-  &.slide-in-enter-active{
+  &.slide-in-enter-active {
     opacity: 1;
     transform: translate(0%);
     transition: all 500ms;
@@ -145,8 +146,12 @@ img {
 
 .slide-in-exit {
   transform: translate(0);
-  &.slide-in-exit-active{
+  &.slide-in-exit-active {
     transform: translate(100%);
     transition: all 500ms;
   }
+}
+
+.deal-description {
+  font-family: 'Scope One', serif;
 }
