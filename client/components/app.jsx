@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
 import About from './about.jsx';
+import KEY from './key.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -11,23 +12,40 @@ class App extends Component {
       currentLat: null,
       currentLong: null,
       restaurants: [],
-      deals: []
+      deals: [],
+      users: [],
+      currentUserId: 1,
+      city: null,
+      zipCode: null
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
     );
-    this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
-    this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
+    this.handleInit = this.handleInit.bind(this);
+    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
+      this
+    );
+    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
+      this
+    );
+    this.updateLatAndLong = this.updateLatAndLong.bind(this);
+    this.updatecity = this.updatecity.bind(this);
+    this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+    this.updateUserDefault = this.updateUserDefault.bind(this);
   }
 
-  getRestaurantByCity(city) {
-    const queries = `location=${city}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries)
-      .then(response => response.json())
-      .then(data => {
-        this.getMatchingRestaurantDetails(data.businesses);
-      });
+  updatecity(city) {
+    this.setState({
+      city
+    });
+  }
+
+  updateLatAndLong(latitude, longitude) {
+    this.setState({
+      currentLat: latitude,
+      currentLong: longitude
+    });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -71,11 +89,7 @@ class App extends Component {
     // add code for navigating to detail view page based on Yelp business ID
   }
 
-  getRestaurantByLatLong(latitude = 33.6846, longitude = -117.8265) {
-    // latitude, longitude means it will use
-    // unless passed a different value for latitude, longitude
-    // hard coded latitude for Irvine for now, change to use state
-    // hard coded longitude for Irvine for now, change to use state
+  getRestaurantByLatLong(latitude, longitude) {
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
     fetch('api/yelp/businesses/search/' + queries)
       .then(response => response.json())
@@ -84,11 +98,108 @@ class App extends Component {
       });
   }
 
+  getUser() {
+    fetch('/api/user')
+      .then(data => data.json())
+      .then(users => {
+        this.setState({ users });
+      });
+  }
+
+  updateUserDefault(city) {
+    const { currentUserId } = this.state;
+    fetch(`/api/user/${currentUserId}`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ city: city })
+    })
+      .then(data => data.json())
+      .then(data => {
+        // console.log(data);
+      });
+  }
+
+  handleInit(e) {
+    const newInit = Number(e.target.id);
+    this.setState({
+      currentUserId: newInit
+    });
+  }
+
+  getCityNameAndZipCodeFromLatLong(latitude, longitude) {
+    const GOOGLE_KEY = KEY();
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        const addressArr = data.results[0].formatted_address.split(',');
+        this.setState(
+          {
+            city: addressArr[1],
+            zipCode: addressArr[2]
+          },
+          () => {
+            this.getRestaurantByLatLong(latitude, longitude);
+          }
+        );
+      });
+  }
+
+  getLatitudeAndLongitudeFromCityName() {
+    const { users, currentUserId } = this.state;
+    if (users.length > 0) {
+      const user = users.filter((user, i) => {
+        return currentUserId === user.id;
+      });
+      const CITYNAME = user[0].city;
+      this.fetchGoogleAPI(CITYNAME);
+    }
+  }
+
+  fetchGoogleAPI(city) {
+    const GOOGLE_KEY = KEY();
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        const currentLat = data.results[0].geometry.location.lat;
+        const currentLong = data.results[0].geometry.location.lng;
+        this.setState({
+          currentLat,
+          currentLong
+        });
+      });
+  }
+
   componentDidMount() {
-    this.getRestaurantByLatLong();
+    this.getUser();
+  }
+
+  componentDidUpdate(prevState, prevProps) {
+    const { users, currentUserId, currentLat, currentLong, city } = this.state;
+    if (prevProps.users !== users) {
+      this.getLatitudeAndLongitudeFromCityName();
+    }
+    if (prevProps.currentUserId !== currentUserId) {
+      this.getLatitudeAndLongitudeFromCityName();
+    }
+    if (prevProps.city !== city) {
+      this.fetchGoogleAPI(city);
+    }
+    if (
+      prevProps.currentLat !== currentLat &&
+      prevProps.currentLong !== currentLong
+    ) {
+      this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
+    }
   }
 
   render() {
+    const { users, currentUserId, city, zipCode } = this.state;
     return (
       <Router>
         <div>
@@ -115,7 +226,14 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Home
-                getRestaurantByLatLong={this.getRestaurantByLatLong}
+                updateUserDefault={this.updateUserDefault}
+                city={city}
+                zipCode={zipCode}
+                updatecity={this.updatecity}
+                updateLatAndLong={this.updateLatAndLong}
+                handleInit={this.handleInit}
+                users={users}
+                currentUserId={currentUserId}
                 getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
                 restaurants={this.state.restaurants}

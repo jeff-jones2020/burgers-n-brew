@@ -13,9 +13,9 @@ class CurrentLocation extends Component {
   }
 
   handleSubmit(e) {
-    const { getRestaurantByLatLong } = this.props;
+    const { updateLatAndLong } = this.props;
     const { latitude, longitude } = this.state;
-    getRestaurantByLatLong(latitude, longitude);
+    updateLatAndLong(latitude, longitude);
     e.preventDefault();
   }
 
@@ -49,16 +49,13 @@ class CurrentLocation extends Component {
 
   render() {
     return (
-      <>
-        <div
-          onClick={e => {
-            this.handleSubmit(e);
-          }}
-        >
-          <i className="fas fa-street-view"></i>
-          &nbsp; <span>CurrentLocation</span>
-        </div>
-      </>
+      <span
+        onClick={e => {
+          this.handleSubmit(e);
+        }}
+      >
+        <i className="fas fa-map-marker-alt"></i>
+      </span>
     );
   }
 }

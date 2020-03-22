@@ -35,7 +35,9 @@ const DealsFeed = props => {
   return (
     <div>
       <div>
-        <h3 id="fresh-deals-title">Fresh Deals</h3>
+        <h3 id="fresh-deals-title" className="mb-4">
+          Fresh Deals
+        </h3>{' '}
       </div>
       {restaurantEls}
     </div>

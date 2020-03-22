@@ -21,18 +21,25 @@ class LocationDropDown extends Component {
 
   render() {
     const {
-      getRestaurantByCity,
-      getRestaurantByLatLong,
       users,
-      currentUserId
+      currentUserId,
+      updateLatAndLong,
+      city,
+      zipCode,
+      updatecity,
+      updateUserDefault
     } = this.props;
     return (
       <>
         <div>
+          <CurrentLocation updateLatAndLong={updateLatAndLong} />
           {users.map((user, i) => {
             if (currentUserId === user.id) {
               return (
                 <CurrentCity
+                  updateUserDefault={updateUserDefault}
+                  city={city}
+                  zipCode={zipCode}
                   id={user.id}
                   user={user}
                   key={user.name}
@@ -42,8 +49,7 @@ class LocationDropDown extends Component {
             }
           })}
         </div>
-        <CurrentLocation getRestaurantByLatLong={getRestaurantByLatLong} />
-        <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
+        <SearchCityForm updatecity={updatecity} />
       </>
     );
   }
