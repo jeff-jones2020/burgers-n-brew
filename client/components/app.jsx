@@ -12,9 +12,7 @@ class App extends Component {
       currentLong: null,
       restaurants: [],
       deals: [],
-      filters: {
-        price: null
-      }
+      priceFilter: null
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
@@ -22,6 +20,7 @@ class App extends Component {
     );
     this.getRestaurantByCity = this.getRestaurantByCity.bind(this);
     this.getRestaurantByLatLong = this.getRestaurantByLatLong.bind(this);
+    this.setFilters = this.setFilters.bind(this);
   }
 
   getRestaurantByCity(city) {
@@ -70,8 +69,10 @@ class App extends Component {
     }
   }
 
-  setFilters(formData) {
-    // add code to set state with formData
+  setFilters(filterPair) { // filter pair should be a key-value pair {filter: value}
+    this.setState({
+      filterPair
+    });
   }
 
   setDetailView(id) {

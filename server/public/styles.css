@@ -88,7 +88,6 @@
 #fresh-deals-title {
   letter-spacing: normal;
   text-align: center;
-  font-size: 14px;
 }
 
 img {
@@ -98,7 +97,37 @@ img {
 }
 
 .deal-description {
-  font-family: 'Scope One', serif;
+  font-family: "Scope One", serif;
+}
+
+.price-filter {
+  width: 100%;
+}
+
+.dollar {
+  font-size: 24px;
+}
+
+.dollar-light {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.filter-icon {
+  width: 50px;
+  align-self: center;
+}
+
+.align-mid {
+  align-items: center;
+}
+
+.focus-darken {
+  box-shadow: 0 0 22px 5000px rgba(0, 0, 0, 0.5);
+}
+
+.check {
+  font-size: 32px;
+  align-self: center;
 }
 
 .slide-in-enter {
