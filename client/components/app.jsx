@@ -4,6 +4,7 @@ import Home from './home.jsx';
 import Users from './users.jsx';
 import About from './about.jsx';
 import KEY from './key.jsx';
+import { Provider } from '../store.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -199,7 +200,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, currentUserId, city, zipCode } = this.state;
+    const { restaurants } = this.state;
     return (
       <Router>
         <div>
@@ -225,19 +226,17 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home
-                updateUserDefault={this.updateUserDefault}
-                city={city}
-                zipCode={zipCode}
-                updatecity={this.updatecity}
-                updateLatAndLong={this.updateLatAndLong}
-                handleInit={this.handleInit}
-                users={users}
-                currentUserId={currentUserId}
-                getRestaurantByCity={this.getRestaurantByCity}
-                setDetailView={this.setDetailView}
-                restaurants={this.state.restaurants}
-              />
+              <Provider value={this.state}>
+                <Home
+                  updateUserDefault={this.updateUserDefault}
+                  updatecity={this.updatecity}
+                  updateLatAndLong={this.updateLatAndLong}
+                  handleInit={this.handleInit}
+                  getRestaurantByCity={this.getRestaurantByCity}
+                  setDetailView={this.setDetailView}
+                  restaurants={restaurants}
+                />
+              </Provider>
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>

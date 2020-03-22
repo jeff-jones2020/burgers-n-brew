@@ -7,12 +7,8 @@ class Home extends Component {
     const {
       setDetailView,
       restaurants,
-      users,
-      currentUserId,
       handleInit,
       updateLatAndLong,
-      city,
-      zipCode,
       updatecity,
       updateUserDefault
     } = this.props;
@@ -24,12 +20,8 @@ class Home extends Component {
           <Header
             updateUserDefault={updateUserDefault}
             updatecity={updatecity}
-            city={city}
-            zipCode={zipCode}
             updateLatAndLong={updateLatAndLong}
             handleInit={handleInit}
-            users={users}
-            currentUserId={currentUserId}
           />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>

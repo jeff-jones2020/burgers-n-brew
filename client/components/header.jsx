@@ -21,12 +21,8 @@ class Header extends Component {
 
   render() {
     const {
-      users,
-      currentUserId,
       handleInit,
       updateLatAndLong,
-      city,
-      zipCode,
       updatecity,
       updateUserDefault
     } = this.props;
@@ -37,14 +33,10 @@ class Header extends Component {
         <SideBar
           updateUserDefault={updateUserDefault}
           updatecity={updatecity}
-          city={city}
-          zipCode={zipCode}
           updateLatAndLong={updateLatAndLong}
           handleInit={handleInit}
-          users={users}
-          currentUserId={currentUserId}
           opened={this.state.opened}
-          openSideBar={this.displaySideBar}
+          displaySideBar={this.displaySideBar}
         />
       </div>
     );

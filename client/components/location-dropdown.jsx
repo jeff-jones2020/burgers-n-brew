@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CurrentCity from './currentCity.jsx';
 import SearchCityForm from './search-city-form.jsx';
 import CurrentLocation from './currentlocation.jsx';
+import { Consumer } from '../store.jsx';
 
 class LocationDropDown extends Component {
   constructor(props) {
@@ -20,35 +21,31 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const {
-      users,
-      currentUserId,
-      updateLatAndLong,
-      city,
-      zipCode,
-      updatecity,
-      updateUserDefault
-    } = this.props;
+    const { updateLatAndLong, updatecity, updateUserDefault } = this.props;
     return (
       <>
-        <div>
-          <CurrentLocation updateLatAndLong={updateLatAndLong} />
-          {users.map((user, i) => {
-            if (currentUserId === user.id) {
-              return (
-                <CurrentCity
-                  updateUserDefault={updateUserDefault}
-                  city={city}
-                  zipCode={zipCode}
-                  id={user.id}
-                  user={user}
-                  key={user.name}
-                  handleIsOpen={this.handleIsOpen}
-                />
-              );
-            }
-          })}
-        </div>
+        <Consumer>
+          {({ users, city, zipCode, currentUserId }) => (
+            <div>
+              <CurrentLocation updateLatAndLong={updateLatAndLong} />
+              {users.map((user, i) => {
+                if (currentUserId === user.id) {
+                  return (
+                    <CurrentCity
+                      updateUserDefault={updateUserDefault}
+                      city={city}
+                      zipCode={zipCode}
+                      id={user.id}
+                      user={user}
+                      key={user.name}
+                      handleIsOpen={this.handleIsOpen}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+        </Consumer>
         <SearchCityForm updatecity={updatecity} />
       </>
     );
