@@ -57,7 +57,6 @@ class SideBar extends React.Component {
                         return (
                           <div key={i}>
                             <CurrentUser
-                              id={user.id}
                               isOpen={isOpen}
                               user={user}
                               key={user.city}
@@ -71,7 +70,6 @@ class SideBar extends React.Component {
                           return (
                             <div key={i}>
                               <CurrentUser
-                                id={user.id}
                                 isOpen={isOpen}
                                 user={user}
                                 key={user.city}

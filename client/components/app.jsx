@@ -232,7 +232,6 @@ class App extends Component {
                   updatecity={this.updatecity}
                   updateLatAndLong={this.updateLatAndLong}
                   handleInit={this.handleInit}
-                  getRestaurantByCity={this.getRestaurantByCity}
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
                 />

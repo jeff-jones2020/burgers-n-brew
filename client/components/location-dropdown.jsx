@@ -35,10 +35,7 @@ class LocationDropDown extends Component {
                       updateUserDefault={updateUserDefault}
                       city={city}
                       zipCode={zipCode}
-                      id={user.id}
-                      user={user}
                       key={user.name}
-                      handleIsOpen={this.handleIsOpen}
                     />
                   );
                 }
