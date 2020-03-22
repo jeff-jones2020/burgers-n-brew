@@ -7,22 +7,15 @@ class Home extends Component {
     const {
       setDetailView,
       restaurants,
-      handleInit,
       updateLatAndLong,
-      updatecity,
-      updateUserDefault
+      updatecity
     } = this.props;
     if (restaurants.length === 0) {
       return <h3>Loading...</h3>;
     } else {
       return (
         <>
-          <Header
-            updateUserDefault={updateUserDefault}
-            updatecity={updatecity}
-            updateLatAndLong={updateLatAndLong}
-            handleInit={handleInit}
-          />
+          <Header updatecity={updatecity} updateLatAndLong={updateLatAndLong} />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>
       );

@@ -23,14 +23,7 @@ class SideBar extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    const {
-      displaySideBar,
-      opened,
-      handleInit,
-      updateLatAndLong,
-      updatecity,
-      updateUserDefault
-    } = this.props;
+    const { displaySideBar, opened, updateLatAndLong, updatecity } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -44,7 +37,6 @@ class SideBar extends React.Component {
             <div className="sidebar-container">
               <div className="location">
                 <LocationDropDown
-                  updateUserDefault={updateUserDefault}
                   updatecity={updatecity}
                   updateLatAndLong={updateLatAndLong}
                 />
@@ -60,7 +52,6 @@ class SideBar extends React.Component {
                               isOpen={isOpen}
                               user={user}
                               key={user.city}
-                              handleInit={handleInit}
                               handleIsOpen={this.handleIsOpen}
                             />
                           </div>

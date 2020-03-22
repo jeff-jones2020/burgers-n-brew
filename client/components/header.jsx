@@ -20,21 +20,14 @@ class Header extends Component {
   }
 
   render() {
-    const {
-      handleInit,
-      updateLatAndLong,
-      updatecity,
-      updateUserDefault
-    } = this.props;
+    const { updateLatAndLong, updatecity } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
         <SideBar
-          updateUserDefault={updateUserDefault}
           updatecity={updatecity}
           updateLatAndLong={updateLatAndLong}
-          handleInit={handleInit}
           opened={this.state.opened}
           displaySideBar={this.displaySideBar}
         />

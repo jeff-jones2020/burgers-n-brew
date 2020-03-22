@@ -21,7 +21,7 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const { updateLatAndLong, updatecity, updateUserDefault } = this.props;
+    const { updateLatAndLong, updatecity } = this.props;
     return (
       <>
         <Consumer>
@@ -32,7 +32,6 @@ class LocationDropDown extends Component {
                 if (currentUserId === user.id) {
                   return (
                     <CurrentCity
-                      updateUserDefault={updateUserDefault}
                       city={city}
                       zipCode={zipCode}
                       key={user.name}

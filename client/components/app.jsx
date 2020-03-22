@@ -9,6 +9,26 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.handleInit = e => {
+      const newInit = Number(e.target.id);
+      this.setState({
+        currentUserId: newInit
+      });
+    };
+    this.updateUserDefault = city => {
+      const { currentUserId } = this.state;
+      fetch(`/api/user/${currentUserId}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ city: city })
+      })
+        .then(data => data.json())
+        .then(data => {
+          // console.log(data);
+        });
+    };
     this.state = {
       currentLat: null,
       currentLong: null,
@@ -17,13 +37,14 @@ class App extends Component {
       users: [],
       currentUserId: 1,
       city: null,
-      zipCode: null
+      zipCode: null,
+      handleInit: this.handleInit,
+      updateUserDefault: this.updateUserDefault
     };
 
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
     );
-    this.handleInit = this.handleInit.bind(this);
     this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
       this
     );
@@ -33,7 +54,6 @@ class App extends Component {
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
     this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
-    this.updateUserDefault = this.updateUserDefault.bind(this);
   }
 
   updatecity(city) {
@@ -105,28 +125,6 @@ class App extends Component {
       .then(users => {
         this.setState({ users });
       });
-  }
-
-  updateUserDefault(city) {
-    const { currentUserId } = this.state;
-    fetch(`/api/user/${currentUserId}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ city: city })
-    })
-      .then(data => data.json())
-      .then(data => {
-        // console.log(data);
-      });
-  }
-
-  handleInit(e) {
-    const newInit = Number(e.target.id);
-    this.setState({
-      currentUserId: newInit
-    });
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -228,10 +226,8 @@ class App extends Component {
             <Route exact path="/">
               <Provider value={this.state}>
                 <Home
-                  updateUserDefault={this.updateUserDefault}
                   updatecity={this.updatecity}
                   updateLatAndLong={this.updateLatAndLong}
-                  handleInit={this.handleInit}
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
                 />
