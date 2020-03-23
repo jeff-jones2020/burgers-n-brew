@@ -1,6 +1,7 @@
 import React from 'react';
 import LocationDropDown from './location-dropdown.jsx';
 import CurrentUser from './currentUser.jsx';
+import PriceFilter from './price-filter.jsx';
 import { CSSTransition } from 'react-transition-group';
 import { Consumer } from '../store.jsx';
 
@@ -23,7 +24,14 @@ class SideBar extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    const { displaySideBar, opened, updateLatAndLong, updatecity } = this.props;
+    const {
+      displaySideBar,
+      opened,
+      updateLatAndLong,
+      updatecity,
+      setFilters,
+      priceFilter
+    } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -75,7 +83,10 @@ class SideBar extends React.Component {
                 )}
               </Consumer>
               <div className="price-filter">
-                <div className="filter-icon" />
+                <PriceFilter
+                  setFilters={setFilters}
+                  priceFilter={priceFilter}
+                />
               </div>
               <div className="proximity-filter">
                 <div className="filter-icon" />

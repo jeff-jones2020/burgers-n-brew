@@ -47,6 +47,10 @@ $fonts: 'Rock Salt', cursive;
   -webkit-filter: blur(1px);
 }
 
+.fill-background {
+  height: 100vh;
+}
+
 .sidebar {
   display: flex;
   justify-content: flex-end;
@@ -98,6 +102,40 @@ img {
   width: 30%;
   height: 30%;
   object-fit: cover;
+}
+
+.deal-description {
+  font-family: 'Scope One', serif;
+}
+
+.price-filter {
+  width: 100%;
+}
+
+.dollar {
+  font-size: 24px
+}
+
+.dollar-light {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.filter-icon {
+  width: 50px;
+  align-self: center;
+}
+
+.align-mid {
+  align-items: center;
+}
+
+.focus-darken {
+ box-shadow: 0 0 22px 5000px rgba(0, 0, 0, 0.5);
+}
+
+.check {
+  font-size: 32px;
+  align-self: center;
 }
 
 .slide-in-enter {
