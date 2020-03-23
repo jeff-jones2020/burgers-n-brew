@@ -8,8 +8,8 @@ class SignUpSignIn extends Component {
           <div id="banner-background" />
           <h1>Burgers N Brew</h1>
         </div>
-        <div>
-          <div className="container">
+        <div className="signForm">
+          <div>
             <header>
               <h3>Sign In</h3>
             </header>
@@ -23,12 +23,14 @@ class SignUpSignIn extends Component {
                   <label htmlFor="">Password: </label>
                   <input type="password" />
                 </p>
-                <button className="signBtn">Sign In</button>
+                <p>
+                  <button>Sign In</button>
+                </p>
               </form>
             </section>
           </div>
 
-          <div className="container">
+          <div>
             <header>
               <h3>Sign Up</h3>
             </header>
@@ -51,12 +53,22 @@ class SignUpSignIn extends Component {
                   <input type="password" />
                 </p>
                 <p>
-                  <label htmlFor="">confirm pwd: </label>
+                  <label htmlFor="">confirm: </label>
                   <input type="password" />
                 </p>
-                <button className="signBtn">Sign Up</button>
+                <p>
+                  <button>Sign Up</button>
+                </p>
               </form>
             </section>
+          </div>
+
+          <div>
+            <form>
+              <h3>
+                <a href="#">Continue as Guest</a>
+              </h3>
+            </form>
           </div>
         </div>
       </>

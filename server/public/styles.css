@@ -172,9 +172,29 @@ img {
   margin: 0 2%;
 }
 
-.signBtn {
-  background-color: aliceblue;
+.signForm {
+  padding: 4%;
+}
+.signForm button {
+  background-color: #ff4f4f;
   border-radius: 16px;
+  border: 1px solid #ff4f4f;
+  color: white;
+}
+.signForm form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.signForm a {
+  transition: 0.3s all;
+  color: #5a4894;
+}
+.signForm a:hover {
+  text-decoration: none;
+}
+.signForm h3 {
+  padding-left: 5%;
 }
 
 /*# sourceMappingURL=styles.css.map */
