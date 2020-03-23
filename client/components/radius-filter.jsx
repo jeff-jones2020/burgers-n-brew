@@ -11,7 +11,7 @@ class RadiusFilter extends React.Component {
 
     this.setEditFilterView = this.setEditFilterView.bind(this);
     this.doneEditing = this.doneEditing.bind(this);
-    this.toggleradiusFilter = this.toggleradiusFilter.bind(this);
+    this.editRadiusFilter = this.editRadiusFilter.bind(this);
   }
 
   setEditFilterView() {
@@ -27,17 +27,15 @@ class RadiusFilter extends React.Component {
     });
   }
 
-  toggleradiusFilter(index) {
-    const newFilter = Array.from(this.state.radiusFilter);
-    newFilter[index] = !newFilter[index];
+  editRadiusFilter(e) {
+    const input = e.target.value;
     this.setState({
-      radiusFilter: newFilter
+      radiusFilter: input
     });
   }
 
   render() {
-    const filters = this.state.radiusFilter;
-    const isActiveClass = filters.map(filter => filter ? '' : ' dollar-light');
+    const filter = this.state.radiusFilter;
 
     if (!this.state.editFilterMode) {
       return (
@@ -45,17 +43,14 @@ class RadiusFilter extends React.Component {
           className='d-flex justify-content-between align-mid px-3'
           onClick={this.setEditFilterView}>
           <img src='images/filter-icon.svg' className='filter-icon'></img>
-          <span className={'dollar' + isActiveClass[0]}>$</span>
-          <span className={'dollar' + isActiveClass[1]}>$$</span>
-          <span className={'dollar' + isActiveClass[2]}>$$$</span>
+          <input type='range' value={filter} min={1} max={24.8} onChange={this.editRadiusFilter}/>
+          {/* 24.8 miles is Yelp's maximum radius value */}
         </div>
       );
     } else {
       return (
         <div className='d-flex justify-content-between align-mid focus-darken px-3'>
-          <span onClick={() => this.toggleradiusFilter(0)} className={'dollar' + isActiveClass[0]}>$</span>
-          <span onClick={() => this.toggleradiusFilter(1)} className={'dollar' + isActiveClass[1]}>$$</span>
-          <span onClick={() => this.toggleradiusFilter(2)} className={'dollar' + isActiveClass[2]}>$$$</span>
+          <input type='range' value={filter} min={1} max={24.8} onChange={this.editRadiusFilter}/>
           <span
             onClick={this.doneEditing}
             className='check' >
