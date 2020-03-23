@@ -58,32 +58,8 @@ class DetailView extends Component {
       }
       const opening = `${openTime[1]}:${openTime[2]}`;
       const closing = `${closeTime[1]}:${closeTime[2]}`;
-      let dayOfWeek;
-      switch (day.day.toString()) {
-        case '0':
-          dayOfWeek = 'Sunday';
-          break;
-        case '1':
-          dayOfWeek = 'Monday';
-          break;
-        case '2':
-          dayOfWeek = 'Tuesday';
-          break;
-        case '3':
-          dayOfWeek = 'Wednesday';
-          break;
-        case '4':
-          dayOfWeek = 'Thursday';
-          break;
-        case '5':
-          dayOfWeek = 'Friday';
-          break;
-        case '6':
-          dayOfWeek = 'Saturday';
-          break;
-        default:
-          break;
-      }
+      const dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayOfWeek = dayArray[day.day];
       return (
         <li key={day.day}>
           {dayOfWeek}: {opening}{openMorn} - {closing}{closeMorn}
@@ -101,6 +77,7 @@ class DetailView extends Component {
             {restaurant.price}{restaurantTags}
           </div>
           <ul>
+            Hours of Operation: <br/>
             {restaurantOpen}
           </ul>
           <div>
