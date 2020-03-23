@@ -5,9 +5,13 @@
   letter-spacing: 0.1em;
 }
 
-#root {
+body {
   background-color: black;
   color: white;
+}
+
+.deal-description {
+  font-family: "Scope One", serif;
 }
 
 #bnb-banner {
@@ -112,6 +116,17 @@ img {
 .slide-in-exit.slide-in-exit-active {
   transform: translate(100%);
   transition: all 500ms;
+}
+
+.carousel {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restaurant-details {
+  font-size: 0.5em;
 }
 
 /*# sourceMappingURL=styles.css.map */

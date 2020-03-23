@@ -24,6 +24,7 @@ class DetailView extends Component {
   render() {
     const { imageNumber } = this.state;
     const restaurant = this.props.restaurant;
+    const currentDate = new Date();
     const restaurantTags = restaurant.categories.map(category => {
       return (
         <span key={category.alias}> | {category.title}</span>
@@ -48,8 +49,9 @@ class DetailView extends Component {
     const restaurantOpen = restaurant.hours[0].open.map(day => {
       const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
-      let openMorn;
-      let closeMorn;
+      const isOpen = restaurant.hours[0].is_open_now;
+      let openMorn = null;
+      let closeMorn = null;
       openTime[1] = parseInt(openTime[1]);
       closeTime[1] = parseInt(closeTime[1]);
       if (openTime[1] >= 12) {
@@ -74,22 +76,31 @@ class DetailView extends Component {
       }
       const opening = `${openTime[1]}:${openTime[2]}`;
       const closing = `${closeTime[1]}:${closeTime[2]}`;
-      const dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayArray = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
       const dayOfWeek = dayArray[day.day];
+      let openNow = null;
+      if (currentDate === day.day && isOpen) {
+        openNow = <span>(Open Now)</span>;
+      }
       return (
         <li key={day.day}>
-          {dayOfWeek}: {opening}{openMorn} - {closing}{closeMorn}
+          <div>
+            {dayOfWeek}
+          </div>
+          <div>
+            {opening}{openMorn} - {closing}{closeMorn} {openNow}
+          </div>
         </li>
       );
     });
     return (
-      <div>
-        <div className="carousel">
-          <img src={restaurant.photos[imageNumber]}/>
+      <>
+        <div className="carousel"
+          style={{ backgroundImage: `url(${restaurant.photos[imageNumber]})` }}>
           <div>{restaurant.name}</div>
           <div>{starRatings}</div>
         </div>
-        <div>
+        <div className="restaurant-details">
           <div>
             {restaurant.price}{restaurantTags}
           </div>
@@ -97,11 +108,8 @@ class DetailView extends Component {
             Hours of Operation: <br/>
             {restaurantOpen}
           </ul>
-          <div>
-            {/* Map? */}
-          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
