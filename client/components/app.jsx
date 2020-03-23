@@ -97,11 +97,30 @@ class App extends Component {
   }
 
   getRestaurantByLatLong(latitude, longitude) {
-    const { filters } = this.state;
     let queryFilters = '';
-    if (filters.price) {
-      queryFilters += filters.price;
+    const { priceFilter } = this.state;
+    if (priceFilter && priceFilter.includes(true)) {
+      queryFilters += '&price=';
+      priceFilter.forEach((isSelected, index) => {
+        if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) { queryFilters += ','; }
+        if (isSelected) {
+          switch (index) {
+            case 0:
+              queryFilters += '1';
+              break;
+            case 1:
+              queryFilters += '2';
+              break;
+            case 2:
+              queryFilters += '4'; // we will include yelp pricings of '$$$' AND '$$$$'
+              break;
+            default:
+              console.error('No price filter value was provided in query string');
+          }
+        }
+      });
     }
+
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
     fetch('api/yelp/businesses/search/' + queries + queryFilters)
       .then(response => response.json())
