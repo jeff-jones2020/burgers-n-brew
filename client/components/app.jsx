@@ -16,7 +16,7 @@ class App extends Component {
       });
     };
     this.updateUserDefault = city => {
-      const { currentUserId } = this.state;
+      const { currentUserId, users } = this.state;
       fetch(`/api/user/${currentUserId}`, {
         method: 'put',
         headers: {
@@ -26,7 +26,13 @@ class App extends Component {
       })
         .then(data => data.json())
         .then(data => {
-          // console.log(data);
+          const newUsersArr = users.filter((user, i) => {
+            return user.id !== data.id;
+          });
+          newUsersArr.push(data);
+          this.setState({
+            users: newUsersArr
+          });
         });
     };
     this.setFilters = filterPair => {
