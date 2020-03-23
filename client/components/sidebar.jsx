@@ -2,6 +2,7 @@ import React from 'react';
 import LocationDropDown from './location-dropdown.jsx';
 import CurrentUser from './currentUser.jsx';
 import PriceFilter from './price-filter.jsx';
+import RadiusFilter from './radius-filter.jsx';
 import { CSSTransition } from 'react-transition-group';
 import { Consumer } from '../store.jsx';
 
@@ -73,18 +74,25 @@ class SideBar extends React.Component {
                 )}
               </Consumer>
               <Consumer>
-                {({ setFilters, priceFilter }) => (
+                {({ setFilters, currentPriceFilter }) => (
                   <div className="price-filter">
                     <PriceFilter
                       setFilters={setFilters}
-                      priceFilter={priceFilter}
+                      currentPriceFilter={currentPriceFilter}
                     />
                   </div>
                 )}
               </Consumer>
-              <div className="proximity-filter">
-                <div className="filter-icon" />
-              </div>
+              <Consumer>
+                {({ setFilters, currentRadiusFilter }) => (
+                  <div className="proximity-filter">
+                    <RadiusFilter
+                      setFilters={setFilters}
+                      radiusFilter={currentRadiusFilter}
+                    />
+                  </div>
+                )}
+              </Consumer>
               <div className="vegetarian-filter">
                 <div className="filter-icon" />
               </div>
