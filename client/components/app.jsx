@@ -64,7 +64,8 @@ class App extends Component {
       zipCode: null,
       handleInit: this.handleInit,
       updateUserDefault: this.updateUserDefault,
-      priceFilter: null,
+      currentPriceFilter: null,
+      currentRadiusFilter: null,
       setFilters: this.setFilters,
       updatecity: this.updatecity,
       updateLatAndLong: this.updateLatAndLong
@@ -130,10 +131,10 @@ class App extends Component {
 
   getRestaurantByLatLong(latitude, longitude) {
     let queryFilters = '';
-    const { priceFilter } = this.state;
-    if (priceFilter && priceFilter.includes(true)) {
+    const { currentPriceFilter, currentRadiusFilter } = this.state;
+    if (currentPriceFilter && currentPriceFilter.includes(true)) {
       queryFilters += '&price=';
-      priceFilter.forEach((isSelected, index) => {
+      currentPriceFilter.forEach((isSelected, index) => {
         if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) {
           queryFilters += ',';
         }
@@ -155,6 +156,11 @@ class App extends Component {
           }
         }
       });
+    }
+
+    if (currentRadiusFilter) {
+      const metersRadius = Math.round(currentRadiusFilter * 1609.34);
+      queryFilters += `&radius=${metersRadius}`;
     }
 
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
@@ -231,7 +237,8 @@ class App extends Component {
       currentLat,
       currentLong,
       city,
-      priceFilter
+      currentPriceFilter,
+      currentRadiusFilter
     } = this.state;
     if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
@@ -245,7 +252,8 @@ class App extends Component {
     if (
       prevState.currentLat !== currentLat ||
       prevState.currentLong !== currentLong ||
-      prevState.priceFilter !== priceFilter
+      prevState.currentPriceFilter !== currentPriceFilter ||
+      prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
