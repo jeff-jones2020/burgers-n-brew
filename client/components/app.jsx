@@ -55,16 +55,16 @@ class App extends Component {
       return;
     }
     let hasBurger = false;
-    // let hasBar = false;
+    let hasBar = false;
     for (let k = 0; k < restaurants[index].categories.length; k++) {
       if (restaurants[index].categories[k].alias.includes('burger')) {
         hasBurger = true;
       }
-      // if (restaurants[index].categories[k].alias.includes('bar')) {
-      //   hasBar = true;
-      // }
+      if (restaurants[index].categories[k].alias.includes('bar')) {
+        hasBar = true;
+      }
     }
-    if (hasBurger) { // && hasBar
+    if (hasBurger && hasBar) {
       fetch('/api/yelp/businesses/' + restaurants[index].id)
         .then(response => response.json())
         .then(data => {
