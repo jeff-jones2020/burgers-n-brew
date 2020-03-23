@@ -44,6 +44,10 @@
   -webkit-filter: blur(1px);
 }
 
+.fill-background {
+  height: 100vh;
+}
+
 .sidebar {
   display: flex;
   justify-content: flex-end;

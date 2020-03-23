@@ -20,7 +20,7 @@ class Home extends Component {
       priceFilter
     } = this.props;
     if (restaurants.length === 0) {
-      return <h3>Loading...</h3>;
+      return <h3 className='fill-background'>Loading...</h3>;
     } else {
       return (
         <>
