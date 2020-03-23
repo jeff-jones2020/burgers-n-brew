@@ -29,7 +29,8 @@ class Header extends Component {
       zipCode,
       updatecity,
       updateUserDefault,
-      setFilters
+      setFilters,
+      priceFilter
     } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
@@ -47,6 +48,7 @@ class Header extends Component {
           opened={this.state.opened}
           openSideBar={this.displaySideBar}
           setFilters={setFilters}
+          priceFilter={priceFilter}
         />
       </div>
     );

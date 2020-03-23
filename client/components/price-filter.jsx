@@ -3,9 +3,10 @@ import React from 'react';
 class PriceFilter extends React.Component {
   constructor(props) {
     super(props);
+    const priceFilter = props.priceFilter ? Array.from(props.priceFilter) : [true, true, true];
     this.state = {
       editFilterMode: false,
-      priceFilter: [false, false, false]
+      priceFilter: priceFilter
     };
 
     this.setEditFilterView = this.setEditFilterView.bind(this);

@@ -16,7 +16,8 @@ class Home extends Component {
       city,
       zipCode,
       updatecity,
-      updateUserDefault
+      updateUserDefault,
+      priceFilter
     } = this.props;
     if (restaurants.length === 0) {
       return <h3>Loading...</h3>;
@@ -34,6 +35,7 @@ class Home extends Component {
             handleInit={handleInit}
             users={users}
             currentUserId={currentUserId}
+            priceFilter={priceFilter}
           />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>

@@ -34,7 +34,8 @@ class SideBar extends React.Component {
       zipCode,
       updatecity,
       updateUserDefault,
-      setFilters
+      setFilters,
+      priceFilter
     } = this.props;
     return (
       <>
@@ -91,7 +92,7 @@ class SideBar extends React.Component {
                 })}
               </div>
               <div className="price-filter">
-                <PriceFilter setFilters={setFilters}/>
+                <PriceFilter setFilters={setFilters} priceFilter={priceFilter}/>
               </div>
               <div className="proximity-filter">
                 <div className="filter-icon" />

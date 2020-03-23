@@ -228,7 +228,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, currentUserId, city, zipCode } = this.state;
+    const { users, currentUserId, city, zipCode, priceFilter } = this.state;
     return (
       <Router>
         <div>
@@ -265,6 +265,7 @@ class App extends Component {
                 currentUserId={currentUserId}
                 setDetailView={this.setDetailView}
                 setFilters={this.setFilters}
+                priceFilter={priceFilter}
                 restaurants={this.state.restaurants}
               />
             </Route>
