@@ -130,19 +130,23 @@ img {
   justify-content: center;
   align-items: center;
   height: 10em;
+  margin-bottom: 2em;
+  font-size: 1.25em;
 }
 
 .restaurant-details {
-  text-align: center;
   font-size: 0.75em;
-}
-
-.restaurant-hours {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  ul {
-    list-style: none;
-    margin-right: 2em;
+  .restaurant-tags {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+  .restaurant-hours {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    ul {
+      list-style: none;
+      margin-right: 2em;
+    }
   }
 }

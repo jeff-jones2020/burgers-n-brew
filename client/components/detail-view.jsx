@@ -103,7 +103,7 @@ class DetailView extends Component {
           <div>{starRatings}</div>
         </div>
         <div className="restaurant-details">
-          <div>
+          <div className="restaurant-tags">
             {restaurant.price}{restaurantTags}
           </div>
           <div className="restaurant-hours">
