@@ -113,7 +113,7 @@ img {
 }
 
 .dollar {
-  font-size: 24px
+  font-size: 24px;
 }
 
 .dollar-light {
@@ -130,7 +130,7 @@ img {
 }
 
 .focus-darken {
- box-shadow: 0 0 22px 5000px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 22px 5000px rgba(0, 0, 0, 0.5);
 }
 
 .check {
@@ -158,4 +158,24 @@ img {
 
 .deal-description {
   font-family: 'Scope One', serif;
+}
+
+.nav-ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.nav-li {
+  margin: 0 2%;
+}
+
+.signBtn {
+  background-color: aliceblue;
+  border-radius: 16px;
 }

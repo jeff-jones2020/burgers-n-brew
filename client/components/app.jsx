@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
-import About from './about.jsx';
+import SignUpSignIn from './signup-signin.jsx';
 import KEY from './key.jsx';
 import { Provider } from '../store.jsx';
 
@@ -257,22 +257,22 @@ class App extends Component {
       <Router>
         <div>
           <nav>
-            <ul>
-              <li>
+            <ul className="nav-ul">
+              <li className="nav-li">
                 <Link to="/">Home</Link>
               </li>
-              <li>
-                <Link to="/about">About</Link>
+              <li className="nav-li">
+                <Link to="/signinsignup">SignUpSignIn</Link>
               </li>
-              <li>
+              <li className="nav-li">
                 <Link to="/users">Users</Link>
               </li>
             </ul>
           </nav>
 
           <Switch>
-            <Route exact path="/about">
-              <About />
+            <Route exact path="/signinsignup">
+              <SignUpSignIn />
             </Route>
             <Route exact path="/users">
               <Users />
