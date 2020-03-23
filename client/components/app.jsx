@@ -82,6 +82,7 @@ class App extends Component {
       this
     );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+    this.setDetailView = this.setDetailView.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
