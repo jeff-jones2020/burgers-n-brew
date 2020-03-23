@@ -210,20 +210,21 @@ class App extends Component {
     this.getUser();
   }
 
-  componentDidUpdate(prevState, prevProps) {
-    const { users, currentUserId, currentLat, currentLong, city } = this.state;
-    if (prevProps.users !== users) {
+  componentDidUpdate(prevProps, prevState) {
+    const { users, currentUserId, currentLat, currentLong, city, priceFilter } = this.state;
+    if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
     }
-    if (prevProps.currentUserId !== currentUserId) {
+    if (prevState.currentUserId !== currentUserId) {
       this.getLatitudeAndLongitudeFromCityName();
     }
-    if (prevProps.city !== city) {
+    if (prevState.city !== city) {
       this.fetchGoogleAPI(city);
     }
     if (
-      prevProps.currentLat !== currentLat &&
-      prevProps.currentLong !== currentLong
+      (prevState.currentLat !== currentLat ||
+      prevState.currentLong !== currentLong) ||
+      prevState.priceFilter !== priceFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
