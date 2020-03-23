@@ -10,7 +10,7 @@ class PriceFilter extends React.Component {
 
     this.setEditFilterView = this.setEditFilterView.bind(this);
     this.doneEditing = this.doneEditing.bind(this);
-    this.setPriceFilter = this.setPriceFilter.bind(this);
+    this.togglePriceFilter = this.togglePriceFilter.bind(this);
   }
 
   setEditFilterView() {
@@ -26,7 +26,7 @@ class PriceFilter extends React.Component {
     });
   }
 
-  setPriceFilter(index) {
+  togglePriceFilter(index) {
     const newFilter = Array.from(this.state.priceFilter);
     newFilter[index] = !newFilter[index];
     this.setState({
@@ -52,9 +52,9 @@ class PriceFilter extends React.Component {
     } else {
       return (
         <div className='d-flex justify-content-between align-mid focus-darken px-3'>
-          <span onClick={() => this.setPriceFilter(0)} className={'dollar' + isActiveClass[0]}>$</span>
-          <span onClick={() => this.setPriceFilter(1)} className={'dollar' + isActiveClass[1]}>$$</span>
-          <span onClick={() => this.setPriceFilter(2)} className={'dollar' + isActiveClass[2]}>$$$</span>
+          <span onClick={() => this.togglePriceFilter(0)} className={'dollar' + isActiveClass[0]}>$</span>
+          <span onClick={() => this.togglePriceFilter(1)} className={'dollar' + isActiveClass[1]}>$$</span>
+          <span onClick={() => this.togglePriceFilter(2)} className={'dollar' + isActiveClass[2]}>$$$</span>
           <span
             onClick={this.doneEditing}
             className='check' >

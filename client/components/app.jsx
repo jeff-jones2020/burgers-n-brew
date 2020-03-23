@@ -20,20 +20,15 @@ class App extends Component {
       priceFilter: null
     };
 
-    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
-      this
-    );
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
     this.handleInit = this.handleInit.bind(this);
-    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
-      this
-    );
-    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
-      this
-    );
+    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(this);
+    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(this);
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
     this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.updateUserDefault = this.updateUserDefault.bind(this);
+    this.setFilters = this.setFilters.bind(this);
   }
 
   updatecity(city) {
@@ -53,22 +48,23 @@ class App extends Component {
     // index = 0 means it will use 0 unless passed a different value for index
     if (newRestaurants.length === 5 || index === restaurants.length - 1) {
       // maximum 5 results to ensure we don't send too many requests
+      if (newRestaurants.length === 0) { console.error('No matching restaurants found'); }
       this.setState({
         restaurants: newRestaurants
       });
       return;
     }
     let hasBurger = false;
-    let hasBar = false;
+    // let hasBar = false;
     for (let k = 0; k < restaurants[index].categories.length; k++) {
       if (restaurants[index].categories[k].alias.includes('burger')) {
         hasBurger = true;
       }
-      if (restaurants[index].categories[k].alias.includes('bar')) {
-        hasBar = true;
-      }
+      // if (restaurants[index].categories[k].alias.includes('bar')) {
+      //   hasBar = true;
+      // }
     }
-    if (hasBurger && hasBar) {
+    if (hasBurger) { // && hasBar
       fetch('/api/yelp/businesses/' + restaurants[index].id)
         .then(response => response.json())
         .then(data => {
@@ -86,9 +82,10 @@ class App extends Component {
     }
   }
 
-  setFilters(filterPair) { // filter pair should be a key-value pair {filter: value}
+  setFilters(filterPair) { // filter pair should be an object containing a key-value pair {filter: value}
+    const key = Object.keys(filterPair)[0];
     this.setState({
-      filterPair
+      [key]: filterPair[key]
     });
   }
 
@@ -112,7 +109,7 @@ class App extends Component {
               queryFilters += '2';
               break;
             case 2:
-              queryFilters += '4'; // we will include yelp pricings of '$$$' AND '$$$$'
+              queryFilters += '3,4'; // we will include yelp pricings of '$$$' AND '$$$$'
               break;
             default:
               console.error('No price filter value was provided in query string');
