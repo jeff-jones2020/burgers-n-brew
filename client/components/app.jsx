@@ -48,10 +48,15 @@ class App extends Component {
     // index = 0 means it will use 0 unless passed a different value for index
     if (newRestaurants.length === 5 || index === restaurants.length - 1) {
       // maximum 5 results to ensure we don't send too many requests
-      if (newRestaurants.length === 0) { console.error('No matching restaurants found'); }
-      this.setState({
-        restaurants: newRestaurants
-      });
+      if (newRestaurants.length === 0) {
+        this.setState({
+          restaurants: ['No restaurants found']
+        });
+      } else {
+        this.setState({
+          restaurants: newRestaurants
+        });
+      }
       return;
     }
     let hasBurger = false;
