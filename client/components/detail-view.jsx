@@ -65,13 +65,13 @@ class DetailView extends Component {
       } else {
         closeMorn = 'AM';
       }
-      if (openTime[1] === '00') {
-        openTime[1] = '12';
+      if (openTime[1] === 0) {
+        openTime[1] = 12;
       } else if (openTime[1] > 12) {
         openTime[1] = openTime[1] - 12;
       }
-      if (closeTime[1] === '00') {
-        closeTime[1] = '12';
+      if (closeTime[1] === 0) {
+        closeTime[1] = 12;
       } else if (closeTime[1] > 12) {
         closeTime[1] = closeTime[1] - 12;
       }
