@@ -23,7 +23,8 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  h1, .sidebar-icon {
+  h1,
+  .sidebar-icon {
     font-size: 1.5em;
     position: relative;
     z-index: 1;
@@ -32,9 +33,9 @@ body {
 
 .sidebar-icon {
   background-image: url('images/sidebar.svg');
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
 }
 
 #banner-background {
@@ -50,6 +51,10 @@ body {
   -webkit-filter: blur(1px);
 }
 
+.fill-background {
+  height: 100vh;
+}
+
 .sidebar {
   display: flex;
   justify-content: flex-end;
@@ -62,7 +67,7 @@ body {
   font-size: 1em;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
-    &:empty {
+  &:empty {
     display: none;
   }
 }
@@ -70,7 +75,7 @@ body {
 .sidebar-container {
   height: 100%;
   width: 75%;
-  background-color: red;
+  background-color: rgb(176, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +83,7 @@ body {
   .location {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     div form {
       display: flex;
       flex-direction: column;
@@ -103,10 +108,56 @@ img {
   object-fit: cover;
 }
 
+.deal-description {
+  font-family: 'Scope One', serif;
+}
+
+.filter {
+  width: 100%;
+}
+
+.dollar {
+  font-size: 24px
+}
+
+.dollar-light {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.filter-icon {
+  width: 50px;
+  align-self: center;
+}
+
+.align-mid {
+  align-items: center;
+}
+
+.focus-darken {
+ box-shadow: 0 0 22px 5000px rgba(0, 0, 0, 0.5);
+}
+
+.check {
+  font-size: 32px;
+  align-self: center;
+}
+
+#mile-label {
+  font-size: 14px;
+  font-family: "Scope One", serif;
+  font-weight: bold;
+  width: 35px;
+  text-align: center;
+}
+
+#edit-mile-label {
+  font-size: 12px;
+}
+
 .slide-in-enter {
   opacity: 0;
   transform: translate(100%);
-  &.slide-in-enter-active{
+  &.slide-in-enter-active {
     opacity: 1;
     transform: translate(0%);
     transition: all 500ms;
@@ -115,7 +166,7 @@ img {
 
 .slide-in-exit {
   transform: translate(0);
-  &.slide-in-exit-active{
+  &.slide-in-exit-active {
     transform: translate(100%);
     transition: all 500ms;
   }

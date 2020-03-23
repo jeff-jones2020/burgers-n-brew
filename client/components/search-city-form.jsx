@@ -17,9 +17,9 @@ class SearchCityForm extends Component {
   }
 
   handleSubmit(e) {
-    const { getRestaurantByCity } = this.props;
+    const { updatecity } = this.props;
     const { city } = this.state;
-    getRestaurantByCity(city);
+    updatecity(city);
     e.preventDefault();
     this.resetForm();
   }
@@ -39,14 +39,14 @@ class SearchCityForm extends Component {
           <div>
             <i className="fas fa-search"></i>
             &nbsp; <span>Search:</span>
+            <input
+              type="text"
+              name="city"
+              value={this.state.city}
+              onChange={this.handleChange}
+              placeholder="City name, CA"
+            />
           </div>
-          <input
-            type="text"
-            name="city"
-            value={this.state.city}
-            onChange={this.handleChange}
-            placeholder="City name, CA"
-          />
         </form>
       </div>
     );

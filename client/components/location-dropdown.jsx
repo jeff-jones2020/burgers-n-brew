@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CurrentCity from './currentCity.jsx';
 import SearchCityForm from './search-city-form.jsx';
 import CurrentLocation from './currentlocation.jsx';
+import { Consumer } from '../store.jsx';
 
 class LocationDropDown extends Component {
   constructor(props) {
@@ -20,30 +21,29 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const {
-      getRestaurantByCity,
-      getRestaurantByLatLong,
-      users,
-      currentUserId
-    } = this.props;
     return (
       <>
-        <div>
-          {users.map((user, i) => {
-            if (currentUserId === user.id) {
-              return (
-                <CurrentCity
-                  id={user.id}
-                  user={user}
-                  key={user.name}
-                  handleIsOpen={this.handleIsOpen}
-                />
-              );
-            }
-          })}
-        </div>
-        <CurrentLocation getRestaurantByLatLong={getRestaurantByLatLong} />
-        <SearchCityForm getRestaurantByCity={getRestaurantByCity} />
+        <Consumer>
+          {({ users, city, zipCode, currentUserId, updateLatAndLong }) => (
+            <div>
+              <CurrentLocation updateLatAndLong={updateLatAndLong} />
+              {users.map((user, i) => {
+                if (currentUserId === user.id) {
+                  return (
+                    <CurrentCity
+                      city={city}
+                      zipCode={zipCode}
+                      key={user.name}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+        </Consumer>
+        <Consumer>
+          {({ updatecity }) => <SearchCityForm updatecity={updatecity} />}
+        </Consumer>
       </>
     );
   }
