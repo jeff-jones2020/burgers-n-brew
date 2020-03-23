@@ -5,9 +5,13 @@
   letter-spacing: 0.1em;
 }
 
-#root {
+body {
   background-color: black;
   color: white;
+}
+
+.deal-description {
+  font-family: "Scope One", serif;
 }
 
 #bnb-banner {
@@ -165,8 +169,43 @@ img {
   transition: all 500ms;
 }
 
-.deal-description {
-  font-family: "Scope One", serif;
+.carousel {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 10em;
+  margin-bottom: 1em;
+  font-size: 1.25em;
+}
+.carousel div i {
+  margin: 0 0.25em;
+}
+
+.restaurant-details {
+  font-size: 0.75em;
+}
+.restaurant-details .restaurant-tags {
+  margin-bottom: 1em;
+  text-align: center;
+}
+.restaurant-details .restaurant-hours {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.restaurant-details .restaurant-hours ul {
+  list-style: none;
+  margin-right: 2em;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

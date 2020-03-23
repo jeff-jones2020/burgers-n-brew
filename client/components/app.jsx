@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
 import About from './about.jsx';
+import DetailView from './detail-view';
 import KEY from './key.jsx';
 import { Provider } from '../store.jsx';
 
@@ -58,6 +59,7 @@ class App extends Component {
       currentLong: null,
       restaurants: [],
       deals: [],
+      restaurant: null,
       users: [],
       currentUserId: 1,
       city: null,
@@ -80,6 +82,7 @@ class App extends Component {
       this
     );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+    this.setDetailView = this.setDetailView.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -126,6 +129,8 @@ class App extends Component {
   }
 
   setDetailView(id) {
+    const restaurantDetail = this.state.restaurants.filter(restaurant => restaurant.id === id);
+    this.setState({ restaurant: restaurantDetail[0] });
     // add code for navigating to detail view page based on Yelp business ID
   }
 
@@ -284,6 +289,9 @@ class App extends Component {
             </Route>
             <Route exact path="/users">
               <Users />
+            </Route>
+            <Route exact path="/details/:id">
+              <DetailView restaurant={this.state.restaurant} />
             </Route>
             <Route exact path="/">
               <Provider value={this.state}>
