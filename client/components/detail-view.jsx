@@ -25,6 +25,7 @@ class DetailView extends Component {
     const { imageNumber } = this.state;
     const restaurant = this.props.restaurant;
     const currentDate = new Date();
+    const currentDay = currentDate.getDay();
     const restaurantTags = restaurant.categories.map(category => {
       return (
         <span key={category.alias}> | {category.title}</span>
@@ -79,16 +80,17 @@ class DetailView extends Component {
       const dayArray = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
       const dayOfWeek = dayArray[day.day];
       let openNow = null;
-      if (currentDate === day.day && isOpen) {
+      if (currentDay === day.day && isOpen) {
         openNow = <span>(Open Now)</span>;
       }
       return (
-        <li key={day.day}>
+        <li key={day.day}
+          style={{ color: currentDay === day.day ? 'white' : 'lightslategray' }}>
           <div>
-            {dayOfWeek}
+            {dayOfWeek} {openNow}
           </div>
           <div>
-            {opening}{openMorn} - {closing}{closeMorn} {openNow}
+            {opening}{openMorn} - {closing}{closeMorn}
           </div>
         </li>
       );
@@ -105,7 +107,6 @@ class DetailView extends Component {
             {restaurant.price}{restaurantTags}
           </div>
           <ul>
-            Hours of Operation: <br/>
             {restaurantOpen}
           </ul>
         </div>
