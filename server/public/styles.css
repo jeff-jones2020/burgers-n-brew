@@ -187,14 +187,14 @@ img {
   align-items: flex-end;
 }
 .signForm a {
-  transition: 0.3s all;
   color: #5a4894;
-}
-.signForm a:hover {
   text-decoration: none;
 }
 .signForm h3 {
-  padding-left: 5%;
+  padding-left: 2%;
+}
+.signForm .container {
+  padding: 3%;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -9,7 +9,7 @@ class SignUpSignIn extends Component {
           <h1>Burgers N Brew</h1>
         </div>
         <div className="signForm">
-          <div>
+          <div className="container">
             <header>
               <h3>Sign In</h3>
             </header>
@@ -30,7 +30,7 @@ class SignUpSignIn extends Component {
             </section>
           </div>
 
-          <div>
+          <div className="container">
             <header>
               <h3>Sign Up</h3>
             </header>
@@ -63,7 +63,7 @@ class SignUpSignIn extends Component {
             </section>
           </div>
 
-          <div>
+          <div className="container">
             <form>
               <h3>
                 <a href="#">Continue as Guest</a>

@@ -190,13 +190,13 @@ img {
     align-items: flex-end;
   }
   a {
-    transition: 0.3s all;
     color: #5a4894;
-  }
-  a:hover {
     text-decoration: none;
   }
   h3 {
-    padding-left: 5%;
+    padding-left: 2%;
+  }
+  .container {
+    padding: 3%;
   }
 }
