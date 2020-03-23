@@ -2,6 +2,7 @@
 require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
+const sessionMiddleware = require('./session-middleware');
 const app = express();
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
@@ -10,7 +11,13 @@ const db = low(adapter);
 const fetch = require('node-fetch');
 
 app.use(staticMiddleware);
+app.use(sessionMiddleware);
 app.use(express.json());
+
+app.get('/api', (req, res) => {
+  // console.log(req.session);
+  res.send('Hello Session');
+});
 
 app.put('/api/user/:id', (req, res) => {
   const id = Number(req.params.id);

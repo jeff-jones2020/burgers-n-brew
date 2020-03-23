@@ -17,11 +17,11 @@ class SignUpSignIn extends Component {
               <form action="">
                 <p>
                   <label htmlFor="">Email: </label>
-                  <input type="email" />
+                  <input type="email" placeholder="Email" />
                 </p>
                 <p>
                   <label htmlFor="">Password: </label>
-                  <input type="password" />
+                  <input type="password" placeholder="Password" />
                 </p>
                 <p>
                   <button>Sign In</button>
@@ -38,23 +38,23 @@ class SignUpSignIn extends Component {
               <form action="">
                 <p>
                   <label htmlFor="">Name: </label>
-                  <input type="text" />
+                  <input type="text" placeholder="Name" />
                 </p>
                 <p>
                   <label htmlFor="">City: </label>
-                  <input type="text" />
+                  <input type="text" placeholder="City" />
                 </p>
                 <p>
                   <label htmlFor="">Email: </label>
-                  <input type="email" />
+                  <input type="email" placeholder="Email" />
                 </p>
                 <p>
                   <label htmlFor="">Password: </label>
-                  <input type="password" />
+                  <input type="password" placeholder="Password" />
                 </p>
                 <p>
                   <label htmlFor="">confirm: </label>
-                  <input type="password" />
+                  <input type="password" placeholder="Password again" />
                 </p>
                 <p>
                   <button>Sign Up</button>
