@@ -29,6 +29,22 @@ class DetailView extends Component {
         <span key={category.alias}> | {category.title}</span>
       );
     });
+    const starArray = Array(Math.floor(restaurant.rating)).fill(1);
+    if (Math.floor(restaurant.rating) !== restaurant.rating) {
+      starArray.push(0.5);
+    }
+    for (let i = starArray.length; i < 5; i++) {
+      starArray.push(0);
+    }
+    const starRatings = starArray.map((rating, index) => {
+      if (rating === 1) {
+        return <i key={index} className="fas fa-star" />;
+      } else if (rating === 0.5) {
+        return <i key={index} className="fas fa-star-half-alt" />;
+      } else {
+        return <i key={index} className="far fa-star" />;
+      }
+    });
     const restaurantOpen = restaurant.hours[0].open.map(day => {
       const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
@@ -71,6 +87,7 @@ class DetailView extends Component {
         <div className="carousel">
           <img src={restaurant.photos[imageNumber]}/>
           <div>{restaurant.name}</div>
+          <div>{starRatings}</div>
         </div>
         <div>
           <div>
