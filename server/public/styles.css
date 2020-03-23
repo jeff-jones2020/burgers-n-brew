@@ -126,13 +126,22 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 10em;
 }
 
 .restaurant-details {
+  text-align: center;
   font-size: 0.75em;
 }
-.restaurant-details ul {
+
+.restaurant-hours {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.restaurant-hours ul {
   list-style: none;
+  margin-right: 2em;
 }
 
 /*# sourceMappingURL=styles.css.map */

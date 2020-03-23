@@ -98,7 +98,7 @@ class DetailView extends Component {
     return (
       <>
         <div className="carousel"
-          style={{ backgroundImage: `url(${restaurant.photos[imageNumber]})` }}>
+          style={{ backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${restaurant.photos[imageNumber]})` }}>
           <div>{restaurant.name}</div>
           <div>{starRatings}</div>
         </div>
@@ -106,9 +106,11 @@ class DetailView extends Component {
           <div>
             {restaurant.price}{restaurantTags}
           </div>
-          <ul>
-            {restaurantOpen}
-          </ul>
+          <div className="restaurant-hours">
+            <ul>
+              {restaurantOpen}
+            </ul>
+          </div>
         </div>
       </>
     );
