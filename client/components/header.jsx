@@ -20,24 +20,13 @@ class Header extends Component {
   }
 
   render() {
-    const {
-      updateLatAndLong,
-      updatecity,
-      setFilters,
-      priceFilter
-    } = this.props;
-
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
         <SideBar
-          updatecity={updatecity}
-          updateLatAndLong={updateLatAndLong}
           opened={this.state.opened}
           displaySideBar={this.displaySideBar}
-          setFilters={setFilters}
-          priceFilter={priceFilter}
         />
       </div>
     );

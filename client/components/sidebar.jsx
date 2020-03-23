@@ -24,14 +24,7 @@ class SideBar extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    const {
-      displaySideBar,
-      opened,
-      updateLatAndLong,
-      updatecity,
-      setFilters,
-      priceFilter
-    } = this.props;
+    const { displaySideBar, opened } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -44,10 +37,7 @@ class SideBar extends React.Component {
           >
             <div className="sidebar-container">
               <div className="location">
-                <LocationDropDown
-                  updatecity={updatecity}
-                  updateLatAndLong={updateLatAndLong}
-                />
+                <LocationDropDown />
               </div>
               <Consumer>
                 {({ users, currentUserId }) => (
@@ -82,12 +72,16 @@ class SideBar extends React.Component {
                   </div>
                 )}
               </Consumer>
-              <div className="price-filter">
-                <PriceFilter
-                  setFilters={setFilters}
-                  priceFilter={priceFilter}
-                />
-              </div>
+              <Consumer>
+                {({ setFilters, priceFilter }) => (
+                  <div className="price-filter">
+                    <PriceFilter
+                      setFilters={setFilters}
+                      priceFilter={priceFilter}
+                    />
+                  </div>
+                )}
+              </Consumer>
               <div className="proximity-filter">
                 <div className="filter-icon" />
               </div>

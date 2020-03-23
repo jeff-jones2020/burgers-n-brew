@@ -21,11 +21,10 @@ class LocationDropDown extends Component {
   }
 
   render() {
-    const { updateLatAndLong, updatecity } = this.props;
     return (
       <>
         <Consumer>
-          {({ users, city, zipCode, currentUserId }) => (
+          {({ users, city, zipCode, currentUserId, updateLatAndLong }) => (
             <div>
               <CurrentLocation updateLatAndLong={updateLatAndLong} />
               {users.map((user, i) => {
@@ -42,7 +41,9 @@ class LocationDropDown extends Component {
             </div>
           )}
         </Consumer>
-        <SearchCityForm updatecity={updatecity} />
+        <Consumer>
+          {updatecity => <SearchCityForm updatecity={updatecity} />}
+        </Consumer>
       </>
     );
   }

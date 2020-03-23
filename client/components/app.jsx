@@ -29,6 +29,24 @@ class App extends Component {
           // console.log(data);
         });
     };
+    this.setFilters = filterPair => {
+      // filter pair should be an object containing a key-value pair {filter: value}
+      const key = Object.keys(filterPair)[0];
+      this.setState({
+        [key]: filterPair[key]
+      });
+    };
+    this.updatecity = city => {
+      this.setState({
+        city
+      });
+    };
+    this.updateLatAndLong = (latitude, longitude) => {
+      this.setState({
+        currentLat: latitude,
+        currentLong: longitude
+      });
+    };
     this.state = {
       currentLat: null,
       currentLong: null,
@@ -40,9 +58,11 @@ class App extends Component {
       zipCode: null,
       handleInit: this.handleInit,
       updateUserDefault: this.updateUserDefault,
-      priceFilter: null
+      priceFilter: null,
+      setFilters: this.setFilters,
+      updatecity: this.updatecity,
+      updateLatAndLong: this.updateLatAndLong
     };
-
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
     );
@@ -52,23 +72,7 @@ class App extends Component {
     this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
       this
     );
-    this.updateLatAndLong = this.updateLatAndLong.bind(this);
-    this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
-    this.setFilters = this.setFilters.bind(this);
-  }
-
-  updatecity(city) {
-    this.setState({
-      city
-    });
-  }
-
-  updateLatAndLong(latitude, longitude) {
-    this.setState({
-      currentLat: latitude,
-      currentLong: longitude
-    });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -112,14 +116,6 @@ class App extends Component {
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
-  }
-
-  setFilters(filterPair) {
-    // filter pair should be an object containing a key-value pair {filter: value}
-    const key = Object.keys(filterPair)[0];
-    this.setState({
-      [key]: filterPair[key]
-    });
   }
 
   setDetailView(id) {
@@ -250,7 +246,7 @@ class App extends Component {
   }
 
   render() {
-    const { restaurants, priceFilter } = this.state;
+    const { restaurants } = this.state;
     return (
       <Router>
         <div>
@@ -278,12 +274,8 @@ class App extends Component {
             <Route exact path="/">
               <Provider value={this.state}>
                 <Home
-                  updatecity={this.updatecity}
-                  updateLatAndLong={this.updateLatAndLong}
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
-                  setFilters={this.setFilters}
-                  priceFilter={priceFilter}
                 />
               </Provider>
             </Route>
