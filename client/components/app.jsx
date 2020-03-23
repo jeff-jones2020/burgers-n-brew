@@ -16,23 +16,19 @@ class App extends Component {
       users: [],
       currentUserId: 1,
       city: null,
-      zipCode: null
+      zipCode: null,
+      priceFilter: null
     };
 
-    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
-      this
-    );
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
     this.handleInit = this.handleInit.bind(this);
-    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
-      this
-    );
-    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
-      this
-    );
+    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(this);
+    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(this);
     this.updateLatAndLong = this.updateLatAndLong.bind(this);
     this.updatecity = this.updatecity.bind(this);
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.updateUserDefault = this.updateUserDefault.bind(this);
+    this.setFilters = this.setFilters.bind(this);
   }
 
   updatecity(city) {
@@ -52,9 +48,15 @@ class App extends Component {
     // index = 0 means it will use 0 unless passed a different value for index
     if (newRestaurants.length === 5 || index === restaurants.length - 1) {
       // maximum 5 results to ensure we don't send too many requests
-      this.setState({
-        restaurants: newRestaurants
-      });
+      if (newRestaurants.length === 0) {
+        this.setState({
+          restaurants: ['No restaurants found']
+        });
+      } else {
+        this.setState({
+          restaurants: newRestaurants
+        });
+      }
       return;
     }
     let hasBurger = false;
@@ -85,13 +87,44 @@ class App extends Component {
     }
   }
 
+  setFilters(filterPair) { // filter pair should be an object containing a key-value pair {filter: value}
+    const key = Object.keys(filterPair)[0];
+    this.setState({
+      [key]: filterPair[key]
+    });
+  }
+
   setDetailView(id) {
     // add code for navigating to detail view page based on Yelp business ID
   }
 
   getRestaurantByLatLong(latitude, longitude) {
+    let queryFilters = '';
+    const { priceFilter } = this.state;
+    if (priceFilter && priceFilter.includes(true)) {
+      queryFilters += '&price=';
+      priceFilter.forEach((isSelected, index) => {
+        if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) { queryFilters += ','; }
+        if (isSelected) {
+          switch (index) {
+            case 0:
+              queryFilters += '1';
+              break;
+            case 1:
+              queryFilters += '2';
+              break;
+            case 2:
+              queryFilters += '3,4'; // we will include yelp pricings of '$$$' AND '$$$$'
+              break;
+            default:
+              console.error('No price filter value was provided in query string');
+          }
+        }
+      });
+    }
+
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries)
+    fetch('api/yelp/businesses/search/' + queries + queryFilters)
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
@@ -179,27 +212,28 @@ class App extends Component {
     this.getUser();
   }
 
-  componentDidUpdate(prevState, prevProps) {
-    const { users, currentUserId, currentLat, currentLong, city } = this.state;
-    if (prevProps.users !== users) {
+  componentDidUpdate(prevProps, prevState) {
+    const { users, currentUserId, currentLat, currentLong, city, priceFilter } = this.state;
+    if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
     }
-    if (prevProps.currentUserId !== currentUserId) {
+    if (prevState.currentUserId !== currentUserId) {
       this.getLatitudeAndLongitudeFromCityName();
     }
-    if (prevProps.city !== city) {
+    if (prevState.city !== city) {
       this.fetchGoogleAPI(city);
     }
     if (
-      prevProps.currentLat !== currentLat &&
-      prevProps.currentLong !== currentLong
+      (prevState.currentLat !== currentLat ||
+      prevState.currentLong !== currentLong) ||
+      prevState.priceFilter !== priceFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
   }
 
   render() {
-    const { users, currentUserId, city, zipCode } = this.state;
+    const { users, currentUserId, city, zipCode, priceFilter } = this.state;
     return (
       <Router>
         <div>
@@ -234,8 +268,9 @@ class App extends Component {
                 handleInit={this.handleInit}
                 users={users}
                 currentUserId={currentUserId}
-                getRestaurantByCity={this.getRestaurantByCity}
                 setDetailView={this.setDetailView}
+                setFilters={this.setFilters}
+                priceFilter={priceFilter}
                 restaurants={this.state.restaurants}
               />
             </Route>

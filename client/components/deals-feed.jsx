@@ -17,7 +17,7 @@ const DealsFeed = props => {
           className={
             'd-flex' +
             flexReverser +
-            'align-items-center deal col-11 mx-auto p-0'
+            'align-items-center deal col-11 mx-auto p-0 mb-3'
           }
         >
           <img src={restaurant.photos[0]} />
@@ -35,9 +35,7 @@ const DealsFeed = props => {
   return (
     <div>
       <div>
-        <h3 id="fresh-deals-title" className="mb-4">
-          Fresh Deals
-        </h3>{' '}
+        <h3 id="fresh-deals-title" className="mb-4">Fresh Deals</h3>
       </div>
       {restaurantEls}
     </div>
