@@ -4,10 +4,49 @@ import Home from './home.jsx';
 import Users from './users.jsx';
 import About from './about.jsx';
 import KEY from './key.jsx';
+import { Provider } from '../store.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.handleInit = e => {
+      const newInit = Number(e.target.id);
+      this.setState({
+        currentUserId: newInit
+      });
+    };
+    this.updateUserDefault = city => {
+      const { currentUserId } = this.state;
+      fetch(`/api/user/${currentUserId}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ city: city })
+      })
+        .then(data => data.json())
+        .then(data => {
+          // console.log(data);
+        });
+    };
+    this.setFilters = filterPair => {
+      // filter pair should be an object containing a key-value pair {filter: value}
+      const key = Object.keys(filterPair)[0];
+      this.setState({
+        [key]: filterPair[key]
+      });
+    };
+    this.updatecity = city => {
+      this.setState({
+        city
+      });
+    };
+    this.updateLatAndLong = (latitude, longitude) => {
+      this.setState({
+        currentLat: latitude,
+        currentLong: longitude
+      });
+    };
     this.state = {
       currentLat: null,
       currentLong: null,
@@ -17,31 +56,23 @@ class App extends Component {
       currentUserId: 1,
       city: null,
       zipCode: null,
-      priceFilter: null
+      handleInit: this.handleInit,
+      updateUserDefault: this.updateUserDefault,
+      priceFilter: null,
+      setFilters: this.setFilters,
+      updatecity: this.updatecity,
+      updateLatAndLong: this.updateLatAndLong
     };
-
-    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(this);
-    this.handleInit = this.handleInit.bind(this);
-    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(this);
-    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(this);
-    this.updateLatAndLong = this.updateLatAndLong.bind(this);
-    this.updatecity = this.updatecity.bind(this);
+    this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
+      this
+    );
+    this.getLatitudeAndLongitudeFromCityName = this.getLatitudeAndLongitudeFromCityName.bind(
+      this
+    );
+    this.getCityNameAndZipCodeFromLatLong = this.getCityNameAndZipCodeFromLatLong.bind(
+      this
+    );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
-    this.updateUserDefault = this.updateUserDefault.bind(this);
-    this.setFilters = this.setFilters.bind(this);
-  }
-
-  updatecity(city) {
-    this.setState({
-      city
-    });
-  }
-
-  updateLatAndLong(latitude, longitude) {
-    this.setState({
-      currentLat: latitude,
-      currentLong: longitude
-    });
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -87,13 +118,6 @@ class App extends Component {
     }
   }
 
-  setFilters(filterPair) { // filter pair should be an object containing a key-value pair {filter: value}
-    const key = Object.keys(filterPair)[0];
-    this.setState({
-      [key]: filterPair[key]
-    });
-  }
-
   setDetailView(id) {
     // add code for navigating to detail view page based on Yelp business ID
   }
@@ -104,7 +128,9 @@ class App extends Component {
     if (priceFilter && priceFilter.includes(true)) {
       queryFilters += '&price=';
       priceFilter.forEach((isSelected, index) => {
-        if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) { queryFilters += ','; }
+        if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) {
+          queryFilters += ',';
+        }
         if (isSelected) {
           switch (index) {
             case 0:
@@ -117,7 +143,9 @@ class App extends Component {
               queryFilters += '3,4'; // we will include yelp pricings of '$$$' AND '$$$$'
               break;
             default:
-              console.error('No price filter value was provided in query string');
+              console.error(
+                'No price filter value was provided in query string'
+              );
           }
         }
       });
@@ -137,28 +165,6 @@ class App extends Component {
       .then(users => {
         this.setState({ users });
       });
-  }
-
-  updateUserDefault(city) {
-    const { currentUserId } = this.state;
-    fetch(`/api/user/${currentUserId}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ city: city })
-    })
-      .then(data => data.json())
-      .then(data => {
-        // console.log(data);
-      });
-  }
-
-  handleInit(e) {
-    const newInit = Number(e.target.id);
-    this.setState({
-      currentUserId: newInit
-    });
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -213,7 +219,14 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { users, currentUserId, currentLat, currentLong, city, priceFilter } = this.state;
+    const {
+      users,
+      currentUserId,
+      currentLat,
+      currentLong,
+      city,
+      priceFilter
+    } = this.state;
     if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
     }
@@ -224,8 +237,8 @@ class App extends Component {
       this.fetchGoogleAPI(city);
     }
     if (
-      (prevState.currentLat !== currentLat ||
-      prevState.currentLong !== currentLong) ||
+      prevState.currentLat !== currentLat ||
+      prevState.currentLong !== currentLong ||
       prevState.priceFilter !== priceFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
@@ -233,7 +246,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, currentUserId, city, zipCode, priceFilter } = this.state;
+    const { restaurants } = this.state;
     return (
       <Router>
         <div>
@@ -259,20 +272,12 @@ class App extends Component {
               <Users />
             </Route>
             <Route exact path="/">
-              <Home
-                updateUserDefault={this.updateUserDefault}
-                city={city}
-                zipCode={zipCode}
-                updatecity={this.updatecity}
-                updateLatAndLong={this.updateLatAndLong}
-                handleInit={this.handleInit}
-                users={users}
-                currentUserId={currentUserId}
-                setDetailView={this.setDetailView}
-                setFilters={this.setFilters}
-                priceFilter={priceFilter}
-                restaurants={this.state.restaurants}
-              />
+              <Provider value={this.state}>
+                <Home
+                  setDetailView={this.setDetailView}
+                  restaurants={restaurants}
+                />
+              </Provider>
             </Route>
             <Route path="/">Page Not Found</Route>
           </Switch>

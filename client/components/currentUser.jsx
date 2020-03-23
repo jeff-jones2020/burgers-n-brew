@@ -1,19 +1,24 @@
 import React from 'react';
+import { Consumer } from '../store.jsx';
 
 const CurrentUser = props => {
-  const { handleIsOpen, handleInit, user, isOpen } = props;
+  const { handleIsOpen, user, isOpen } = props;
   if (isOpen) {
     return (
       <div>
-        <div
-          id={user.id}
-          onClick={id => {
-            handleIsOpen();
-            handleInit(id);
-          }}
-        >
-          {user.name}
-        </div>
+        <Consumer>
+          {({ handleInit }) => (
+            <div
+              id={user.id}
+              onClick={id => {
+                handleIsOpen();
+                handleInit(id);
+              }}
+            >
+              {user.name}
+            </div>
+          )}
+        </Consumer>
       </div>
     );
   } else {
