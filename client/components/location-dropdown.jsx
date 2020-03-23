@@ -42,7 +42,7 @@ class LocationDropDown extends Component {
           )}
         </Consumer>
         <Consumer>
-          {updatecity => <SearchCityForm updatecity={updatecity} />}
+          {({ updatecity }) => <SearchCityForm updatecity={updatecity} />}
         </Consumer>
       </>
     );
