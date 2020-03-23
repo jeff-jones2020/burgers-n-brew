@@ -108,7 +108,7 @@ img {
   font-family: 'Scope One', serif;
 }
 
-.price-filter {
+.filter {
   width: 100%;
 }
 
@@ -136,6 +136,18 @@ img {
 .check {
   font-size: 32px;
   align-self: center;
+}
+
+#mile-label {
+  font-size: 14px;
+  font-family: "Scope One", serif;
+  font-weight: bold;
+  width: 35px;
+  text-align: center;
+}
+
+#edit-mile-label {
+  font-size: 12px;
 }
 
 .slide-in-enter {

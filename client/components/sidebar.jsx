@@ -75,7 +75,7 @@ class SideBar extends React.Component {
               </Consumer>
               <Consumer>
                 {({ setFilters, currentPriceFilter }) => (
-                  <div className="price-filter">
+                  <div className="filter">
                     <PriceFilter
                       setFilters={setFilters}
                       currentPriceFilter={currentPriceFilter}
@@ -85,10 +85,10 @@ class SideBar extends React.Component {
               </Consumer>
               <Consumer>
                 {({ setFilters, currentRadiusFilter }) => (
-                  <div className="proximity-filter">
+                  <div className="filter">
                     <RadiusFilter
                       setFilters={setFilters}
-                      radiusFilter={currentRadiusFilter}
+                      currentRadiusFilter={currentRadiusFilter}
                     />
                   </div>
                 )}

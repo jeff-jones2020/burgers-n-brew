@@ -131,7 +131,7 @@ class App extends Component {
 
   getRestaurantByLatLong(latitude, longitude) {
     let queryFilters = '';
-    const { currentPriceFilter } = this.state;
+    const { currentPriceFilter, currentRadiusFilter } = this.state;
     if (currentPriceFilter && currentPriceFilter.includes(true)) {
       queryFilters += '&price=';
       currentPriceFilter.forEach((isSelected, index) => {
@@ -156,6 +156,11 @@ class App extends Component {
           }
         }
       });
+    }
+
+    if (currentRadiusFilter) {
+      const metersRadius = Math.round(currentRadiusFilter * 1609.34);
+      queryFilters += `&radius=${metersRadius}`;
     }
 
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
@@ -232,7 +237,8 @@ class App extends Component {
       currentLat,
       currentLong,
       city,
-      currentPriceFilter
+      currentPriceFilter,
+      currentRadiusFilter
     } = this.state;
     if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
@@ -246,7 +252,8 @@ class App extends Component {
     if (
       prevState.currentLat !== currentLat ||
       prevState.currentLong !== currentLong ||
-      prevState.currentPriceFilter !== currentPriceFilter
+      prevState.currentPriceFilter !== currentPriceFilter ||
+      prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
