@@ -25,7 +25,6 @@ class App extends Component {
         });
     };
     this.setFilters = filterPair => {
-      // filter pair should be an object containing a key-value pair {filter: value}
       const key = Object.keys(filterPair)[0];
       this.setState({
         [key]: filterPair[key]
@@ -42,17 +41,6 @@ class App extends Component {
         currentLong: longitude
       });
     };
-    this.signOutUser = () => {
-      fetch('/api/user')
-        .then(data => data.json())
-        .then(user => {
-          window.localStorage.removeItem('isSignedIn');
-          this.setState({
-            user: user[0],
-            isSignedIn: user[1]
-          });
-        });
-    };
     this.state = {
       currentLat: null,
       currentLong: null,
@@ -68,8 +56,7 @@ class App extends Component {
       currentRadiusFilter: null,
       setFilters: this.setFilters,
       updatecity: this.updatecity,
-      updateLatAndLong: this.updateLatAndLong,
-      signOutUser: this.signOutUser
+      updateLatAndLong: this.updateLatAndLong
     };
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this
@@ -83,6 +70,7 @@ class App extends Component {
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.setDetailView = this.setDetailView.bind(this);
     this.signInUser = this.signInUser.bind(this);
+    this.signOutUser = this.signOutUser.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -200,10 +188,8 @@ class App extends Component {
 
   getLatitudeAndLongitudeFromCityName() {
     const { user } = this.state;
-    if (user.id) {
-      const CITYNAME = user.city;
-      this.fetchGoogleAPI(CITYNAME);
-    }
+    const CITYNAME = user.city;
+    this.fetchGoogleAPI(CITYNAME);
   }
 
   fetchGoogleAPI(city) {
@@ -242,6 +228,24 @@ class App extends Component {
       });
   }
 
+  signOutUser() {
+    fetch('/api/user')
+      .then(data => data.json())
+      .then(user => {
+        window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
+        this.setState({
+          user: user[0],
+          isSignedIn: user[1],
+          city: null,
+          restaurants: [],
+          restaurant: null,
+          zipCode: null,
+          currentLat: null,
+          currentLong: null
+        });
+      });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const {
       user,
@@ -249,10 +253,13 @@ class App extends Component {
       currentLong,
       city,
       currentPriceFilter,
-      currentRadiusFilter
+      currentRadiusFilter,
+      isSignedIn
     } = this.state;
-    if (prevState.user.name !== user.name) {
-      this.getLatitudeAndLongitudeFromCityName();
+    if (isSignedIn) {
+      if (prevState.user.name !== user.name) {
+        this.getLatitudeAndLongitudeFromCityName();
+      }
     }
     if (prevState.city !== city) {
       this.fetchGoogleAPI(city);
@@ -263,7 +270,9 @@ class App extends Component {
       prevState.currentPriceFilter !== currentPriceFilter ||
       prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
-      this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
+      if (currentLat !== null && currentLong !== null) {
+        this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
+      }
     }
   }
 
@@ -304,6 +313,7 @@ class App extends Component {
                 <Home
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
+                  signOutUser={this.signOutUser}
                 />
               </Provider>
             </Route>

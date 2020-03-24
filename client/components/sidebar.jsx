@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 class SideBar extends React.Component {
   render() {
-    const { displaySideBar, opened } = this.props;
+    const { displaySideBar, opened, signOutUser } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -25,7 +25,7 @@ class SideBar extends React.Component {
               </div>
               <div className="account">
                 <Consumer>
-                  {({ user, signOutUser }) => (
+                  {({ user }) => (
                     <div>
                       <i className="far fa-user-circle"></i>
                       {user.id ? (
