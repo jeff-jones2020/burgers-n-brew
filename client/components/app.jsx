@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
 import SignUpSignIn from './signup-signin.jsx';
+import DetailView from './detail-view';
 import KEY from './key.jsx';
 import { Provider } from '../store.jsx';
 
@@ -58,13 +59,15 @@ class App extends Component {
       currentLong: null,
       restaurants: [],
       deals: [],
+      restaurant: null,
       users: [],
       currentUserId: 1,
       city: null,
       zipCode: null,
       handleInit: this.handleInit,
       updateUserDefault: this.updateUserDefault,
-      priceFilter: null,
+      currentPriceFilter: null,
+      currentRadiusFilter: null,
       setFilters: this.setFilters,
       updatecity: this.updatecity,
       updateLatAndLong: this.updateLatAndLong
@@ -79,6 +82,7 @@ class App extends Component {
       this
     );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
+    this.setDetailView = this.setDetailView.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -125,15 +129,19 @@ class App extends Component {
   }
 
   setDetailView(id) {
+    const restaurantDetail = this.state.restaurants.filter(
+      restaurant => restaurant.id === id
+    );
+    this.setState({ restaurant: restaurantDetail[0] });
     // add code for navigating to detail view page based on Yelp business ID
   }
 
   getRestaurantByLatLong(latitude, longitude) {
     let queryFilters = '';
-    const { priceFilter } = this.state;
-    if (priceFilter && priceFilter.includes(true)) {
+    const { currentPriceFilter, currentRadiusFilter } = this.state;
+    if (currentPriceFilter && currentPriceFilter.includes(true)) {
       queryFilters += '&price=';
-      priceFilter.forEach((isSelected, index) => {
+      currentPriceFilter.forEach((isSelected, index) => {
         if (queryFilters[queryFilters.length - 1] !== '=' && isSelected) {
           queryFilters += ',';
         }
@@ -155,6 +163,11 @@ class App extends Component {
           }
         }
       });
+    }
+
+    if (currentRadiusFilter) {
+      const metersRadius = Math.round(currentRadiusFilter * 1609.34);
+      queryFilters += `&radius=${metersRadius}`;
     }
 
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
@@ -231,7 +244,8 @@ class App extends Component {
       currentLat,
       currentLong,
       city,
-      priceFilter
+      currentPriceFilter,
+      currentRadiusFilter
     } = this.state;
     if (prevState.users !== users) {
       this.getLatitudeAndLongitudeFromCityName();
@@ -245,7 +259,8 @@ class App extends Component {
     if (
       prevState.currentLat !== currentLat ||
       prevState.currentLong !== currentLong ||
-      prevState.priceFilter !== priceFilter
+      prevState.currentPriceFilter !== currentPriceFilter ||
+      prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
       this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
     }
@@ -276,6 +291,9 @@ class App extends Component {
             </Route>
             <Route exact path="/users">
               <Users />
+            </Route>
+            <Route exact path="/details/:id">
+              <DetailView restaurant={this.state.restaurant} />
             </Route>
             <Route exact path="/">
               <Provider value={this.state}>
