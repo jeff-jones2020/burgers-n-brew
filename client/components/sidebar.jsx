@@ -4,6 +4,7 @@ import PriceFilter from './price-filter.jsx';
 import RadiusFilter from './radius-filter.jsx';
 import { CSSTransition } from 'react-transition-group';
 import { Consumer } from '../store.jsx';
+import { Link } from 'react-router-dom';
 
 class SideBar extends React.Component {
   render() {
@@ -27,7 +28,16 @@ class SideBar extends React.Component {
                   {({ user }) => (
                     <div>
                       <i className="far fa-user-circle"></i>
-                      &nbsp; <span>{user.name}</span>
+                      {user.id ? (
+                        <span> &nbsp; {user.name}</span>
+                      ) : (
+                        <>
+                          <span>&nbsp; Guest</span>
+                          <p>
+                            <Link to="/">SignUp/SignIn</Link>
+                          </p>
+                        </>
+                      )}
                     </div>
                   )}
                 </Consumer>
