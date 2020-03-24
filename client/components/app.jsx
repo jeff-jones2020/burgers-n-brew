@@ -17,8 +17,8 @@ class App extends Component {
       });
     };
     this.updateUserDefault = city => {
-      const { currentUserId, users } = this.state;
-      fetch(`/api/user/${currentUserId}`, {
+      const { currentUserId, user } = this.state;
+      fetch(`/api/home/user/${currentUserId}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
@@ -27,12 +27,12 @@ class App extends Component {
       })
         .then(data => data.json())
         .then(data => {
-          const newUsersArr = users.filter((user, i) => {
-            return user.id !== data.id;
-          });
-          newUsersArr.push(data);
+          const newUser = user.slice();
+          if (newUser.id === data.id) {
+            newUser.city = data.city;
+          }
           this.setState({
-            users: newUsersArr
+            user: newUser
           });
         });
     };
@@ -60,7 +60,7 @@ class App extends Component {
       restaurants: [],
       deals: [],
       restaurant: null,
-      users: [],
+      user: [],
       currentUserId: 1,
       city: null,
       zipCode: null,
@@ -171,7 +171,7 @@ class App extends Component {
     }
 
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries + queryFilters)
+    fetch('/api/yelp/businesses/search/' + queries + queryFilters)
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
@@ -179,10 +179,10 @@ class App extends Component {
   }
 
   getUser() {
-    fetch('/api/user')
+    fetch('/api/home/user')
       .then(data => data.json())
-      .then(users => {
-        this.setState({ users });
+      .then(user => {
+        this.setState({ user });
       });
   }
 
@@ -207,11 +207,8 @@ class App extends Component {
   }
 
   getLatitudeAndLongitudeFromCityName() {
-    const { users, currentUserId } = this.state;
-    if (users.length > 0) {
-      const user = users.filter((user, i) => {
-        return currentUserId === user.id;
-      });
+    const { user } = this.state;
+    if (user.length > 0) {
       const CITYNAME = user[0].city;
       this.fetchGoogleAPI(CITYNAME);
     }
@@ -239,7 +236,7 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const {
-      users,
+      user,
       currentUserId,
       currentLat,
       currentLong,
@@ -247,7 +244,7 @@ class App extends Component {
       currentPriceFilter,
       currentRadiusFilter
     } = this.state;
-    if (prevState.users !== users) {
+    if (prevState.user !== user) {
       this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevState.currentUserId !== currentUserId) {

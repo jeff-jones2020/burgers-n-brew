@@ -19,12 +19,12 @@ app.post('/api/user', (req, res) => {
   const currentUser = users.filter((user, i) => {
     return user.email === req.body.email;
   });
-  if (currentUser.length !== 0) {
-    if (req.body.password === currentUser[0].password) {
+  if (currentUser.length === 1) {
+    if (Number(req.body.password) === currentUser[0].password) {
       req.session.is_signined = true;
       req.session.name = currentUser[0].name;
       req.session.save(() => {
-        res.send('success');
+        res.json(currentUser[0]);
       });
     }
   } else {
@@ -32,23 +32,27 @@ app.post('/api/user', (req, res) => {
   }
 });
 
-app.put('/api/user/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const city = req.body.city.toUpperCase();
-  db.get('user')
-    .find({ id })
-    .assign({ city })
-    .write();
-  const data = db
-    .get('user')
-    .find({ id })
-    .value();
-  res.json(data);
+app.get('/api/home/user', (req, res) => {
+  if (req.session.is_signined) {
+    const data = db.get('user').value();
+    res.json(data);
+  }
 });
 
-app.get('/api/user', (req, res) => {
-  const data = db.get('user').value();
-  res.json(data);
+app.put('/api/home/user/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const city = req.body.city.toUpperCase();
+  if (req.session.is_signined) {
+    db.get('user')
+      .find({ id })
+      .assign({ city })
+      .write();
+    const data = db
+      .get('user')
+      .find({ id })
+      .value();
+    res.json(data);
+  }
 });
 
 app.get('/api/yelp/businesses/search/:query', (req, res) => {

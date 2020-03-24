@@ -41,9 +41,9 @@ class SideBar extends React.Component {
                 <LocationDropDown />
               </div>
               <Consumer>
-                {({ users, currentUserId }) => (
+                {({ user, currentUserId }) => (
                   <div className="account">
-                    {users.map((user, i) => {
+                    {user.map((user, i) => {
                       if (isOpen) {
                         return (
                           <div key={i}>

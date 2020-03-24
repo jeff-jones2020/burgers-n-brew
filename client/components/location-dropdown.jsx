@@ -24,10 +24,10 @@ class LocationDropDown extends Component {
     return (
       <>
         <Consumer>
-          {({ users, city, zipCode, currentUserId, updateLatAndLong }) => (
+          {({ user, city, zipCode, currentUserId, updateLatAndLong }) => (
             <div>
               <CurrentLocation updateLatAndLong={updateLatAndLong} />
-              {users.map((user, i) => {
+              {user.map((user, i) => {
                 if (currentUserId === user.id) {
                   return (
                     <CurrentCity
