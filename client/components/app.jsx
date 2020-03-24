@@ -226,22 +226,9 @@ class App extends Component {
             user: user[0],
             isSignedIn: user[1]
           });
-        } else {
-          alert('please check your email or password');
         }
       });
   }
-
-  // getUser() {
-  //   fetch('/api/home/user')
-  //     .then(data => data.json())
-  //     .then(user => {
-  //       this.setState({ user });
-  //     });
-  // }
-  // componentDidMount() {
-  //   this.getUser();
-  // }
 
   componentDidUpdate(prevProps, prevState) {
     const {

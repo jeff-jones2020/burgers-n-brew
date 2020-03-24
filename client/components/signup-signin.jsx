@@ -15,8 +15,21 @@ class SignUpSignIn extends Component {
   }
 
   routeChange() {
-    const path = '/home';
+    const { isSignedIn } = this.props;
+    let path;
+    if (isSignedIn === false) {
+      path = '/';
+    } else {
+      path = '/home';
+    }
     this.props.history.push(path);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isSignedIn } = this.props;
+    if (prevProps.isSignedIn !== isSignedIn) {
+      this.routeChange();
+    }
   }
 
   resetForm() {
@@ -83,7 +96,6 @@ class SignUpSignIn extends Component {
                     value="Sign In"
                     onClick={e => {
                       this.handleSubmit(e);
-                      this.routeChange();
                     }}
                   />
                 </p>

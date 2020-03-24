@@ -19,18 +19,23 @@ app.post('/api/user', (req, res) => {
   const currentUser = users.filter((user, i) => {
     return user.email === req.body.email;
   });
-  if (currentUser.length === 1) {
-    if (Number(req.body.password) === currentUser[0].password) {
-      req.session.isSignedIn = true;
-      req.session.name = currentUser[0].name;
-      req.session.save(() => {
-        res.json([currentUser[0], true]);
-      });
-    } else {
-      return res.send('wrong password');
-    }
+  if (currentUser.length === 0) {
+    const errMsg = "there's no matched email";
+    return res.send(errMsg);
+  }
+
+  if (
+    currentUser[0].email === req.body.email &&
+    Number(req.body.password) === currentUser[0].password
+  ) {
+    req.session.isSignedIn = true;
+    req.session.name = currentUser[0].name;
+    req.session.save(() => {
+      res.json([currentUser[0], true]);
+    });
   } else {
-    return res.send('wrong password');
+    const errMsg = 'please check email or password';
+    res.status(404).send(errMsg);
   }
 });
 
