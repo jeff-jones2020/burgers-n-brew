@@ -21,31 +21,37 @@ app.post('/api/user', (req, res) => {
   });
   if (currentUser.length === 1) {
     if (Number(req.body.password) === currentUser[0].password) {
-      req.session.is_signined = true;
+      req.session.isSignIned = true;
       req.session.name = currentUser[0].name;
       req.session.save(() => {
-        res.json(currentUser[0]);
+        res.json([currentUser[0], true]);
       });
+    } else {
+      res.send('wrong password');
+      return false;
     }
   } else {
-    res.send('you want to sign up?');
+    res.send('wrong password');
+    return false;
   }
 });
 
 app.get('/api/home/user', (req, res) => {
-  if (req.session.is_signined) {
+  if (req.session.isSignIned) {
     const data = db.get('user').value();
     const newUser = data.filter((user, i) => {
       return user.name === req.session.name;
     });
     res.json(newUser[0]);
+  } else {
+    return false;
   }
 });
 
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
   const city = req.body.city.toUpperCase();
-  if (req.session.is_signined) {
+  if (req.session.isSignIned) {
     db.get('user')
       .find({ id })
       .assign({ city })
@@ -55,6 +61,8 @@ app.put('/api/home/user/:id', (req, res) => {
       .find({ id })
       .value();
     res.json(data);
+  } else {
+    return false;
   }
 });
 

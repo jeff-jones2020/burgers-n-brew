@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router';
+import { createBrowserHistory } from 'history';
+
+const customHistory = createBrowserHistory();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Router history={customHistory}>
     <App />
-  </BrowserRouter>,
+  </Router>,
   document.querySelector('#root')
 );

@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class SignUpSignIn extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      email: '',
-      password: ''
+      signInemail: '',
+      signInpassword: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.routeChange = this.routeChange.bind(this);
+  }
+
+  routeChange() {
+    const path = '/home';
+    this.props.history.push(path);
+  }
+
+  resetForm() {
+    this.setState({
+      signInemail: '',
+      signInpassword: ''
+    });
   }
 
   handleSubmit(e) {
-    const { email, password } = this.state;
+    const { signInemail, signInpassword } = this.state;
     const { signInUser } = this.props;
-    signInUser(email, password);
     e.preventDefault();
-    this.setState({
-      email: '',
-      password: ''
-    });
-    return <Link className="signin" to="/home"></Link>;
+    signInUser(signInemail, signInpassword);
+    this.resetForm();
   }
 
   handleChange(e) {
@@ -32,8 +42,7 @@ class SignUpSignIn extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
-
+    const { signInemail, signInpassword } = this.state;
     return (
       <>
         <div id="bnb-banner" className="mb-3 header">
@@ -46,13 +55,13 @@ class SignUpSignIn extends Component {
               <h3>Sign In</h3>
             </header>
             <section>
-              <form onSubmit={this.handleSubmit}>
+              <form>
                 <p>
                   <label htmlFor="">Email: </label>
                   <input
                     type="email"
-                    name="email"
-                    value={email}
+                    name="signInemail"
+                    value={signInemail}
                     onChange={this.handleChange}
                     placeholder="Email"
                   />
@@ -61,18 +70,22 @@ class SignUpSignIn extends Component {
                   <label htmlFor="">Password: </label>
                   <input
                     type="password"
-                    name="password"
-                    value={password}
+                    name="signInpassword"
+                    value={signInpassword}
                     onChange={this.handleChange}
                     placeholder="Password"
                   />
                 </p>
                 <p>
-                  <button>
-                    <Link className="signin" to="/home">
-                      Sign In
-                    </Link>
-                  </button>
+                  <input
+                    className="button"
+                    type="submit"
+                    value="Sign In"
+                    onClick={e => {
+                      this.handleSubmit(e);
+                      this.routeChange();
+                    }}
+                  />
                 </p>
               </form>
             </section>
@@ -105,7 +118,7 @@ class SignUpSignIn extends Component {
                   <input type="password" placeholder="Password again" />
                 </p>
                 <p>
-                  <button>Sign Up</button>
+                  <input className="button" type="submit" value="Sign Up" />
                 </p>
               </form>
             </section>
@@ -124,4 +137,4 @@ class SignUpSignIn extends Component {
   }
 }
 
-export default SignUpSignIn;
+export default withRouter(SignUpSignIn);

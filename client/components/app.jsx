@@ -10,7 +10,6 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.updateUserDefault = city => {
       const { user } = this.state;
       fetch(`/api/home/user/${user.id}`, {
@@ -52,6 +51,7 @@ class App extends Component {
       user: {},
       city: null,
       zipCode: null,
+      isSignIned: false,
       updateUserDefault: this.updateUserDefault,
       currentPriceFilter: null,
       currentRadiusFilter: null,
@@ -220,9 +220,18 @@ class App extends Component {
     })
       .then(data => data.json())
       .then(user => {
-        this.setState({ user });
+        if (user[1] === true) {
+          window.localStorage.setItem('isSignIned', JSON.stringify(user[1]));
+          this.setState({
+            user: user[0],
+            isSignIned: user[1]
+          });
+        } else {
+          alert('please check your email or password');
+        }
       });
   }
+
   // getUser() {
   //   fetch('/api/home/user')
   //     .then(data => data.json())
@@ -260,7 +269,7 @@ class App extends Component {
   }
 
   render() {
-    const { restaurants } = this.state;
+    const { restaurants, isSignIned } = this.state;
     return (
       <Router>
         <div>
@@ -280,7 +289,10 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-              <SignUpSignIn signInUser={this.signInUser} />
+              <SignUpSignIn
+                signInUser={this.signInUser}
+                isSignIned={isSignIned}
+              />
             </Route>
             <Route exact path="/users">
               <Users />
