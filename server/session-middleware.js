@@ -17,7 +17,7 @@ const sessionMiddleware = expressSession({
     ttl: 28800,
     path: path.join(__dirname, 'sessions/')
   }),
-  saveUninitialized: true,
+  saveUninitialized: false,
   secret: process.env.SESSION_SECRET
 });
 

@@ -14,9 +14,15 @@ app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
 
-app.get('/api', (req, res) => {
-  // console.log(req.session);
-  res.send('Hello Session');
+app.post('/api/user', (req, res) => {
+  const data = db.get('user').value();
+  if (req.body.email === data.email && req.body.pwd === data.password) {
+    req.session.is_signined = true;
+    req.session.name = data.name;
+    res.send('success');
+  } else {
+    res.send('who?');
+  }
 });
 
 app.put('/api/user/:id', (req, res) => {
