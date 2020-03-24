@@ -42,6 +42,10 @@ class App extends Component {
         currentLong: longitude
       });
     };
+    this.signOutUser = () => {
+      fetch('/api/user').then(data => data.json());
+      // .then(data => console.log(data));
+    };
     this.state = {
       currentLat: null,
       currentLong: null,
@@ -57,7 +61,8 @@ class App extends Component {
       currentRadiusFilter: null,
       setFilters: this.setFilters,
       updatecity: this.updatecity,
-      updateLatAndLong: this.updateLatAndLong
+      updateLatAndLong: this.updateLatAndLong,
+      signOutUser: this.signOutUser
     };
     this.getMatchingRestaurantDetails = this.getMatchingRestaurantDetails.bind(
       this

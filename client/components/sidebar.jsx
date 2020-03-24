@@ -25,13 +25,17 @@ class SideBar extends React.Component {
               </div>
               <div className="account">
                 <Consumer>
-                  {({ user }) => (
+                  {({ user, signOutUser }) => (
                     <div>
                       <i className="far fa-user-circle"></i>
                       {user.id ? (
                         <>
                           <span> &nbsp; {user.name}</span>
-                          <p>
+                          <p
+                            onClick={() => {
+                              signOutUser();
+                            }}
+                          >
                             <Link to="/">SignOut</Link>
                           </p>
                         </>

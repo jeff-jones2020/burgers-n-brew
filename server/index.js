@@ -41,7 +41,7 @@ app.post('/api/user', (req, res) => {
 
 app.get('/api/user', (req, res) => {
   req.session.destroy(err => {
-    res.send('logout');
+    res.json([{}, false]);
   });
 });
 
