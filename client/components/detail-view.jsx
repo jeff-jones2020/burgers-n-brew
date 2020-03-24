@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import KEY from './key.jsx';
 
 class DetailView extends Component {
   constructor(props) {
@@ -31,6 +32,9 @@ class DetailView extends Component {
     const { imageNumber } = this.state;
     const restaurant = this.props.restaurant;
     const currentDate = new Date();
+    const latitude = restaurant.coordinates.latitude;
+    const longitude = restaurant.coordinates.longitude;
+    const GOOGLE_KEY = KEY();
     const currentDay = currentDate.getDay();
     const restaurantTags = restaurant.categories.map(category => {
       return <span key={category.alias}> | {category.title}</span>;
@@ -122,6 +126,11 @@ class DetailView extends Component {
           <div className="restaurant-hours">
             <ul>{restaurantOpen}</ul>
           </div>
+          <iframe
+            frameBorder="0" style={{ border: '0' }}
+            src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&center=${latitude},${longitude}&q=${restaurant.name}`}
+            allowFullScreen>
+          </iframe>
         </div>
       </>
     );
