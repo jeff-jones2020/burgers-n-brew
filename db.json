@@ -4,14 +4,14 @@
     {
       "id": 1,
       "name": "Jeff",
-      "city": "Irvine",
+      "city": " IRVINE",
       "email": "jeff777@abc.com",
       "password": 111111
     },
     {
       "id": 2,
       "name": "Jinho",
-      "city": " SAN JOSE",
+      "city": " WHITTIER",
       "email": "jinho777@abc.com",
       "password": 222222
     },

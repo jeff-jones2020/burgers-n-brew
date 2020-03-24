@@ -51,7 +51,7 @@ class App extends Component {
       user: {},
       city: null,
       zipCode: null,
-      isSignIned: false,
+      isSignedIn: false,
       updateUserDefault: this.updateUserDefault,
       currentPriceFilter: null,
       currentRadiusFilter: null,
@@ -221,10 +221,10 @@ class App extends Component {
       .then(data => data.json())
       .then(user => {
         if (user[1] === true) {
-          window.localStorage.setItem('isSignIned', JSON.stringify(user[1]));
+          window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
           this.setState({
             user: user[0],
-            isSignIned: user[1]
+            isSignedIn: user[1]
           });
         } else {
           alert('please check your email or password');
@@ -269,7 +269,7 @@ class App extends Component {
   }
 
   render() {
-    const { restaurants, isSignIned } = this.state;
+    const { restaurants, isSignedIn } = this.state;
     return (
       <Router>
         <div>
@@ -291,7 +291,7 @@ class App extends Component {
             <Route exact path="/">
               <SignUpSignIn
                 signInUser={this.signInUser}
-                isSignIned={isSignIned}
+                isSignedIn={isSignedIn}
               />
             </Route>
             <Route exact path="/users">

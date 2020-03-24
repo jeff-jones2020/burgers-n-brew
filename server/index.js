@@ -21,23 +21,21 @@ app.post('/api/user', (req, res) => {
   });
   if (currentUser.length === 1) {
     if (Number(req.body.password) === currentUser[0].password) {
-      req.session.isSignIned = true;
+      req.session.isSignedIn = true;
       req.session.name = currentUser[0].name;
       req.session.save(() => {
         res.json([currentUser[0], true]);
       });
     } else {
-      res.send('wrong password');
-      return false;
+      return res.send('wrong password');
     }
   } else {
-    res.send('wrong password');
-    return false;
+    return res.send('wrong password');
   }
 });
 
 app.get('/api/home/user', (req, res) => {
-  if (req.session.isSignIned) {
+  if (req.session.isSignedIn) {
     const data = db.get('user').value();
     const newUser = data.filter((user, i) => {
       return user.name === req.session.name;
@@ -51,7 +49,7 @@ app.get('/api/home/user', (req, res) => {
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
   const city = req.body.city.toUpperCase();
-  if (req.session.isSignIned) {
+  if (req.session.isSignedIn) {
     db.get('user')
       .find({ id })
       .assign({ city })
