@@ -35,7 +35,10 @@ app.post('/api/user', (req, res) => {
 app.get('/api/home/user', (req, res) => {
   if (req.session.is_signined) {
     const data = db.get('user').value();
-    res.json(data);
+    const newUser = data.filter((user, i) => {
+      return user.name === req.session.name;
+    });
+    res.json(newUser[0]);
   }
 });
 

@@ -247,5 +247,8 @@ a {
 .signForm .container {
   padding: 3%;
 }
+.signForm .signin {
+  color: white;
+}
 
 /*# sourceMappingURL=styles.css.map */

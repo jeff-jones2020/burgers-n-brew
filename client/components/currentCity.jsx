@@ -26,7 +26,7 @@ class CurrentCity extends Component {
     return (
       <>
         <span>
-          &nbsp; <span>{city}</span>, <span>{zipCode}</span>
+          &nbsp; <span>{city}</span> <span>{zipCode}</span>
         </span>
         <Consumer>
           {({ updateUserDefault }) => (

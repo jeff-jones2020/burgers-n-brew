@@ -10,15 +10,10 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleInit = e => {
-      const newInit = Number(e.target.id);
-      this.setState({
-        currentUserId: newInit
-      });
-    };
+
     this.updateUserDefault = city => {
-      const { currentUserId, user } = this.state;
-      fetch(`/api/home/user/${currentUserId}`, {
+      const { user } = this.state;
+      fetch(`/api/home/user/${user.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
@@ -26,14 +21,8 @@ class App extends Component {
         body: JSON.stringify({ city: city })
       })
         .then(data => data.json())
-        .then(data => {
-          const newUser = user.slice();
-          if (newUser.id === data.id) {
-            newUser.city = data.city;
-          }
-          this.setState({
-            user: newUser
-          });
+        .then(user => {
+          this.setState({ user });
         });
     };
     this.setFilters = filterPair => {
@@ -60,11 +49,9 @@ class App extends Component {
       restaurants: [],
       deals: [],
       restaurant: null,
-      user: [],
-      currentUserId: 1,
+      user: {},
       city: null,
       zipCode: null,
-      handleInit: this.handleInit,
       updateUserDefault: this.updateUserDefault,
       currentPriceFilter: null,
       currentRadiusFilter: null,
@@ -83,6 +70,7 @@ class App extends Component {
     );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.setDetailView = this.setDetailView.bind(this);
+    this.signInUser = this.signInUser.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -178,14 +166,6 @@ class App extends Component {
       });
   }
 
-  getUser() {
-    fetch('/api/home/user')
-      .then(data => data.json())
-      .then(user => {
-        this.setState({ user });
-      });
-  }
-
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
     const GOOGLE_KEY = KEY();
     fetch(
@@ -208,8 +188,8 @@ class App extends Component {
 
   getLatitudeAndLongitudeFromCityName() {
     const { user } = this.state;
-    if (user.length > 0) {
-      const CITYNAME = user[0].city;
+    if (user.id) {
+      const CITYNAME = user.city;
       this.fetchGoogleAPI(CITYNAME);
     }
   }
@@ -230,24 +210,40 @@ class App extends Component {
       });
   }
 
-  componentDidMount() {
-    this.getUser();
+  signInUser(email, password) {
+    fetch('/api/user/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+      .then(data => data.json())
+      .then(user => {
+        this.setState({ user });
+      });
   }
+  // getUser() {
+  //   fetch('/api/home/user')
+  //     .then(data => data.json())
+  //     .then(user => {
+  //       this.setState({ user });
+  //     });
+  // }
+  // componentDidMount() {
+  //   this.getUser();
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     const {
       user,
-      currentUserId,
       currentLat,
       currentLong,
       city,
       currentPriceFilter,
       currentRadiusFilter
     } = this.state;
-    if (prevState.user !== user) {
-      this.getLatitudeAndLongitudeFromCityName();
-    }
-    if (prevState.currentUserId !== currentUserId) {
+    if (prevState.user.name !== user.name) {
       this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevState.city !== city) {
@@ -284,7 +280,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-              <SignUpSignIn />
+              <SignUpSignIn signInUser={this.signInUser} />
             </Route>
             <Route exact path="/users">
               <Users />

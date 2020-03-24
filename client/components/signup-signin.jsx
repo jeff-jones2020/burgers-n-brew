@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class SignUpSignIn extends Component {
   constructor(props) {
@@ -11,28 +12,16 @@ class SignUpSignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  signInUser(email, password) {
-    fetch('/api/user/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
-      .then(data => data.json())
-      .then(data => {
-        // console.log(data);
-      });
-  }
-
   handleSubmit(e) {
     const { email, password } = this.state;
-    this.signInUser(email, password);
+    const { signInUser } = this.props;
+    signInUser(email, password);
     e.preventDefault();
     this.setState({
       email: '',
       password: ''
     });
+    return <Link className="signin" to="/home"></Link>;
   }
 
   handleChange(e) {
@@ -44,6 +33,7 @@ class SignUpSignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+
     return (
       <>
         <div id="bnb-banner" className="mb-3 header">
@@ -78,7 +68,11 @@ class SignUpSignIn extends Component {
                   />
                 </p>
                 <p>
-                  <button>Sign In</button>
+                  <button>
+                    <Link className="signin" to="/home">
+                      Sign In
+                    </Link>
+                  </button>
                 </p>
               </form>
             </section>
@@ -120,7 +114,7 @@ class SignUpSignIn extends Component {
           <div className="container">
             <form>
               <h3>
-                <a href="#">Continue as Guest</a>
+                <Link to="/home">Continue as Guest</Link>
               </h3>
             </form>
           </div>
