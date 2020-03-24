@@ -29,7 +29,12 @@ class SideBar extends React.Component {
                     <div>
                       <i className="far fa-user-circle"></i>
                       {user.id ? (
-                        <span> &nbsp; {user.name}</span>
+                        <>
+                          <span> &nbsp; {user.name}</span>
+                          <p>
+                            <Link to="/">SignOut</Link>
+                          </p>
+                        </>
                       ) : (
                         <>
                           <span>&nbsp; Guest</span>
