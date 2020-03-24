@@ -39,6 +39,12 @@ app.post('/api/user', (req, res) => {
   }
 });
 
+app.get('/api/user', (req, res) => {
+  req.session.destroy(err => {
+    res.send('logout');
+  });
+});
+
 app.get('/api/home/user', (req, res) => {
   if (req.session.isSignedIn) {
     const data = db.get('user').value();
