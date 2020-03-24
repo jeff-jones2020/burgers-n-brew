@@ -4,6 +4,7 @@ class DetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      intervalId: null,
       imageNumber: 0
     };
     this.startTimer = this.startTimer.bind(this);
@@ -18,7 +19,12 @@ class DetailView extends Component {
   }
 
   componentDidMount() {
-    setInterval(this.startTimer, 5000);
+    const intervalId = setInterval(this.startTimer, 5000);
+    this.setState({ intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   render() {
