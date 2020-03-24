@@ -208,4 +208,47 @@ a {
   text-decoration: none;
 }
 
+.nav-ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.nav-li {
+  margin: 0 2%;
+}
+
+.signForm {
+  padding: 4%;
+}
+.signForm .button {
+  background-color: #ff4f4f;
+  border-radius: 16px;
+  border: 1px solid #ff4f4f;
+  color: white;
+}
+.signForm form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.signForm a {
+  color: #5a4894;
+  text-decoration: none;
+}
+.signForm h3 {
+  padding-left: 2%;
+}
+.signForm .container {
+  padding: 3%;
+}
+.signForm .signin {
+  color: white;
+}
+
 /*# sourceMappingURL=styles.css.map */

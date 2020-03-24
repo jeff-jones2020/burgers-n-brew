@@ -33,9 +33,7 @@ class DetailView extends Component {
     const currentDate = new Date();
     const currentDay = currentDate.getDay();
     const restaurantTags = restaurant.categories.map(category => {
-      return (
-        <span key={category.alias}> | {category.title}</span>
-      );
+      return <span key={category.alias}> | {category.title}</span>;
     });
     const starArray = Array(Math.floor(restaurant.rating)).fill(1);
     if (Math.floor(restaurant.rating) !== restaurant.rating) {
@@ -90,32 +88,39 @@ class DetailView extends Component {
         openNow = <span>(Open Now)</span>;
       }
       return (
-        <li key={day.day}
-          style={{ color: currentDay === day.day ? 'white' : 'lightslategray' }}>
+        <li
+          key={day.day}
+          style={{ color: currentDay === day.day ? 'white' : 'lightslategray' }}
+        >
           <div>
             {dayOfWeek} {openNow}
           </div>
           <div>
-            {opening}{openMorn} - {closing}{closeMorn}
+            {opening}
+            {openMorn} - {closing}
+            {closeMorn}
           </div>
         </li>
       );
     });
     return (
       <>
-        <div className="carousel"
-          style={{ backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${restaurant.photos[imageNumber]})` }}>
+        <div
+          className="carousel"
+          style={{
+            backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${restaurant.photos[imageNumber]})`
+          }}
+        >
           <div>{restaurant.name}</div>
           <div>{starRatings}</div>
         </div>
         <div className="restaurant-details">
           <div className="restaurant-tags">
-            {restaurant.price}{restaurantTags}
+            {restaurant.price}
+            {restaurantTags}
           </div>
           <div className="restaurant-hours">
-            <ul>
-              {restaurantOpen}
-            </ul>
+            <ul>{restaurantOpen}</ul>
           </div>
         </div>
       </>

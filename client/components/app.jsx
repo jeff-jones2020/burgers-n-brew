@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
 import Users from './users.jsx';
-import About from './about.jsx';
+import SignUpSignIn from './signup-signin.jsx';
 import DetailView from './detail-view';
 import KEY from './key.jsx';
 import { Provider } from '../store.jsx';
@@ -10,15 +10,9 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleInit = e => {
-      const newInit = Number(e.target.id);
-      this.setState({
-        currentUserId: newInit
-      });
-    };
     this.updateUserDefault = city => {
-      const { currentUserId, users } = this.state;
-      fetch(`/api/user/${currentUserId}`, {
+      const { user } = this.state;
+      fetch(`/api/home/user/${user.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
@@ -26,14 +20,8 @@ class App extends Component {
         body: JSON.stringify({ city: city })
       })
         .then(data => data.json())
-        .then(data => {
-          const newUsersArr = users.filter((user, i) => {
-            return user.id !== data.id;
-          });
-          newUsersArr.push(data);
-          this.setState({
-            users: newUsersArr
-          });
+        .then(user => {
+          this.setState({ user });
         });
     };
     this.setFilters = filterPair => {
@@ -60,11 +48,10 @@ class App extends Component {
       restaurants: [],
       deals: [],
       restaurant: null,
-      users: [],
-      currentUserId: 1,
+      user: {},
       city: null,
       zipCode: null,
-      handleInit: this.handleInit,
+      isSignedIn: false,
       updateUserDefault: this.updateUserDefault,
       currentPriceFilter: null,
       currentRadiusFilter: null,
@@ -83,6 +70,7 @@ class App extends Component {
     );
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.setDetailView = this.setDetailView.bind(this);
+    this.signInUser = this.signInUser.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -129,7 +117,9 @@ class App extends Component {
   }
 
   setDetailView(id) {
-    const restaurantDetail = this.state.restaurants.filter(restaurant => restaurant.id === id);
+    const restaurantDetail = this.state.restaurants.filter(
+      restaurant => restaurant.id === id
+    );
     this.setState({ restaurant: restaurantDetail[0] });
     // add code for navigating to detail view page based on Yelp business ID
   }
@@ -169,18 +159,10 @@ class App extends Component {
     }
 
     const queries = `latitude=${latitude}&longitude=${longitude}&categories=burgers&limit=50`;
-    fetch('api/yelp/businesses/search/' + queries + queryFilters)
+    fetch('/api/yelp/businesses/search/' + queries + queryFilters)
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
-      });
-  }
-
-  getUser() {
-    fetch('/api/user')
-      .then(data => data.json())
-      .then(users => {
-        this.setState({ users });
       });
   }
 
@@ -205,12 +187,9 @@ class App extends Component {
   }
 
   getLatitudeAndLongitudeFromCityName() {
-    const { users, currentUserId } = this.state;
-    if (users.length > 0) {
-      const user = users.filter((user, i) => {
-        return currentUserId === user.id;
-      });
-      const CITYNAME = user[0].city;
+    const { user } = this.state;
+    if (user.id) {
+      const CITYNAME = user.city;
       this.fetchGoogleAPI(CITYNAME);
     }
   }
@@ -231,24 +210,49 @@ class App extends Component {
       });
   }
 
-  componentDidMount() {
-    this.getUser();
+  signInUser(email, password) {
+    fetch('/api/user/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+      .then(data => data.json())
+      .then(user => {
+        if (user[1] === true) {
+          window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
+          this.setState({
+            user: user[0],
+            isSignedIn: user[1]
+          });
+        } else {
+          alert('please check your email or password');
+        }
+      });
   }
+
+  // getUser() {
+  //   fetch('/api/home/user')
+  //     .then(data => data.json())
+  //     .then(user => {
+  //       this.setState({ user });
+  //     });
+  // }
+  // componentDidMount() {
+  //   this.getUser();
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     const {
-      users,
-      currentUserId,
+      user,
       currentLat,
       currentLong,
       city,
       currentPriceFilter,
       currentRadiusFilter
     } = this.state;
-    if (prevState.users !== users) {
-      this.getLatitudeAndLongitudeFromCityName();
-    }
-    if (prevState.currentUserId !== currentUserId) {
+    if (prevState.user.name !== user.name) {
       this.getLatitudeAndLongitudeFromCityName();
     }
     if (prevState.city !== city) {
@@ -265,27 +269,30 @@ class App extends Component {
   }
 
   render() {
-    const { restaurants } = this.state;
+    const { restaurants, isSignedIn } = this.state;
     return (
       <Router>
         <div>
           <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
+            <ul className="nav-ul">
+              <li className="nav-li">
+                <Link to="/">SignUpSignIn</Link>
               </li>
-              <li>
-                <Link to="/about">About</Link>
+              <li className="nav-li">
+                <Link to="/home">Home</Link>
               </li>
-              <li>
+              <li className="nav-li">
                 <Link to="/users">Users</Link>
               </li>
             </ul>
           </nav>
 
           <Switch>
-            <Route exact path="/about">
-              <About />
+            <Route exact path="/">
+              <SignUpSignIn
+                signInUser={this.signInUser}
+                isSignedIn={isSignedIn}
+              />
             </Route>
             <Route exact path="/users">
               <Users />
@@ -293,7 +300,7 @@ class App extends Component {
             <Route exact path="/details/:id">
               <DetailView restaurant={this.state.restaurant} />
             </Route>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Provider value={this.state}>
                 <Home
                   setDetailView={this.setDetailView}
