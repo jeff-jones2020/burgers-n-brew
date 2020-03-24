@@ -5,21 +5,21 @@
       "id": 1,
       "name": "Jeff",
       "city": "Irvine",
-      "email": "jeff777@gmail.com",
+      "email": "jeff777@abc.com",
       "password": 111111
     },
     {
       "id": 2,
       "name": "Jinho",
       "city": " BUENA PARK",
-      "email": "jinho777@gmail.com",
+      "email": "jinho777@abc.com",
       "password": 222222
     },
     {
       "id": 3,
       "name": "Lawrence",
       "city": " WHITTIER",
-      "email": "lawrence777@gmail.com",
+      "email": "lawrence777@abc.com",
       "password": 333333
     }
   ]

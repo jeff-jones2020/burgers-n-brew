@@ -15,13 +15,20 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.post('/api/user', (req, res) => {
-  const data = db.get('user').value();
-  if (req.body.email === data.email && req.body.pwd === data.password) {
-    req.session.is_signined = true;
-    req.session.name = data.name;
-    res.send('success');
+  const users = db.get('user').value();
+  const currentUser = users.filter((user, i) => {
+    return user.email === req.body.email;
+  });
+  if (currentUser.length !== 0) {
+    if (req.body.password === currentUser[0].password) {
+      req.session.is_signined = true;
+      req.session.name = currentUser[0].name;
+      req.session.save(() => {
+        res.send('success');
+      });
+    }
   } else {
-    res.send('who?');
+    res.send('you want to sign up?');
   }
 });
 
