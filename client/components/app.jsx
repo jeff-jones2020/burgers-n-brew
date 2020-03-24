@@ -43,8 +43,15 @@ class App extends Component {
       });
     };
     this.signOutUser = () => {
-      fetch('/api/user').then(data => data.json());
-      // .then(data => console.log(data));
+      fetch('/api/user')
+        .then(data => data.json())
+        .then(user => {
+          window.localStorage.removeItem('isSignedIn');
+          this.setState({
+            user: user[0],
+            isSignedIn: user[1]
+          });
+        });
     };
     this.state = {
       currentLat: null,
