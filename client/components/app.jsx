@@ -274,10 +274,10 @@ class App extends Component {
           <nav>
             <ul className="nav-ul">
               <li className="nav-li">
-                <Link to="/">Home</Link>
+                <Link to="/">SignUpSignIn</Link>
               </li>
               <li className="nav-li">
-                <Link to="/signinsignup">SignUpSignIn</Link>
+                <Link to="/home">Home</Link>
               </li>
               <li className="nav-li">
                 <Link to="/users">Users</Link>
@@ -286,7 +286,7 @@ class App extends Component {
           </nav>
 
           <Switch>
-            <Route exact path="/signinsignup">
+            <Route exact path="/">
               <SignUpSignIn />
             </Route>
             <Route exact path="/users">
@@ -295,7 +295,7 @@ class App extends Component {
             <Route exact path="/details/:id">
               <DetailView restaurant={this.state.restaurant} />
             </Route>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Provider value={this.state}>
                 <Home
                   setDetailView={this.setDetailView}
