@@ -1,4 +1,19 @@
 {
   "city": [],
-  "user": []
+  "user": [
+    {
+      "id": 1,
+      "name": "jinho",
+      "city": "buena park",
+      "email": "jinho@jinho.com",
+      "password": "$2b$10$jdhc2ijdhILsgyQU42r4q.2YICHDnuvywWtyJhP8YW1taHzrCw9tO"
+    },
+    {
+      "id": 2,
+      "name": "jeff",
+      "city": "irvine",
+      "email": "jeff@jeff.ninja",
+      "password": "$2b$10$2pPiH19ZNxIXnuS0tnrbl.B10Di5bGaRVEgPHD3EFMenWDWcMrEpa"
+    }
+  ]
 }

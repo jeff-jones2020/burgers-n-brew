@@ -212,7 +212,7 @@ class App extends Component {
   signUp(name, city, email, pwd, pwd2) {
     const chkEmail = str => {
       // const regexEmail = /^\w{1,64}@[a-zA-Z]{1,227}\.[a-zA-Z]{2,24}$/g;
-      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
       return !!regExp.test(str);
     };
     const chkPwd = str => {
@@ -227,11 +227,13 @@ class App extends Component {
       alert(
         'this is not valid password format. please combine letter and number. length should be between 6-20 lengths'
       );
+      return false;
     }
     if (pwd !== pwd2) {
       alert(
         'password and confirm password are not matched. please check again '
       );
+      return false;
     }
     fetch('/api/signup/', {
       method: 'POST',
