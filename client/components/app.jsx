@@ -75,9 +75,7 @@ class App extends Component {
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
-    // index = 0 means it will use 0 unless passed a different value for index
     if (newRestaurants.length === 5 || index === restaurants.length - 1) {
-      // maximum 5 results to ensure we don't send too many requests
       if (newRestaurants.length === 0) {
         this.setState({
           restaurants: ['No restaurants found']
@@ -122,7 +120,6 @@ class App extends Component {
       restaurant => restaurant.id === id
     );
     this.setState({ restaurant: restaurantDetail[0] });
-    // add code for navigating to detail view page based on Yelp business ID
   }
 
   getRestaurantByLatLong(latitude, longitude) {
@@ -143,7 +140,7 @@ class App extends Component {
               queryFilters += '2';
               break;
             case 2:
-              queryFilters += '3,4'; // we will include yelp pricings of '$$$' AND '$$$$'
+              queryFilters += '3,4';
               break;
             default:
               console.error(
@@ -268,7 +265,6 @@ class App extends Component {
           currentLong: null,
           user: user[0],
           isSignedIn: user[1],
-          // city: null,
           restaurants: [],
           restaurant: null,
           zipCode: null
