@@ -4,7 +4,7 @@ import PriceFilter from './price-filter.jsx';
 import RadiusFilter from './radius-filter.jsx';
 import { CSSTransition } from 'react-transition-group';
 import { Consumer } from '../store.jsx';
-import { Link } from 'react-router-dom';
+import UserDropDown from './user-dropdown.jsx';
 
 class SideBar extends React.Component {
   render() {
@@ -26,19 +26,7 @@ class SideBar extends React.Component {
               <div className="account py-2">
                 <Consumer>
                   {({ user }) => (
-                    <div>
-                      <i className="far fa-user-circle account-icon"></i>
-                      {user.id ? (
-                        <span> &nbsp; {user.name}</span>
-                      ) : (
-                        <>
-                          <span>&nbsp; Guest</span>
-                          <p>
-                            <Link to="/">SignUp/SignIn</Link>
-                          </p>
-                        </>
-                      )}
-                    </div>
+                    <UserDropDown user={user}/>
                   )}
                 </Consumer>
               </div>
