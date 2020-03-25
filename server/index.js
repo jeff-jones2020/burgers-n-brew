@@ -9,35 +9,69 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 const fetch = require('node-fetch');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
 
-app.post('/api/user', (req, res) => {
-  const users = db.get('user').value();
-  const currentUser = users.filter((user, i) => {
-    return user.email === req.body.email;
-  });
-  if (currentUser.length === 0) {
-    const errMsg = "there's no matched email";
-    return res.send(errMsg);
-  }
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password'
+    },
+    (username, password, done) => {
+      // console.log('LocalStrategy', username, password);
+      // User.findOne({ username: username }, function(err, user) {
+      //   if (err) {
+      //     return done(err);
+      //   }
+      //   if (!user) {
+      //     return done(null, false, { message: 'Incorrect username.' });
+      //   }
+      //   if (!user.validPassword(password)) {
+      //     return done(null, false, { message: 'Incorrect password.' });
+      //   }
+      //   return done(null, user);
+      // });
+    }
+  )
+);
 
-  if (
-    currentUser[0].email === req.body.email &&
-    Number(req.body.password) === currentUser[0].password
-  ) {
-    req.session.isSignedIn = true;
-    req.session.name = currentUser[0].name;
-    req.session.save(() => {
-      res.json([currentUser[0], true]);
-    });
-  } else {
-    const errMsg = 'please check email or password';
-    res.status(404).send(errMsg);
-  }
-});
+app.post(
+  '/api/user',
+  passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/'
+  })
+);
+
+// app.post('/api/user', (req, res) => {
+//   const users = db.get('user').value();
+//   const currentUser = users.filter((user, i) => {
+//     return user.email === req.body.email;
+//   });
+//   if (currentUser.length === 0) {
+//     const errMsg = "there's no matched email";
+//     return res.send(errMsg);
+//   }
+
+//   if (
+//     currentUser[0].email === req.body.email &&
+//     Number(req.body.password) === currentUser[0].password
+//   ) {
+//     req.session.isSignedIn = true;
+//     req.session.name = currentUser[0].name;
+//     req.session.save(() => {
+//       res.json([currentUser[0], true]);
+//     });
+//   } else {
+//     const errMsg = 'please check email or password';
+//     res.status(404).send(errMsg);
+//   }
+// });
 
 app.get('/api/user', (req, res) => {
   req.session.destroy(err => {
