@@ -32,7 +32,7 @@ class LocationDropDown extends Component {
                 <CurrentLocation
                   updateLatAndLong={updateLatAndLong} isSignedIn={isSignedIn} />
                 {user.id ? (
-                  <CurrentCity city={city} zipCode={zipCode} className='ml-3' onClick={this.toggleSearchHidden}/>
+                  <CurrentCity city={city} zipCode={zipCode} className='ml-3' toggleSearchHidden={this.toggleSearchHidden}/>
                 ) : (
                   <span className='ml-3' onClick={this.toggleSearchHidden}>&nbsp;current location</span>
                 )}
