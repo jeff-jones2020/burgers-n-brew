@@ -31,9 +31,9 @@ class LocationDropDown extends Component {
               <div className='d-flex current-city' onClick={this.toggleSearchHidden}>
                 <CurrentLocation updateLatAndLong={updateLatAndLong} />
                 {user.id ? (
-                  <CurrentCity city={city} zipCode={zipCode} />
+                  <CurrentCity city={city} zipCode={zipCode} className='ml-3'/>
                 ) : (
-                  <span>&nbsp;current location</span>
+                  <span className='ml-3'>&nbsp;current location</span>
                 )}
               </div>
               <p className='default-checkbox'>
