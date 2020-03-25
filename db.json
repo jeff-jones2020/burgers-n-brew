@@ -28,6 +28,27 @@
       "city": "San Diego",
       "email": "tim@tim.com",
       "password": "$2b$10$EdskXoDnOtFZsG/SKwT4JedD.fsO1cDdZeXgEa6FjXjcRKChpkqry"
+    },
+    {
+      "id": 5,
+      "name": "tim",
+      "city": "San Diego",
+      "email": "tim@tim.com",
+      "password": "$2b$10$Pe6aAuet5D4D0R6BDT7sXuSoyIYsrSvr9Lt9C8ibAExTGpUIyLTZ6"
+    },
+    {
+      "id": 6,
+      "name": "tim",
+      "city": "Hacienda Heights",
+      "email": "tim@tim.com",
+      "password": "$2b$10$PytTg0XS8VOBTvkX/z50IOAGp7qmmo1lDLMczyKpMc.e3ZevFz8.C"
+    },
+    {
+      "id": 7,
+      "name": "tim",
+      "city": "Orange",
+      "email": "tim@tim.com",
+      "password": "$2b$10$zxky5.ZOrXjD5Lm5vz8tNuIG66SenKQCTkPz9RYo0L2ArlohbGPOy"
     }
   ]
 }
