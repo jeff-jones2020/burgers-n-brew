@@ -20,11 +20,13 @@ class Header extends Component {
   }
 
   render() {
+    const { signOutUser } = this.props;
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
         <SideBar
+          signOutUser={signOutUser}
           opened={this.state.opened}
           displaySideBar={this.displaySideBar}
         />

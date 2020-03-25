@@ -1,7 +1,6 @@
 const path = require('path');
 const expressSession = require('express-session');
 const sessonFileStore = require('session-file-store');
-
 const FileStore = sessonFileStore(expressSession);
 
 const sessionMiddleware = expressSession({

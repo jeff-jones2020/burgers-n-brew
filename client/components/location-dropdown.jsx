@@ -9,9 +9,12 @@ class LocationDropDown extends Component {
     return (
       <>
         <Consumer>
-          {({ city, zipCode, updateLatAndLong, user }) => (
+          {({ city, zipCode, updateLatAndLong, isSignedIn, user }) => (
             <div>
-              <CurrentLocation updateLatAndLong={updateLatAndLong} />
+              <CurrentLocation
+                updateLatAndLong={updateLatAndLong}
+                isSignedIn={isSignedIn}
+              />
               {user.id ? (
                 <CurrentCity city={city} zipCode={zipCode} />
               ) : (
