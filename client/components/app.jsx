@@ -236,6 +236,11 @@ class App extends Component {
   }
 
   signInUser(email, password) {
+    if (!email.includes('@') || !email.includes('.')) {
+      return false;
+    } else if (password.length < 8) {
+      return false;
+    }
     fetch('/api/user/', {
       method: 'POST',
       headers: {

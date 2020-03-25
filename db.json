@@ -3,11 +3,11 @@
   "user": [
     {
       "id": 1,
-      "name": "Tim",
-      "city": "costa mesa",
+      "name": "tim",
+      "city": "irvine",
       "email": "tim@tim.com",
-      "password": 111,
-      "password2": 111
+      "password": 11111111,
+      "password2": 11111111
     }
   ]
 }
