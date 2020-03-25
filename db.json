@@ -49,6 +49,13 @@
       "city": "Orange",
       "email": "tim@tim.com",
       "password": "$2b$10$zxky5.ZOrXjD5Lm5vz8tNuIG66SenKQCTkPz9RYo0L2ArlohbGPOy"
+    },
+    {
+      "id": 8,
+      "name": "Lawrence Kim",
+      "city": "Irvine",
+      "email": "lawrence@lawrence.com",
+      "password": "$2b$10$Qis0u9Vbib7amngj/vRdgu7.EOXNH236fpqF78HxmGpHS9q5H6hpS"
     }
   ]
 }

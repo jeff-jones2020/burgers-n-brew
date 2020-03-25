@@ -107,7 +107,7 @@ class SignUpSignIn extends Component {
             </header>
             <section>
               <form>
-                <p>
+                <div>
                   <label htmlFor="">Email: </label>
                   <input
                     type="email"
@@ -116,8 +116,8 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Email"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label htmlFor="">Password: </label>
                   <input
                     type="password"
@@ -126,17 +126,17 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Password"
                   />
-                </p>
-                <p>
-                  <input
-                    className="button"
+                </div>
+                <div>
+                  <button
                     type="submit"
-                    value="Sign In"
                     onClick={e => {
                       this.handleSubmit1(e);
                     }}
-                  />
-                </p>
+                  >
+                    Sign In
+                  </button>
+                </div>
               </form>
             </section>
           </div>
@@ -147,7 +147,7 @@ class SignUpSignIn extends Component {
             </header>
             <section>
               <form>
-                <p>
+                <div>
                   <label htmlFor="">Name: </label>
                   <input
                     type="text"
@@ -156,8 +156,8 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Name"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label htmlFor="">City: </label>
                   <input
                     type="text"
@@ -166,8 +166,8 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="City"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label htmlFor="">Email: </label>
                   <input
                     type="email"
@@ -176,8 +176,8 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Email"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label htmlFor="">Password: </label>
                   <input
                     type="password"
@@ -186,8 +186,8 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Password"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label htmlFor="">confirm: </label>
                   <input
                     type="password"
@@ -196,27 +196,25 @@ class SignUpSignIn extends Component {
                     onChange={this.handleChange}
                     placeholder="Password again"
                   />
-                </p>
-                <p>
-                  <input
-                    className="button"
+                </div>
+                <div>
+                  <button
                     type="submit"
-                    value="Sign Up"
                     onClick={e => {
                       this.handleSubmit2(e);
                     }}
-                  />
-                </p>
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </form>
             </section>
           </div>
 
           <div className="container">
-            <form>
-              <h3>
-                <Link to="/home">Continue as Guest</Link>
-              </h3>
-            </form>
+            <h3>
+              <Link to="/home">Continue as Guest</Link>
+            </h3>
           </div>
         </div>
       </>
