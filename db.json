@@ -3,11 +3,11 @@
   "user": [
     {
       "id": 1,
-      "name": "Jeff",
-      "city": " IRVINE",
-      "email": "jeff777@abc.com",
-      "password": 111111,
-      "password2": 111111
+      "name": "Tim",
+      "city": "costa mesa",
+      "email": "tim@tim.com",
+      "password": 111,
+      "password2": 111
     }
   ]
 }

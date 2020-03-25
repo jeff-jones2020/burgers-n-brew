@@ -210,7 +210,11 @@ class App extends Component {
   }
 
   signUp(name, city, email, pwd, pwd2) {
-    if (pwd !== pwd2) {
+    if (!email.includes('@') || !email.includes('.')) {
+      return false;
+    } else if (pwd.length < 8) {
+      return false;
+    } else if (pwd !== pwd2) {
       return false;
     }
     fetch('/api/signup/', {
