@@ -46,7 +46,7 @@ class LocationDropDown extends Component {
                       city={city}
                       zipCode={zipCode}
                       className="ml-3"
-                      toggleSearchHidden={this.toggleSearchHidden}
+                      onClick={this.toggleSearchHidden}
                     />
                     <p className="default-checkbox">
                       <input
