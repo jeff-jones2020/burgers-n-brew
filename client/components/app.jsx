@@ -219,7 +219,6 @@ class App extends Component {
       .then(data => data.json())
       .then(user => {
         if (user[1] === true) {
-          window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
           this.setState({
             user: user[0],
             isSignedIn: user[1]
@@ -232,16 +231,15 @@ class App extends Component {
     fetch('/api/user')
       .then(data => data.json())
       .then(user => {
-        window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
         this.setState({
+          currentLat: null,
+          currentLong: null,
           user: user[0],
           isSignedIn: user[1],
-          city: null,
+          // city: null,
           restaurants: [],
           restaurant: null,
-          zipCode: null,
-          currentLat: null,
-          currentLong: null
+          zipCode: null
         });
       });
   }
@@ -270,6 +268,9 @@ class App extends Component {
       prevState.currentPriceFilter !== currentPriceFilter ||
       prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
+      if (currentLat === null || currentLong === null) {
+        return false;
+      }
       if (currentLat !== null && currentLong !== null) {
         this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
       }
