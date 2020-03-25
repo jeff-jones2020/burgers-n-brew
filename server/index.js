@@ -15,11 +15,15 @@ app.use(express.json());
 const passport = require('./passport')(app);
 
 app.post('/api/signup', (req, res) => {
-  const { email, pwd, pwd2, name, city } = req.body;
-  if (pwd !== pwd2) {
-    res.json({ err: 'please check your password' });
-  } else {
-    bcrypt.hash(pwd, 10, (err, hash) => {
+  const { email, pwd, name, city } = req.body;
+  bcrypt.hash(pwd, 10, (err, hash) => {
+    const duplication = db
+      .get('user')
+      .find({ email })
+      .value();
+    if (duplication) {
+      res.json({ err: 'Email already exist here' });
+    } else {
       const users = db.get('user').value();
       const user = {
         id: users.length + 1,
@@ -32,8 +36,8 @@ app.post('/api/signup', (req, res) => {
         .push(user)
         .write();
       res.json([user, true]);
-    });
-  }
+    }
+  });
 });
 
 app.post('/api/user', passport.authenticate('local'), (req, res) => {
