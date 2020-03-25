@@ -4,65 +4,37 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
 const app = express();
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+const db = require('./lowdb');
 const fetch = require('node-fetch');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user.email);
-});
-passport.deserializeUser((id, done) => {
-  const users = db.get('user').value();
-  const currentUser = users.filter((user, i) => {
-    return user.email === id;
-  });
-  done(null, currentUser);
-});
+const passport = require('./passport')(app);
 
-passport.use(
-  new LocalStrategy(
-    { usernameField: 'email', passwordField: 'password' },
-    (username, password, done) => {
-      const users = db.get('user').value();
-      const currentUser = users.filter((user, i) => {
-        return user.email === username;
-      });
-      if (currentUser.length === 0) {
-        const errMsg = "there's no matched email";
-        return done(null, false, {
-          message: errMsg
-        });
-      }
-      if (username === currentUser[0].email) {
-        if (Number(password) === currentUser[0].password) {
-          return done(null, currentUser[0]);
-        } else {
-          return done(null, false, {
-            message: 'Incorrect password.'
-          });
-        }
-      } else {
-        return done(null, false, {
-          message: 'Incorrect username.'
-        });
-      }
-    }
-  )
-);
+app.post('/api/signup', (req, res) => {
+  const { email, pwd, pwd2, name, city } = req.body;
+  if (pwd !== pwd2) {
+    res.json({ err: 'please check your password' });
+  } else {
+    const users = db.get('user').value();
+    const user = {
+      id: users.length + 1,
+      name: name,
+      city: city,
+      email: email,
+      password: pwd,
+      password2: pwd2
+    };
+    db.get('user')
+      .push(user)
+      .write();
+    res.json(user);
+  }
+});
 
 app.post('/api/user', passport.authenticate('local'), (req, res) => {
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
   res.json([req.user, true]);
 });
 
