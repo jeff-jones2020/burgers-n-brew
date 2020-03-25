@@ -28,13 +28,13 @@ class LocationDropDown extends Component {
         <Consumer>
           {({ city, zipCode, updateLatAndLong, user, updateUserDefault, isSignedIn }) => (
             <>
-              <div className='d-flex current-city' onClick={this.toggleSearchHidden}>
+              <div className='d-flex current-city'>
                 <CurrentLocation
                   updateLatAndLong={updateLatAndLong} isSignedIn={isSignedIn} />
                 {user.id ? (
-                  <CurrentCity city={city} zipCode={zipCode} className='ml-3'/>
+                  <CurrentCity city={city} zipCode={zipCode} className='ml-3' onClick={this.toggleSearchHidden}/>
                 ) : (
-                  <span className='ml-3'>&nbsp;current location</span>
+                  <span className='ml-3' onClick={this.toggleSearchHidden}>&nbsp;current location</span>
                 )}
               </div>
               <p className='default-checkbox'>

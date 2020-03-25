@@ -33,7 +33,7 @@ class UserDropDown extends React.Component {
           {user.id ? (
             <>
               <span> &nbsp; {user.name}</span>
-              <p onClick={signOutUser} >
+              <p className={'user-menu' + menuHiddenClass} onClick={signOutUser} >
                 <Link to="/">SignOut</Link>
               </p>
             </>
