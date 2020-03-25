@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './home.jsx';
-import Users from './users.jsx';
 import SignUpSignIn from './signup-signin.jsx';
 import DetailView from './detail-view';
 import KEY from './key.jsx';
@@ -318,9 +317,6 @@ class App extends Component {
               <li>
                 <Link to="/home">Home</Link>
               </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
             </ul>
           </nav>
 
@@ -331,9 +327,6 @@ class App extends Component {
                 signInUser={this.signInUser}
                 isSignedIn={isSignedIn}
               />
-            </Route>
-            <Route exact path="/users">
-              <Users />
             </Route>
             <Route exact path="/details/:id">
               <DetailView restaurant={this.state.restaurant} />
