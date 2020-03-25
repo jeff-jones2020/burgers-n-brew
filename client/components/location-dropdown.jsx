@@ -36,43 +36,37 @@ class LocationDropDown extends Component {
             updatecity
           }) => (
             <>
-              <div className="d-flex flex-column current-city">
-                {user.id ? (
-                  <>
-                    <div className="d-flex">
-                      <CurrentLocation
-                        updateLatAndLong={updateLatAndLong}
-                        isSignedIn={isSignedIn}
-                      />
-                      <CurrentCity
-                        city={city}
-                        zipCode={zipCode}
-                        className="ml-3"
-                        onClick={this.toggleSearchHidden}
-                      />
-                    </div>
-                    <p className="default-checkbox">
-                      <input
-                        type="checkbox"
-                        onClick={() => {
-                          updateUserDefault(city);
-                        }}
-                      />
-                      &nbsp; Default
-                    </p>
-                  </>
+              <div className="d-flex current-city">
+                <CurrentLocation
+                  updateLatAndLong={updateLatAndLong}
+                  isSignedIn={isSignedIn}
+                />
+                {city ? (
+                  <CurrentCity
+                    city={city}
+                    zipCode={zipCode}
+                    className="ml-3"
+                    toggleSearchHidden={this.toggleSearchHidden}
+                  />
                 ) : (
                   <div className="d-flex">
-                    <CurrentLocation
-                      updateLatAndLong={updateLatAndLong}
-                      isSignedIn={isSignedIn}
-                    />
                     <span className="ml-3" onClick={this.toggleSearchHidden}>
                       &nbsp;current location
                     </span>
                   </div>
                 )}
               </div>
+              {user.id ? (
+                <p className="default-checkbox">
+                  <input
+                    type="checkbox"
+                    onClick={() => {
+                      updateUserDefault(city);
+                    }}
+                  />
+                  &nbsp; Default
+                </p>
+              ) : null}
               <SearchCityForm
                 toggleSearchHidden={this.toggleSearchHidden}
                 searchHasOpened={this.state.searchHasOpened}

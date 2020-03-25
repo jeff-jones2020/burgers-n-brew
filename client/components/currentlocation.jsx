@@ -22,8 +22,7 @@ class CurrentLocation extends Component {
   }
 
   handleGeoErr() {
-    /* eslint-disable no-console */
-    console.log("Can't access geo location");
+    console.error("Can't access geo location");
   }
 
   askForCoords() {
