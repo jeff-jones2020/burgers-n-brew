@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require('./lowdb');
+const bcrypt = require('bcrypt');
 
 module.exports = app => {
   app.use(passport.initialize());
@@ -32,13 +33,17 @@ module.exports = app => {
           });
         }
         if (username === currentUser[0].email) {
-          if (Number(password) === currentUser[0].password) {
-            return done(null, currentUser[0]);
-          } else {
-            return done(null, false, {
-              message: 'Incorrect password.'
-            });
-          }
+          bcrypt.compare(password, currentUser[0].password, (err, result) => {
+            if (err) {
+              throw err;
+            } else if (result) {
+              return done(null, currentUser[0]);
+            } else {
+              return done(null, false, {
+                message: 'Incorrect password.'
+              });
+            }
+          });
         } else {
           return done(null, false, {
             message: 'Incorrect username.'
