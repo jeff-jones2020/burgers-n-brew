@@ -26,26 +26,44 @@ class LocationDropDown extends Component {
     return (
       <>
         <Consumer>
-          {({ city, zipCode, updateLatAndLong, user, updateUserDefault, isSignedIn }) => (
+          {({
+            city,
+            zipCode,
+            updateLatAndLong,
+            user,
+            updateUserDefault,
+            isSignedIn
+          }) => (
             <>
-              <div className='d-flex current-city'>
+              <div className="d-flex flex-column current-city">
                 <CurrentLocation
-                  updateLatAndLong={updateLatAndLong} isSignedIn={isSignedIn} />
+                  updateLatAndLong={updateLatAndLong}
+                  isSignedIn={isSignedIn}
+                />
                 {user.id ? (
-                  <CurrentCity city={city} zipCode={zipCode} className='ml-3' toggleSearchHidden={this.toggleSearchHidden}/>
+                  <>
+                    <CurrentCity
+                      city={city}
+                      zipCode={zipCode}
+                      className="ml-3"
+                      toggleSearchHidden={this.toggleSearchHidden}
+                    />
+                    <p className="default-checkbox">
+                      <input
+                        type="checkbox"
+                        onClick={() => {
+                          updateUserDefault(city);
+                        }}
+                      />
+                      &nbsp; Default
+                    </p>
+                  </>
                 ) : (
-                  <span className='ml-3' onClick={this.toggleSearchHidden}>&nbsp;current location</span>
+                  <span className="ml-3" onClick={this.toggleSearchHidden}>
+                    &nbsp;current location
+                  </span>
                 )}
               </div>
-              <p className='default-checkbox'>
-                <input
-                  type="checkbox"
-                  onClick={() => {
-                    updateUserDefault(city);
-                  }}
-                />
-                &nbsp; Default
-              </p>
             </>
           )}
         </Consumer>
@@ -56,10 +74,10 @@ class LocationDropDown extends Component {
                 toggleSearchHidden={this.toggleSearchHidden}
                 searchHasOpened={this.state.searchHasOpened}
                 isHidden={this.state.isSearchHidden}
-                updatecity={updatecity} />
+                updatecity={updatecity}
+              />
             );
-          }
-          }
+          }}
         </Consumer>
       </>
     );

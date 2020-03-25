@@ -23,9 +23,9 @@ app.post('/api/signup', (req, res) => {
       const users = db.get('user').value();
       const user = {
         id: users.length + 1,
-        name: name,
-        city: city,
-        email: email,
+        name: name.toLowerCase(),
+        city: city.toLowerCase(),
+        email: email.toLowerCase(),
         password: hash
       };
       db.get('user')
@@ -48,7 +48,7 @@ app.get('/api/user', (req, res) => {
 });
 
 app.get('/api/home/user', (req, res) => {
-  if (req.session.passport.user === req.user.email) {
+  if (req.session.passport.user === req.user[0].email) {
     const data = db.get('user').value();
     const newUser = data.filter((user, i) => {
       return user.name === req.session.name;
@@ -61,8 +61,8 @@ app.get('/api/home/user', (req, res) => {
 
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
-  const city = req.body.city.toUpperCase();
-  if (req.session.passport.user === req.user.email) {
+  const city = req.body.city.toLowerCase();
+  if (req.session.passport.user === req.user[0].email) {
     db.get('user')
       .find({ id })
       .assign({ city })

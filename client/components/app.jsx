@@ -10,14 +10,14 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.updateUserDefault = city => {
+    this.updateUserDefault = newCity => {
       const { user } = this.state;
       fetch(`/api/home/user/${user.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ city: city })
+        body: JSON.stringify({ city: newCity })
       })
         .then(data => data.json())
         .then(user => {
