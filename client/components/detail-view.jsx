@@ -36,6 +36,10 @@ class DetailView extends Component {
     const longitude = restaurant.coordinates.longitude;
     const GOOGLE_KEY = KEY();
     const currentDay = currentDate.getDay();
+    let mapName = restaurant.name;
+    if (mapName.includes('&')) {
+      mapName = mapName.replace('&', '');
+    }
     const restaurantTags = restaurant.categories.map(category => {
       return <span key={category.alias}> | {category.title}</span>;
     });
@@ -129,9 +133,8 @@ class DetailView extends Component {
           <div className="google-map">
             <iframe
               frameBorder="0"
-              src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&center=${latitude},${longitude}&q=${restaurant.name},${restaurant.location.display_address[1]}&zoom=13`}
+              src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&center=${latitude},${longitude}&q=${mapName}&zoom=15`}
             >
-              No Map Available
             </iframe>
           </div>
         </div>
