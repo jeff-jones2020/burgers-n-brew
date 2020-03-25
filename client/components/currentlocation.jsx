@@ -22,8 +22,7 @@ class CurrentLocation extends Component {
   }
 
   handleGeoErr() {
-    /* eslint-disable no-console */
-    console.log("Can't access geo location");
+    console.error("Can't access geo location");
   }
 
   askForCoords() {
@@ -38,7 +37,6 @@ class CurrentLocation extends Component {
       <span
         onClick={e => {
           this.handleSubmit(e);
-          console.log(e);
         }}
       >
         <i className="fas fa-map-marker-alt geo-icon ml-1"></i>

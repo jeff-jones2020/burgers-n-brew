@@ -131,6 +131,7 @@ class DetailView extends Component {
               frameBorder="0"
               src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&center=${latitude},${longitude}&q=${restaurant.name},${restaurant.location.display_address[1]}&zoom=13`}
             >
+              No Map Available
             </iframe>
           </div>
         </div>
