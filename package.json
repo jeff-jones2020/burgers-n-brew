@@ -21,7 +21,8 @@
     ],
     "ignore": [
       "server/public/",
-      "server/sessions/"
+      "server/sessions/",
+      "server/public/styles.css"
     ]
   },
   "husky": {

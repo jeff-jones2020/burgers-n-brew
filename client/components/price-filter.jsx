@@ -42,7 +42,7 @@ class PriceFilter extends React.Component {
     if (!this.state.editFilterMode) {
       return (
         <div
-          className='d-flex justify-content-between align-mid px-3'
+          className='d-flex justify-content-between align-mid'
           onClick={this.setEditFilterView}>
           <img src='images/filter-icon.svg' className='filter-icon'></img>
           <span className={'dollar' + isActiveClass[0]}>$</span>
@@ -52,7 +52,7 @@ class PriceFilter extends React.Component {
       );
     } else {
       return (
-        <div className='d-flex justify-content-between align-mid focus-darken px-3'>
+        <div className='d-flex justify-content-between align-mid focus-darken'>
           <span onClick={() => this.togglePriceFilter(0)} className={'dollar' + isActiveClass[0]}>$</span>
           <span onClick={() => this.togglePriceFilter(1)} className={'dollar' + isActiveClass[1]}>$$</span>
           <span onClick={() => this.togglePriceFilter(2)} className={'dollar' + isActiveClass[2]}>$$$</span>

@@ -52,9 +52,10 @@ class CurrentLocation extends Component {
       <span
         onClick={e => {
           this.handleSubmit(e);
+          console.log(e);
         }}
       >
-        <i className="fas fa-map-marker-alt"></i>
+        <i className="fas fa-map-marker-alt geo-icon ml-1"></i>
       </span>
     );
   }

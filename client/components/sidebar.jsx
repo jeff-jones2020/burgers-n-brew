@@ -19,15 +19,15 @@ class SideBar extends React.Component {
             unmountOnExit
             timeout={500}
           >
-            <div className="sidebar-container">
-              <div className="location">
+            <div className="sidebar-container p-4">
+              <div className="location mb-4">
                 <LocationDropDown />
               </div>
-              <div className="account">
+              <div className="account mb-4">
                 <Consumer>
                   {({ user }) => (
                     <div>
-                      <i className="far fa-user-circle"></i>
+                      <i className="far fa-user-circle account-icon"></i>
                       {user.id ? (
                         <span> &nbsp; {user.name}</span>
                       ) : (
@@ -44,7 +44,7 @@ class SideBar extends React.Component {
               </div>
               <Consumer>
                 {({ setFilters, currentPriceFilter }) => (
-                  <div className="filter">
+                  <div className="filter mb-4">
                     <PriceFilter
                       setFilters={setFilters}
                       currentPriceFilter={currentPriceFilter}
@@ -54,7 +54,7 @@ class SideBar extends React.Component {
               </Consumer>
               <Consumer>
                 {({ setFilters, currentRadiusFilter }) => (
-                  <div className="filter">
+                  <div className="filter mb-4">
                     <RadiusFilter
                       setFilters={setFilters}
                       currentRadiusFilter={currentRadiusFilter}

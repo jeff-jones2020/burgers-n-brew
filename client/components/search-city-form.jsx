@@ -37,7 +37,7 @@ class SearchCityForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <i className="fas fa-search"></i>
+            <i className="fas fa-search search-icon"></i>
             &nbsp; <span>Search:</span>
             <input
               type="text"

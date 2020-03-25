@@ -10,7 +10,7 @@ class LocationDropDown extends Component {
       <>
         <Consumer>
           {({ city, zipCode, updateLatAndLong, user }) => (
-            <div>
+            <div className='d-flex align-items-center'>
               <CurrentLocation updateLatAndLong={updateLatAndLong} />
               {user.id ? (
                 <CurrentCity city={city} zipCode={zipCode} />

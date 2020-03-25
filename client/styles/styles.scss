@@ -74,12 +74,10 @@ body {
 
 .sidebar-container {
   height: 100%;
-  width: 75%;
+  width: 80%;
   background-color: rgb(176, 0, 0);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
   .location {
     display: flex;
     flex-direction: column;
@@ -90,6 +88,11 @@ body {
       align-items: center;
     }
   }
+  font-size: 24px;
+}
+
+.sidebar-container > * {
+
 }
 
 #bnb-title {
@@ -112,6 +115,11 @@ img {
   font-family: 'Scope One', serif;
 }
 
+.geo-icon, .search-icon, .account-icon {
+  font-size: 36px;
+
+}
+
 .filter {
   width: 100%;
 }
@@ -125,7 +133,7 @@ img {
 }
 
 .filter-icon {
-  width: 50px;
+  width: 40px;
   align-self: center;
 }
 
