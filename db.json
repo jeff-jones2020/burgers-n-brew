@@ -6,8 +6,7 @@
       "name": "tim",
       "city": "irvine",
       "email": "tim@tim.com",
-      "password": 11111111,
-      "password2": 11111111
+      "password": "$2b$10$e1IDGgLKcUy.t3QMS1n3deHuuXI.TsuAf8GIiFyoBNaAgsFNZ9Kua"
     }
   ]
 }

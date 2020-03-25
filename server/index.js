@@ -6,6 +6,7 @@ const sessionMiddleware = require('./session-middleware');
 const app = express();
 const db = require('./lowdb');
 const fetch = require('node-fetch');
+const bcrypt = require('bcrypt');
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
@@ -18,19 +19,20 @@ app.post('/api/signup', (req, res) => {
   if (pwd !== pwd2) {
     res.json({ err: 'please check your password' });
   } else {
-    const users = db.get('user').value();
-    const user = {
-      id: users.length + 1,
-      name: name,
-      city: city,
-      email: email,
-      password: Number(pwd),
-      password2: Number(pwd2)
-    };
-    db.get('user')
-      .push(user)
-      .write();
-    res.json([user, true]);
+    bcrypt.hash(pwd, 10, (err, hash) => {
+      const users = db.get('user').value();
+      const user = {
+        id: users.length + 1,
+        name: name,
+        city: city,
+        email: email,
+        password: hash
+      };
+      db.get('user')
+        .push(user)
+        .write();
+      res.json([user, true]);
+    });
   }
 });
 
