@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './home.jsx';
 import SignUpSignIn from './signup-signin.jsx';
 import DetailView from './detail-view';
@@ -309,17 +309,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav>
-            <ul className="nav-ul">
-              <li>
-                <Link to="/">Sign Up / Sign In</Link>
-              </li>
-              <li>
-                <Link to="/home">Home</Link>
-              </li>
-            </ul>
-          </nav>
-
           <Switch>
             <Route exact path="/">
               <SignUpSignIn
