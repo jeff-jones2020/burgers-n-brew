@@ -7,16 +7,35 @@ class SignUpSignIn extends Component {
 
     this.state = {
       signInemail: '',
-      signInpassword: ''
+      signInpassword: '',
+      signUpName: '',
+      signUpCity: '',
+      signUpEmail: '',
+      signUpPwd: '',
+      signUpPwd2: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit1 = this.handleSubmit1.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
   }
 
   routeChange() {
-    const path = '/home';
+    const { isSignedIn } = this.props;
+    let path;
+    if (isSignedIn === false) {
+      path = '/';
+    } else {
+      path = '/home';
+    }
     this.props.history.push(path);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isSignedIn } = this.props;
+    if (prevProps.isSignedIn !== isSignedIn) {
+      this.routeChange();
+    }
   }
 
   resetForm() {
@@ -26,7 +45,31 @@ class SignUpSignIn extends Component {
     });
   }
 
-  handleSubmit(e) {
+  resetSignUpForm() {
+    this.setState({
+      signUpName: '',
+      signUpCity: '',
+      signUpEmail: '',
+      signUpPwd: '',
+      signUpPwd2: ''
+    });
+  }
+
+  handleSubmit2(e) {
+    const {
+      signUpName,
+      signUpCity,
+      signUpEmail,
+      signUpPwd,
+      signUpPwd2
+    } = this.state;
+    const { signUp } = this.props;
+    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
+    e.preventDefault();
+    this.resetSignUpForm();
+  }
+
+  handleSubmit1(e) {
     const { signInemail, signInpassword } = this.state;
     const { signInUser } = this.props;
     e.preventDefault();
@@ -42,7 +85,15 @@ class SignUpSignIn extends Component {
   }
 
   render() {
-    const { signInemail, signInpassword } = this.state;
+    const {
+      signInemail,
+      signInpassword,
+      signUpName,
+      signUpCity,
+      signUpEmail,
+      signUpPwd,
+      signUpPwd2
+    } = this.state;
     return (
       <>
         <div id="bnb-banner" className="mb-3 header">
@@ -82,8 +133,7 @@ class SignUpSignIn extends Component {
                     type="submit"
                     value="Sign In"
                     onClick={e => {
-                      this.handleSubmit(e);
-                      this.routeChange();
+                      this.handleSubmit1(e);
                     }}
                   />
                 </p>
@@ -99,26 +149,63 @@ class SignUpSignIn extends Component {
               <form>
                 <p>
                   <label htmlFor="">Name: </label>
-                  <input type="text" placeholder="Name" />
+                  <input
+                    type="text"
+                    name="signUpName"
+                    value={signUpName}
+                    onChange={this.handleChange}
+                    placeholder="Name"
+                  />
                 </p>
                 <p>
                   <label htmlFor="">City: </label>
-                  <input type="text" placeholder="City" />
+                  <input
+                    type="text"
+                    name="signUpCity"
+                    value={signUpCity}
+                    onChange={this.handleChange}
+                    placeholder="City"
+                  />
                 </p>
                 <p>
                   <label htmlFor="">Email: </label>
-                  <input type="email" placeholder="Email" />
+                  <input
+                    type="email"
+                    name="signUpEmail"
+                    value={signUpEmail}
+                    onChange={this.handleChange}
+                    placeholder="Email"
+                  />
                 </p>
                 <p>
                   <label htmlFor="">Password: </label>
-                  <input type="password" placeholder="Password" />
+                  <input
+                    type="password"
+                    name="signUpPwd"
+                    value={signUpPwd}
+                    onChange={this.handleChange}
+                    placeholder="Password"
+                  />
                 </p>
                 <p>
                   <label htmlFor="">confirm: </label>
-                  <input type="password" placeholder="Password again" />
+                  <input
+                    type="password"
+                    name="signUpPwd2"
+                    value={signUpPwd2}
+                    onChange={this.handleChange}
+                    placeholder="Password again"
+                  />
                 </p>
                 <p>
-                  <input className="button" type="submit" value="Sign Up" />
+                  <input
+                    className="button"
+                    type="submit"
+                    value="Sign Up"
+                    onClick={e => {
+                      this.handleSubmit2(e);
+                    }}
+                  />
                 </p>
               </form>
             </section>

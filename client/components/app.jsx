@@ -25,7 +25,6 @@ class App extends Component {
         });
     };
     this.setFilters = filterPair => {
-      // filter pair should be an object containing a key-value pair {filter: value}
       const key = Object.keys(filterPair)[0];
       this.setState({
         [key]: filterPair[key]
@@ -71,6 +70,8 @@ class App extends Component {
     this.fetchGoogleAPI = this.fetchGoogleAPI.bind(this);
     this.setDetailView = this.setDetailView.bind(this);
     this.signInUser = this.signInUser.bind(this);
+    this.signOutUser = this.signOutUser.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -188,10 +189,8 @@ class App extends Component {
 
   getLatitudeAndLongitudeFromCityName() {
     const { user } = this.state;
-    if (user.id) {
-      const CITYNAME = user.city;
-      this.fetchGoogleAPI(CITYNAME);
-    }
+    const CITYNAME = user.city;
+    this.fetchGoogleAPI(CITYNAME);
   }
 
   fetchGoogleAPI(city) {
@@ -210,7 +209,38 @@ class App extends Component {
       });
   }
 
+  signUp(name, city, email, pwd, pwd2) {
+    if (!email.includes('@') || !email.includes('.')) {
+      return false;
+    } else if (pwd.length < 8) {
+      return false;
+    } else if (pwd !== pwd2) {
+      return false;
+    }
+    fetch('/api/signup/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, city, email, pwd, pwd2 })
+    })
+      .then(data => data.json())
+      .then(user => {
+        if (user[1] === true) {
+          this.setState({
+            user: user[0],
+            isSignedIn: user[1]
+          });
+        }
+      });
+  }
+
   signInUser(email, password) {
+    if (!email.includes('@') || !email.includes('.')) {
+      return false;
+    } else if (password.length < 8) {
+      return false;
+    }
     fetch('/api/user/', {
       method: 'POST',
       headers: {
@@ -221,27 +251,30 @@ class App extends Component {
       .then(data => data.json())
       .then(user => {
         if (user[1] === true) {
-          window.localStorage.setItem('isSignedIn', JSON.stringify(user[1]));
           this.setState({
             user: user[0],
             isSignedIn: user[1]
           });
-        } else {
-          alert('please check your email or password');
         }
       });
   }
 
-  // getUser() {
-  //   fetch('/api/home/user')
-  //     .then(data => data.json())
-  //     .then(user => {
-  //       this.setState({ user });
-  //     });
-  // }
-  // componentDidMount() {
-  //   this.getUser();
-  // }
+  signOutUser() {
+    fetch('/api/user')
+      .then(data => data.json())
+      .then(user => {
+        this.setState({
+          currentLat: null,
+          currentLong: null,
+          user: user[0],
+          isSignedIn: user[1],
+          // city: null,
+          restaurants: [],
+          restaurant: null,
+          zipCode: null
+        });
+      });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const {
@@ -250,10 +283,13 @@ class App extends Component {
       currentLong,
       city,
       currentPriceFilter,
-      currentRadiusFilter
+      currentRadiusFilter,
+      isSignedIn
     } = this.state;
-    if (prevState.user.name !== user.name) {
-      this.getLatitudeAndLongitudeFromCityName();
+    if (isSignedIn) {
+      if (prevState.user.name !== user.name) {
+        this.getLatitudeAndLongitudeFromCityName();
+      }
     }
     if (prevState.city !== city) {
       this.fetchGoogleAPI(city);
@@ -264,7 +300,12 @@ class App extends Component {
       prevState.currentPriceFilter !== currentPriceFilter ||
       prevState.currentRadiusFilter !== currentRadiusFilter
     ) {
-      this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
+      if (currentLat === null || currentLong === null) {
+        return false;
+      }
+      if (currentLat !== null && currentLong !== null) {
+        this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
+      }
     }
   }
 
@@ -290,6 +331,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/">
               <SignUpSignIn
+                signUp={this.signUp}
                 signInUser={this.signInUser}
                 isSignedIn={isSignedIn}
               />
@@ -305,6 +347,7 @@ class App extends Component {
                 <Home
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
+                  signOutUser={this.signOutUser}
                 />
               </Provider>
             </Route>

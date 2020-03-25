@@ -349,3 +349,13 @@ a {
   75%  {height: 10px;}
   100% {height: 0;}
 }
+
+.google-map {
+  display: flex;
+  justify-content: center;
+  iframe {
+    width: 325px;
+    height: 115px;
+    border: 0;
+  }
+}

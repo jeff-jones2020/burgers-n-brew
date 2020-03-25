@@ -8,7 +8,7 @@ import UserDropDown from './user-dropdown.jsx';
 
 class SideBar extends React.Component {
   render() {
-    const { displaySideBar, opened } = this.props;
+    const { displaySideBar, opened, signOutUser, isSignedIn } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -21,12 +21,12 @@ class SideBar extends React.Component {
           >
             <div className="sidebar-container py-4">
               <div className="location py-2">
-                <LocationDropDown />
+                <LocationDropDown isSignedIn={isSignedIn} />
               </div>
               <div className="account py-2">
                 <Consumer>
                   {({ user }) => (
-                    <UserDropDown user={user}/>
+                    <UserDropDown signOutUser={signOutUser} user={user}/>
                   )}
                 </Consumer>
               </div>

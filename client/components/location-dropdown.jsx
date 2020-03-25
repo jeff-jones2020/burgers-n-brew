@@ -26,10 +26,11 @@ class LocationDropDown extends Component {
     return (
       <>
         <Consumer>
-          {({ city, zipCode, updateLatAndLong, user, updateUserDefault }) => (
+          {({ city, zipCode, updateLatAndLong, user, updateUserDefault, isSignedIn }) => (
             <>
               <div className='d-flex current-city' onClick={this.toggleSearchHidden}>
-                <CurrentLocation updateLatAndLong={updateLatAndLong} />
+                <CurrentLocation
+                  updateLatAndLong={updateLatAndLong} isSignedIn={isSignedIn} />
                 {user.id ? (
                   <CurrentCity city={city} zipCode={zipCode} className='ml-3'/>
                 ) : (

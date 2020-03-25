@@ -4,7 +4,7 @@ import DealsFeed from './deals-feed';
 
 class Home extends Component {
   render() {
-    const { setDetailView, restaurants } = this.props;
+    const { setDetailView, restaurants, signOutUser } = this.props;
     if (restaurants.length === 0) {
       return (
         <>
@@ -25,7 +25,7 @@ class Home extends Component {
     } else {
       return (
         <>
-          <Header />
+          <Header signOutUser={signOutUser} />
           <DealsFeed restaurants={restaurants} setDetailView={setDetailView} />
         </>
       );

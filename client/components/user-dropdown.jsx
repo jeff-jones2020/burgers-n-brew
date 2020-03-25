@@ -21,7 +21,7 @@ class UserDropDown extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, signOutUser } = this.props;
     let menuHiddenClass;
     if (!this.state.menuHasOpened) menuHiddenClass = ' menu-hidden';
     else menuHiddenClass = this.state.menuIsHidden ? ' menu-hide' : ' menu-reveal';
@@ -30,12 +30,24 @@ class UserDropDown extends React.Component {
       <>
         <div onClick={this.toggleMenuOpen}>
           <i className="far fa-user-circle account-icon"></i>
-          {user.id ? (<span> &nbsp; {user.name}</span>)
-            : (<span>&nbsp; Guest</span>) }
+          {user.id ? (
+            <>
+              <span> &nbsp; {user.name}</span>
+              <p onClick={signOutUser} >
+                <Link to="/">SignOut</Link>
+              </p>
+            </>
+          )
+            : (
+              <>
+                <span>&nbsp; Guest</span>
+                <p className={'user-menu' + menuHiddenClass}>
+                  <Link to="/">SignUp/SignIn</Link>
+                </p>
+              </>
+            ) }
         </div>
-        <p className={'user-menu' + menuHiddenClass}>
-          <Link to="/">SignUp/SignIn</Link>
-        </p>
+
       </>
     );
   }
