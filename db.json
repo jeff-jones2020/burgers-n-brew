@@ -1,4 +1,12 @@
 {
   "city": [],
-  "user": []
+  "user": [
+    {
+      "id": 1,
+      "name": "tim",
+      "city": "irvine",
+      "email": "tim@tim.com",
+      "password": "$2b$10$JqOGHSY2uA2Kst1IktUDRuoCUTfg0/CqIKmGs1Ksx2yPwjpr3ZDTm"
+    }
+  ]
 }

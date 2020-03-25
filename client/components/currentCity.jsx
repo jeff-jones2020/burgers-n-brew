@@ -23,7 +23,7 @@ class CurrentCity extends Component {
   render() {
     const { city, zipCode } = this.state;
     return (
-      <span>
+      <span onClick={this.props.toggleSearchHidden}>
           &nbsp; <span>{city}</span> <span>{zipCode}</span>
       </span>
     );
