@@ -257,7 +257,12 @@ a {
   }
 }
 
-iframe {
-  width: 350px;
-  height: 150px;
+.google-map {
+  display: flex;
+  justify-content: center;
+  iframe {
+    width: 325px;
+    height: 115px;
+    border: 0;
+  }
 }
