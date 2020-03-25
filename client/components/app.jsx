@@ -344,6 +344,7 @@ class App extends Component {
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
                   signOutUser={this.signOutUser}
+                  city={this.state.city}
                 />
               </Provider>
             </Route>
