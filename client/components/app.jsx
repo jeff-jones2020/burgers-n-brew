@@ -312,13 +312,13 @@ class App extends Component {
         <div>
           <nav>
             <ul className="nav-ul">
-              <li className="nav-li">
-                <Link to="/">SignUpSignIn</Link>
+              <li>
+                <Link to="/">Sign Up / Sign In</Link>
               </li>
-              <li className="nav-li">
+              <li>
                 <Link to="/home">Home</Link>
               </li>
-              <li className="nav-li">
+              <li>
                 <Link to="/users">Users</Link>
               </li>
             </ul>

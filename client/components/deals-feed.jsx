@@ -25,7 +25,7 @@ const DealsFeed = props => {
             >
               <img src={restaurant.photos[0]} />
               <div className="d-flex flex-column col">
-                <h5 className="restaurant-name mb-0">{restaurant.name}</h5>
+                <h5 className="mb-0">{restaurant.name}</h5>
                 <p className="deal-description">
                   Spicy jalapeno bacon ipsum dolor amet dolor chislic lager.
                 </p>

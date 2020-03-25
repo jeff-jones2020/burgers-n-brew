@@ -280,8 +280,7 @@ a {
   list-style-type: none;
   cursor: pointer;
 }
-
-.nav-li {
+.nav-ul li {
   margin: 0 2%;
 }
 

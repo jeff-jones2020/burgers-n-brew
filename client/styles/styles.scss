@@ -285,10 +285,9 @@ a {
   width: 100%;
   list-style-type: none;
   cursor: pointer;
-}
-
-.nav-li {
-  margin: 0 2%;
+  li {
+    margin: 0 2%;
+  }
 }
 
 .signForm {
