@@ -4,11 +4,11 @@ import PriceFilter from './price-filter.jsx';
 import RadiusFilter from './radius-filter.jsx';
 import { CSSTransition } from 'react-transition-group';
 import { Consumer } from '../store.jsx';
-import { Link } from 'react-router-dom';
+import UserDropDown from './user-dropdown.jsx';
 
 class SideBar extends React.Component {
   render() {
-    const { displaySideBar, opened } = this.props;
+    const { displaySideBar, opened, signOutUser, isSignedIn } = this.props;
     return (
       <>
         <div className="sidebar-icon" onClick={displaySideBar} />
@@ -19,32 +19,20 @@ class SideBar extends React.Component {
             unmountOnExit
             timeout={500}
           >
-            <div className="sidebar-container">
-              <div className="location">
-                <LocationDropDown />
+            <div className="sidebar-container py-4">
+              <div className="location py-2">
+                <LocationDropDown isSignedIn={isSignedIn} />
               </div>
-              <div className="account">
+              <div className="account py-2">
                 <Consumer>
                   {({ user }) => (
-                    <div>
-                      <i className="far fa-user-circle"></i>
-                      {user.id ? (
-                        <span> &nbsp; {user.name}</span>
-                      ) : (
-                        <>
-                          <span>&nbsp; Guest</span>
-                          <p>
-                            <Link to="/">SignUp/SignIn</Link>
-                          </p>
-                        </>
-                      )}
-                    </div>
+                    <UserDropDown signOutUser={signOutUser} user={user}/>
                   )}
                 </Consumer>
               </div>
               <Consumer>
                 {({ setFilters, currentPriceFilter }) => (
-                  <div className="filter">
+                  <div className="filter py-2">
                     <PriceFilter
                       setFilters={setFilters}
                       currentPriceFilter={currentPriceFilter}
@@ -54,7 +42,7 @@ class SideBar extends React.Component {
               </Consumer>
               <Consumer>
                 {({ setFilters, currentRadiusFilter }) => (
-                  <div className="filter">
+                  <div className="filter py-2">
                     <RadiusFilter
                       setFilters={setFilters}
                       currentRadiusFilter={currentRadiusFilter}

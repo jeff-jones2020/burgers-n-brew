@@ -4,38 +4,51 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
 const app = express();
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+const db = require('./lowdb');
 const fetch = require('node-fetch');
+const bcrypt = require('bcrypt');
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
 
-app.post('/api/user', (req, res) => {
-  const users = db.get('user').value();
-  const currentUser = users.filter((user, i) => {
-    return user.email === req.body.email;
-  });
-  if (currentUser.length === 1) {
-    if (Number(req.body.password) === currentUser[0].password) {
-      req.session.isSignedIn = true;
-      req.session.name = currentUser[0].name;
-      req.session.save(() => {
-        res.json([currentUser[0], true]);
-      });
-    } else {
-      return res.send('wrong password');
-    }
+const passport = require('./passport')(app);
+
+app.post('/api/signup', (req, res) => {
+  const { email, pwd, pwd2, name, city } = req.body;
+  if (pwd !== pwd2) {
+    res.json({ err: 'please check your password' });
   } else {
-    return res.send('wrong password');
+    bcrypt.hash(pwd, 10, (err, hash) => {
+      const users = db.get('user').value();
+      const user = {
+        id: users.length + 1,
+        name: name,
+        city: city,
+        email: email,
+        password: hash
+      };
+      db.get('user')
+        .push(user)
+        .write();
+      res.json([user, true]);
+    });
   }
 });
 
+app.post('/api/user', passport.authenticate('local'), (req, res) => {
+  res.json([req.user, true]);
+});
+
+app.get('/api/user', (req, res) => {
+  req.logout();
+  req.session.save(err => {
+    res.json([{}, false]);
+  });
+});
+
 app.get('/api/home/user', (req, res) => {
-  if (req.session.isSignedIn) {
+  if (req.session.passport.user === req.user.email) {
     const data = db.get('user').value();
     const newUser = data.filter((user, i) => {
       return user.name === req.session.name;
@@ -49,7 +62,7 @@ app.get('/api/home/user', (req, res) => {
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
   const city = req.body.city.toUpperCase();
-  if (req.session.isSignedIn) {
+  if (req.session.passport.user === req.user.email) {
     db.get('user')
       .find({ id })
       .assign({ city })

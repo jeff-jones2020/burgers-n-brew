@@ -74,22 +74,30 @@ body {
 
 .sidebar-container {
   height: 100%;
-  width: 75%;
+  width: 80%;
   background-color: rgb(176, 0, 0);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
   .location {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border-top: none;
     div form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
   }
+  font-size: 24px;
+}
+
+.sidebar-container > * {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-left: none;
+  padding-left: 15px;
+  padding-right: 15px
 }
 
 #bnb-title {
@@ -110,6 +118,59 @@ img {
 
 .deal-description {
   font-family: 'Scope One', serif;
+}
+
+.current-city {
+  font-size: 20px
+}
+
+.menu-hidden,
+.search-hidden {
+  overflow-y: hidden;
+  height: 0;
+}
+
+.search-hide {
+  overflow-y: hidden;
+  height: 0;
+  animation: 200ms linear search-scrollup;
+}
+
+.search-reveal {
+  overflow-y: hidden;
+  animation: 200ms linear search-scrolldown;
+}
+
+.default-checkbox {
+  width: 100%;
+  font-size: 10px;
+  text-align: right;
+}
+
+.user-menu {
+  overflow: hidden;
+  text-align: center;
+  font-size: 14px;
+}
+
+.menu-hide {
+  overflow-y: hidden;
+  height: 0;
+  animation: 200ms linear menu-scrollup;
+}
+
+.menu-reveal {
+  overflow-y: hidden;
+  animation: 200ms linear menu-scrolldown;
+}
+
+.geo-icon, .account-icon {
+  font-size: 40px;
+
+}
+
+.search-icon {
+  font-size: 20px;
 }
 
 .filter {
@@ -256,6 +317,38 @@ a {
   .signin {
     color: white;
   }
+}
+
+@keyframes search-scrolldown {
+  0%   {height: 0;}
+  25%  {height: 20px;}
+  50%  {height: 40px;}
+  75%  {height: 60px;}
+  100% {height: auto;}
+}
+
+@keyframes search-scrollup {
+  0%   {height: auto;}
+  25%  {height: 60px;}
+  50%  {height: 40px;}
+  75%  {height: 20px;}
+  100% {height: 0;}
+}
+
+@keyframes menu-scrolldown {
+  0%   {height: 0;}
+  25%  {height: 10px;}
+  50%  {height: 20px;}
+  75%  {height: 30px;}
+  100% {height: auto;}
+}
+
+@keyframes menu-scrollup {
+  0%   {height: auto;}
+  25%  {height: 30px;}
+  50%  {height: 20px;}
+  75%  {height: 10px;}
+  100% {height: 0;}
 }
 
 .google-map {

@@ -42,7 +42,7 @@ class RadiusFilter extends React.Component {
     if (!this.state.editFilterMode) {
       return (
         <div
-          className="d-flex justify-content-between align-mid px-3"
+          className="d-flex justify-content-between align-mid"
           onClick={this.setEditFilterView}
         >
           <img src="images/filter-icon.svg" className="filter-icon"></img>

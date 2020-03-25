@@ -3,29 +3,22 @@ import React, { Component } from 'react';
 class CurrentLocation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      latitude: null,
-      longitude: null
-    };
-    this.askForCoords = this.askForCoords.bind(this);
+
     this.handleGeoSuccess = this.handleGeoSuccess.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGeoErr = this.handleGeoErr.bind(this);
   }
 
   handleSubmit(e) {
-    const { updateLatAndLong } = this.props;
-    const { latitude, longitude } = this.state;
-    updateLatAndLong(latitude, longitude);
+    this.askForCoords();
     e.preventDefault();
   }
 
   handleGeoSuccess(position) {
+    const { updateLatAndLong } = this.props;
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    this.setState({
-      latitude,
-      longitude
-    });
+    updateLatAndLong(latitude, longitude);
   }
 
   handleGeoErr() {
@@ -40,21 +33,15 @@ class CurrentLocation extends Component {
     );
   }
 
-  componentDidMount() {
-    const { latitude, longitude } = this.state;
-    if (latitude === null && longitude === null) {
-      this.askForCoords();
-    }
-  }
-
   render() {
     return (
       <span
         onClick={e => {
           this.handleSubmit(e);
+          console.log(e);
         }}
       >
-        <i className="fas fa-map-marker-alt"></i>
+        <i className="fas fa-map-marker-alt geo-icon ml-1"></i>
       </span>
     );
   }
