@@ -61,11 +61,14 @@ passport.use(
 );
 
 app.post('/api/user', passport.authenticate('local'), (req, res) => {
+  // If this function gets called, authentication was successful.
+  // `req.user` contains the authenticated user.
   res.json([req.user, true]);
 });
 
 app.get('/api/user', (req, res) => {
-  req.session.destroy(err => {
+  req.logout();
+  req.session.save(err => {
     res.json([{}, false]);
   });
 });
