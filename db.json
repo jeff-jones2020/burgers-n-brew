@@ -1,33 +1,4 @@
 {
   "city": [],
-  "user": [
-    {
-      "id": 1,
-      "name": "tim",
-      "city": "irvine",
-      "email": "tim@tim.com",
-      "password": "$2b$10$e1IDGgLKcUy.t3QMS1n3deHuuXI.TsuAf8GIiFyoBNaAgsFNZ9Kua"
-    },
-    {
-      "id": 2,
-      "name": "jeff@jeff.com",
-      "city": "Irvine",
-      "email": "jeff@jeff.com",
-      "password": "$2b$10$c0cv4RAM9hdgn4sqa7R7e.K9hMqoKk2kc1oxAruwPuy.2OaQcNhC2"
-    },
-    {
-      "id": 3,
-      "name": "tim",
-      "city": "San Diego",
-      "email": "tim@tim.com",
-      "password": "$2b$10$OWxUEvh4rOBnZOW29piNeOO0P.5DgDHl1BSENKU7H.te/HtpaitTW"
-    },
-    {
-      "id": 4,
-      "name": "Tim",
-      "city": "San Diego",
-      "email": "tim@tim.com",
-      "password": "$2b$10$EdskXoDnOtFZsG/SKwT4JedD.fsO1cDdZeXgEa6FjXjcRKChpkqry"
-    }
-  ]
+  "user": []
 }
