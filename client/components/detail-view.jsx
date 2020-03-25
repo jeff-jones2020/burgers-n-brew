@@ -38,7 +38,7 @@ class DetailView extends Component {
     const currentDay = currentDate.getDay();
     let mapName = restaurant.name;
     if (mapName.includes('&')) {
-      mapName = mapName.replace('&', '');
+      mapName = mapName.replace(/&/g, '');
     }
     const restaurantTags = restaurant.categories.map(category => {
       return <span key={category.alias}> | {category.title}</span>;
