@@ -81,11 +81,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border-top: none;
 }
 .sidebar-container .location div form {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.sidebar-container > * {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  border-left: none;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #bnb-title {
@@ -108,8 +117,38 @@ img {
   font-family: "Scope One", serif;
 }
 
-.geo-icon, .search-icon, .account-icon {
-  font-size: 36px;
+.current-city {
+  font-size: 20px;
+}
+
+.search-hidden {
+  overflow-y: hidden;
+  height: 0;
+}
+
+.search-hide {
+  overflow-y: hidden;
+  height: 0;
+  animation: 200ms linear scrollup;
+}
+
+.search-reveal {
+  overflow-y: hidden;
+  animation: 200ms linear scrolldown;
+}
+
+.default-checkbox {
+  width: 100%;
+  font-size: 10px;
+  text-align: right;
+}
+
+.geo-icon, .account-icon {
+  font-size: 40px;
+}
+
+.search-icon {
+  font-size: 20px;
 }
 
 .filter {
@@ -252,6 +291,41 @@ a {
 }
 .signForm .signin {
   color: white;
+}
+
+@keyframes scrolldown {
+  0% {
+    height: 0;
+  }
+  25% {
+    height: 20px;
+  }
+  50% {
+    height: 40px;
+  }
+  75% {
+    height: 60px;
+  }
+  100% {
+    height: auto;
+  }
+}
+@keyframes scrollup {
+  0% {
+    height: auto;
+  }
+  25% {
+    height: 60px;
+  }
+  50% {
+    height: 40px;
+  }
+  75% {
+    height: 20px;
+  }
+  100% {
+    height: 0;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

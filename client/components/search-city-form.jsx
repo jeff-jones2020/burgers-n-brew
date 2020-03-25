@@ -22,6 +22,7 @@ class SearchCityForm extends Component {
     updatecity(city);
     e.preventDefault();
     this.resetForm();
+    this.props.toggleSearchHidden();
   }
 
   handleChange(e) {
@@ -33,12 +34,15 @@ class SearchCityForm extends Component {
   }
 
   render() {
+    let displayClass;
+    if (!this.props.searchHasOpened) displayClass = 'search-hidden';
+    else displayClass = this.props.isHidden ? 'search-hide' : 'search-reveal';
+
     return (
-      <div>
+      <div className={displayClass}>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <i className="fas fa-search search-icon"></i>
-            &nbsp; <span>Search:</span>
+            <i className="fas fa-search search-icon mr-3"></i>
             <input
               type="text"
               name="city"
