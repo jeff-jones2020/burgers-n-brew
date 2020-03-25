@@ -37,15 +37,18 @@ class LocationDropDown extends Component {
                   <span className='ml-3' onClick={this.toggleSearchHidden}>&nbsp;current location</span>
                 )}
               </div>
-              <p className='default-checkbox'>
-                <input
-                  type="checkbox"
-                  onClick={() => {
-                    updateUserDefault(city);
-                  }}
-                />
+              {user.id ? (
+                <p className='default-checkbox'>
+                  <input
+                    type="checkbox"
+                    onClick={() => {
+                      updateUserDefault(city);
+                    }}
+                  />
                 &nbsp; Default
-              </p>
+                </p>
+              ) : null
+              }
             </>
           )}
         </Consumer>
