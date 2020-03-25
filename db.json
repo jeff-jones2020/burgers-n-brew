@@ -1,40 +1,4 @@
 {
   "city": [],
-  "user": [
-    {
-      "id": 1,
-      "name": "tim",
-      "city": " costa mesa",
-      "email": "tim@tim.com",
-      "password": "$2b$10$xWULLIrOQnmFAy7A8kU5P.x879ok3cjwf2GfGGCtQAp2C9zAa2Vcu"
-    },
-    {
-      "id": 2,
-      "name": "jinho",
-      "city": "buena park",
-      "email": "jinho@gmail.com",
-      "password": "$2b$10$i5sp.4bG2USC/vS8UNdXk.A9ZR/mAtwRYR3G6webcHS1zcoZLHTgu"
-    },
-    {
-      "id": 3,
-      "name": "jeff",
-      "city": "fullerton",
-      "email": "tim@tim.com",
-      "password": "$2b$10$BPusiljQxCB/cRKLdA5SPeLXcvTwFyDFis4lQh1WgfpwtAGjAl4l."
-    },
-    {
-      "id": 4,
-      "name": "jeff",
-      "city": "torrence",
-      "email": "tim@tim.com",
-      "password": "$2b$10$5m36/RbUXjUywnMbEyqDDunI8vKotlrPAnKLlE/klK46YbFBt9OFi"
-    },
-    {
-      "id": 5,
-      "name": "lawrence",
-      "city": "irvine",
-      "email": "lawrence@abc.com",
-      "password": "$2b$10$PBUUbUGMzze52C3Nzy9vq.B0lO5rm6T9nfIxLOpstrBqBSHaMJOeG"
-    }
-  ]
+  "user": []
 }
