@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Consumer } from '../store.jsx';
 
 class CurrentCity extends Component {
   constructor(props) {
@@ -24,24 +23,9 @@ class CurrentCity extends Component {
   render() {
     const { city, zipCode } = this.state;
     return (
-      <>
-        <span>
+      <span>
           &nbsp; <span>{city}</span> <span>{zipCode}</span>
-        </span>
-        <Consumer>
-          {({ updateUserDefault }) => (
-            <p>
-              <input
-                type="checkbox"
-                onClick={() => {
-                  updateUserDefault(city);
-                }}
-              />
-              &nbsp; Default
-            </p>
-          )}
-        </Consumer>
-      </>
+      </span>
     );
   }
 }

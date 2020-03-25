@@ -20,7 +20,7 @@ const DealsFeed = props => {
               className={
                 'd-flex' +
                 flexReverser +
-                'align-items-center deal col-11 mx-auto p-0'
+                'align-items-center deal col-11 mx-auto p-0 mb-4'
               }
             >
               <img src={restaurant.photos[0]} />

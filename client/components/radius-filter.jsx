@@ -42,10 +42,10 @@ class RadiusFilter extends React.Component {
     if (!this.state.editFilterMode) {
       return (
         <div
-          className="d-flex justify-content-between align-mid px-3"
+          className="d-flex justify-content-between align-mid"
           onClick={this.setEditFilterView}
         >
-          <img src="images/filter-icon.svg" className="filter-icon mr-4"></img>
+          <img src="images/filter-icon.svg" className="filter-icon"></img>
           <input
             id="radius-range"
             type="range"
@@ -53,7 +53,7 @@ class RadiusFilter extends React.Component {
             min={1}
             max={24.8}
             onChange={this.setEditFilterView}
-            className="mr-4"
+            className="mx-3"
           />
           <div id="mile-label">{filter} mi.</div>
           {/* 24.8 miles is Yelp's maximum radius value */}
