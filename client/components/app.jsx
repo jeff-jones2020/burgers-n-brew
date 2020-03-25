@@ -71,6 +71,7 @@ class App extends Component {
     this.setDetailView = this.setDetailView.bind(this);
     this.signInUser = this.signInUser.bind(this);
     this.signOutUser = this.signOutUser.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
@@ -208,6 +209,28 @@ class App extends Component {
       });
   }
 
+  signUp(name, city, email, pwd, pwd2) {
+    if (pwd !== pwd2) {
+      return false;
+    }
+    fetch('/api/signup/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, city, email, pwd, pwd2 })
+    })
+      .then(data => data.json())
+      .then(user => {
+        if (user[1] === true) {
+          this.setState({
+            user: user[0],
+            isSignedIn: user[1]
+          });
+        }
+      });
+  }
+
   signInUser(email, password) {
     fetch('/api/user/', {
       method: 'POST',
@@ -299,6 +322,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/">
               <SignUpSignIn
+                signUp={this.signUp}
                 signInUser={this.signInUser}
                 isSignedIn={isSignedIn}
               />

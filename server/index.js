@@ -30,7 +30,7 @@ app.post('/api/signup', (req, res) => {
     db.get('user')
       .push(user)
       .write();
-    res.json(user);
+    res.json([user, true]);
   }
 });
 
