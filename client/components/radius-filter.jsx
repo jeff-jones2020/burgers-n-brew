@@ -53,7 +53,6 @@ class RadiusFilter extends React.Component {
             min={1}
             max={24.8}
             onChange={this.setEditFilterView}
-            className="mx-3"
           />
           <div id="mile-label">{filter} mi.</div>
           {/* 24.8 miles is Yelp's maximum radius value */}

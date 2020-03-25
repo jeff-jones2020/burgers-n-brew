@@ -186,7 +186,8 @@ img {
 }
 
 .filter-icon {
-  width: 40px;
+  width: 50px;
+  height: 34px;
   align-self: center;
 }
 
@@ -357,5 +358,29 @@ a {
     width: 325px;
     height: 115px;
     border: 0;
+  }
+}
+
+#radius-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 115px;
+  height: 2px;
+  background: white;
+  outline: none;
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: white;
+  }
+  &::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: white;
+    opacity: 1;
   }
 }
