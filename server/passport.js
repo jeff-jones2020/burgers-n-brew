@@ -24,7 +24,7 @@ module.exports = app => {
       (username, password, done) => {
         const users = db.get('user').value();
         const currentUser = users.filter((user, i) => {
-          return user.email === username;
+          return user.email === username.toLowerCase();
         });
         if (currentUser.length === 0) {
           const errMsg = "there's no matched email";
@@ -32,7 +32,7 @@ module.exports = app => {
             message: errMsg
           });
         }
-        if (username === currentUser[0].email) {
+        if (username.toLowerCase() === currentUser[0].email) {
           bcrypt.compare(password, currentUser[0].password, (err, result) => {
             if (err) {
               throw err;

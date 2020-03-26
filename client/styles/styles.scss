@@ -97,7 +97,7 @@ body {
   border-right: none;
   border-left: none;
   padding-left: 15px;
-  padding-right: 15px
+  padding-right: 15px;
 }
 
 #bnb-title {
@@ -121,7 +121,7 @@ img {
 }
 
 .current-city {
-  font-size: 20px
+  font-size: 20px;
 }
 
 .menu-hidden,
@@ -164,9 +164,9 @@ img {
   animation: 200ms linear menu-scrolldown;
 }
 
-.geo-icon, .account-icon {
+.geo-icon,
+.account-icon {
   font-size: 40px;
-
 }
 
 .search-icon {
@@ -293,7 +293,7 @@ a {
 .signForm {
   padding: 4%;
 
-  button {
+  .button {
     background-color: rgb(255, 79, 79);
     border-radius: 16px;
     border: 1px solid rgb(255, 79, 79);
@@ -320,35 +320,75 @@ a {
 }
 
 @keyframes search-scrolldown {
-  0%   {height: 0;}
-  25%  {height: 20px;}
-  50%  {height: 40px;}
-  75%  {height: 60px;}
-  100% {height: auto;}
+  0% {
+    height: 0;
+  }
+  25% {
+    height: 20px;
+  }
+  50% {
+    height: 40px;
+  }
+  75% {
+    height: 60px;
+  }
+  100% {
+    height: auto;
+  }
 }
 
 @keyframes search-scrollup {
-  0%   {height: auto;}
-  25%  {height: 60px;}
-  50%  {height: 40px;}
-  75%  {height: 20px;}
-  100% {height: 0;}
+  0% {
+    height: auto;
+  }
+  25% {
+    height: 60px;
+  }
+  50% {
+    height: 40px;
+  }
+  75% {
+    height: 20px;
+  }
+  100% {
+    height: 0;
+  }
 }
 
 @keyframes menu-scrolldown {
-  0%   {height: 0;}
-  25%  {height: 10px;}
-  50%  {height: 20px;}
-  75%  {height: 30px;}
-  100% {height: auto;}
+  0% {
+    height: 0;
+  }
+  25% {
+    height: 10px;
+  }
+  50% {
+    height: 20px;
+  }
+  75% {
+    height: 30px;
+  }
+  100% {
+    height: auto;
+  }
 }
 
 @keyframes menu-scrollup {
-  0%   {height: auto;}
-  25%  {height: 30px;}
-  50%  {height: 20px;}
-  75%  {height: 10px;}
-  100% {height: 0;}
+  0% {
+    height: auto;
+  }
+  25% {
+    height: 30px;
+  }
+  50% {
+    height: 20px;
+  }
+  75% {
+    height: 10px;
+  }
+  100% {
+    height: 0;
+  }
 }
 
 .google-map {

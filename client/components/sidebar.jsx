@@ -23,31 +23,30 @@ class SideBar extends React.Component {
               <div className="location py-2">
                 <LocationDropDown isSignedIn={isSignedIn} />
               </div>
-              <div className="account py-2">
-                <Consumer>
-                  {({ user }) => (
-                    <UserDropDown signOutUser={signOutUser} user={user}/>
-                  )}
-                </Consumer>
-              </div>
               <Consumer>
-                {({ setFilters, currentPriceFilter }) => (
-                  <div className="filter py-2">
-                    <PriceFilter
-                      setFilters={setFilters}
-                      currentPriceFilter={currentPriceFilter}
-                    />
-                  </div>
-                )}
-              </Consumer>
-              <Consumer>
-                {({ setFilters, currentRadiusFilter }) => (
-                  <div className="filter py-2">
-                    <RadiusFilter
-                      setFilters={setFilters}
-                      currentRadiusFilter={currentRadiusFilter}
-                    />
-                  </div>
+                {({
+                  user,
+                  setFilters,
+                  currentPriceFilter,
+                  currentRadiusFilter
+                }) => (
+                  <>
+                    <div className="account py-2">
+                      <UserDropDown signOutUser={signOutUser} user={user} />
+                    </div>
+                    <div className="filter py-2">
+                      <PriceFilter
+                        setFilters={setFilters}
+                        currentPriceFilter={currentPriceFilter}
+                      />
+                    </div>
+                    <div className="filter py-2">
+                      <RadiusFilter
+                        setFilters={setFilters}
+                        currentRadiusFilter={currentRadiusFilter}
+                      />
+                    </div>
+                  </>
                 )}
               </Consumer>
               <div className="vegetarian-filter">
