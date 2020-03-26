@@ -21,6 +21,20 @@
       "city": " torrance",
       "email": "jinho1@jinho.com",
       "password": "$2b$10$O2qOk8NcDcRcMjchGcV44usVexrW95kCz9gB2B30UfUe8Of7auoDC"
+    },
+    {
+      "id": 4,
+      "name": "jeff",
+      "city": "jeff",
+      "email": "jeff@jeff.jeff",
+      "password": "$2b$10$wpmTWfXmtlQ5XzBUbz6g0uJkcXXT8ZKKKZFRUoKLLH0Cx08PfXZq2"
+    },
+    {
+      "id": 5,
+      "name": "jeff",
+      "city": "jeff",
+      "email": "jeff@jeff.gov",
+      "password": "$2b$10$xKw6WT5/rSQCL0yEngmpzu.KfUqWfJQpjgylIrIKUxGypLLA7Mrvm"
     }
   ]
 }
