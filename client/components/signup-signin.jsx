@@ -18,7 +18,7 @@ class SignUpSignIn extends Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
-    this.regPwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+    this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
 
@@ -188,7 +188,7 @@ class SignUpSignIn extends Component {
                     value={signUpPwd}
                     onChange={this.handleChange}
                     placeholder="Password"
-                    minLength="6"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -212,6 +212,17 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
+                <p
+                  className={this.regEmail.test(signUpEmail) ? 'hidden' : 'red'}
+                >
+                  Invalid Email now
+                </p>
+                <p className={this.regPwd.test(signUpPwd) ? 'hidden' : 'red'}>
+                  Invalid password now
+                </p>
+                <p className={signUpPwd === signUpPwd2 ? 'hidden' : 'red'}>
+                  should be same password
+                </p>
               </form>
             </section>
           </div>
