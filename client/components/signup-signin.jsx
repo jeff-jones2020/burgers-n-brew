@@ -18,6 +18,8 @@ class SignUpSignIn extends Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
+    this.regPwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+    this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
 
   routeChange() {
@@ -125,6 +127,7 @@ class SignUpSignIn extends Component {
                     value={signInpassword}
                     onChange={this.handleChange}
                     placeholder="Password"
+                    minLength="6"
                   />
                 </div>
                 <div>
@@ -185,6 +188,7 @@ class SignUpSignIn extends Component {
                     value={signUpPwd}
                     onChange={this.handleChange}
                     placeholder="Password"
+                    minLength="6"
                   />
                 </div>
                 <div>
@@ -195,6 +199,7 @@ class SignUpSignIn extends Component {
                     value={signUpPwd2}
                     onChange={this.handleChange}
                     placeholder="Password again"
+                    minLength="6"
                   />
                 </div>
                 <div>
