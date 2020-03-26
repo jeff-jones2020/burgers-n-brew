@@ -20,22 +20,22 @@ body {
   height: 185px;
   position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  h1,
-  .sidebar-icon {
+  h1 {
     font-size: 1.5em;
     position: relative;
     z-index: 1;
   }
-}
-
-.sidebar-icon {
-  background-image: url('images/sidebar.svg');
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
+  .sidebar-icon {
+    background-image: url('images/sidebar.svg');
+    width: 30px;
+    height: 24px;
+    object-fit: cover;
+    top: 2em;
+    right: 2em;
+    position: absolute;
+  }
 }
 
 #banner-background {
@@ -167,7 +167,6 @@ img {
 
 .geo-icon, .account-icon {
   font-size: 40px;
-
 }
 
 .search-icon {
