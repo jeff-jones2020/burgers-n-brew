@@ -66,3 +66,12 @@ VALUES (
   null, null, null,
   null, null, null
 );
+
+CREATE SEQUENCE brew_suggestions_suggestion_id_seq as integer;
+CREATE TABLE brew_suggestions (
+  suggestion_id integer default nextval('brew_suggestions_suggestion_id_seq') PRIMARY KEY,
+  yelp_id text REFERENCES restaurants,
+  name text NOT NULL,
+  count integer
+);
+ALTER SEQUENCE brew_suggestions_suggestion_id_seq owned by brew_suggestions.suggestion_id;
