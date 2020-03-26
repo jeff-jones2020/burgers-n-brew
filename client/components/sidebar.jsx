@@ -50,9 +50,6 @@ class SideBar extends React.Component {
                   </div>
                 )}
               </Consumer>
-              <div className="vegetarian-filter">
-                <div className="filter-icon" />
-              </div>
             </div>
           </CSSTransition>
         </div>
