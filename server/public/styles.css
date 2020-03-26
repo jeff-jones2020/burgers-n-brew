@@ -18,22 +18,22 @@ body {
   height: 185px;
   position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
 }
-#bnb-banner h1,
-#bnb-banner .sidebar-icon {
+#bnb-banner h1 {
   font-size: 1.5em;
   position: relative;
   z-index: 1;
 }
-
-.sidebar-icon {
+#bnb-banner .sidebar-icon {
   background-image: url("images/sidebar.svg");
-  width: 24px;
+  width: 30px;
   height: 24px;
   object-fit: cover;
+  top: 2em;
+  right: 1.5em;
+  position: absolute;
 }
 
 #banner-background {
@@ -49,7 +49,8 @@ body {
 }
 
 .fill-background {
-  height: 100vh;
+  height: 100%;
+  margin: 0 1em;
 }
 
 .sidebar {
@@ -243,6 +244,15 @@ img {
   margin-bottom: 1em;
   font-size: 1.25em;
 }
+.carousel .arrow {
+  background-image: url("images/arrow.svg");
+  width: 30px;
+  height: 28px;
+  object-fit: cover;
+  top: 2em;
+  left: 1.5em;
+  position: absolute;
+}
 .carousel div i {
   margin: 0 0.25em;
 }
@@ -279,8 +289,7 @@ a {
   list-style-type: none;
   cursor: pointer;
 }
-
-.nav-li {
+.nav-ul li {
   margin: 0 2%;
 }
 

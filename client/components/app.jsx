@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './home.jsx';
-import Users from './users.jsx';
 import SignUpSignIn from './signup-signin.jsx';
 import DetailView from './detail-view';
 import KEY from './key.jsx';
@@ -75,9 +74,7 @@ class App extends Component {
   }
 
   getMatchingRestaurantDetails(restaurants, index = 0, newRestaurants = []) {
-    // index = 0 means it will use 0 unless passed a different value for index
     if (newRestaurants.length === 5 || index === restaurants.length - 1) {
-      // maximum 5 results to ensure we don't send too many requests
       if (newRestaurants.length === 0) {
         this.setState({
           restaurants: ['No restaurants found']
@@ -122,7 +119,6 @@ class App extends Component {
       restaurant => restaurant.id === id
     );
     this.setState({ restaurant: restaurantDetail[0] });
-    // add code for navigating to detail view page based on Yelp business ID
   }
 
   getRestaurantByLatLong(latitude, longitude) {
@@ -143,7 +139,7 @@ class App extends Component {
               queryFilters += '2';
               break;
             case 2:
-              queryFilters += '3,4'; // we will include yelp pricings of '$$$' AND '$$$$'
+              queryFilters += '3,4';
               break;
             default:
               console.error(
@@ -268,7 +264,6 @@ class App extends Component {
           currentLong: null,
           user: user[0],
           isSignedIn: user[1],
-          // city: null,
           restaurants: [],
           restaurant: null,
           zipCode: null
@@ -314,20 +309,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav>
-            <ul className="nav-ul">
-              <li className="nav-li">
-                <Link to="/">SignUpSignIn</Link>
-              </li>
-              <li className="nav-li">
-                <Link to="/home">Home</Link>
-              </li>
-              <li className="nav-li">
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
-          </nav>
-
           <Switch>
             <Route exact path="/">
               <SignUpSignIn
@@ -335,9 +316,6 @@ class App extends Component {
                 signInUser={this.signInUser}
                 isSignedIn={isSignedIn}
               />
-            </Route>
-            <Route exact path="/users">
-              <Users />
             </Route>
             <Route exact path="/details/:id">
               <DetailView restaurant={this.state.restaurant} />
@@ -348,6 +326,7 @@ class App extends Component {
                   setDetailView={this.setDetailView}
                   restaurants={restaurants}
                   signOutUser={this.signOutUser}
+                  city={this.state.city}
                 />
               </Provider>
             </Route>
