@@ -3,17 +3,24 @@
   "user": [
     {
       "id": 1,
-      "name": "jinho",
-      "city": "buena park",
-      "email": "jinho@jinho.com",
-      "password": "$2b$10$jdhc2ijdhILsgyQU42r4q.2YICHDnuvywWtyJhP8YW1taHzrCw9tO"
+      "name": "jeff",
+      "city": "irvine",
+      "email": "jeff@jeff.jeff",
+      "password": "$2b$10$X.DCZKZgsjon2v3xnhvYpO9kn79O2774Df0ENAsqFfxah6RTzM0T2"
     },
     {
       "id": 2,
-      "name": "jeff",
+      "name": "jinho",
       "city": "irvine",
-      "email": "jeff@jeff.ninja",
-      "password": "$2b$10$2pPiH19ZNxIXnuS0tnrbl.B10Di5bGaRVEgPHD3EFMenWDWcMrEpa"
+      "email": "jinho@jinho.com",
+      "password": "$2b$10$IEf39ADU2xteHtovjJ/xeO/dFURNuXR6HQeSzb6XCDQIh693D0t8C"
+    },
+    {
+      "id": 3,
+      "name": "jinho",
+      "city": " torrance",
+      "email": "jinho1@jinho.com",
+      "password": "$2b$10$O2qOk8NcDcRcMjchGcV44usVexrW95kCz9gB2B30UfUe8Of7auoDC"
     }
   ]
 }

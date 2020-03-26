@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import KEY from './key.jsx';
+import { Link } from 'react-router-dom';
 
 class DetailView extends Component {
   constructor(props) {
@@ -119,6 +120,9 @@ class DetailView extends Component {
             backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${restaurant.photos[imageNumber]})`
           }}
         >
+          <Link to="/home">
+            <i className="arrow" />
+          </Link>
           <div>{restaurant.name}</div>
           <div>{starRatings}</div>
         </div>
