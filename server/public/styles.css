@@ -162,7 +162,8 @@ img {
   animation: 200ms linear menu-scrolldown;
 }
 
-.geo-icon, .account-icon {
+.geo-icon,
+.account-icon {
   font-size: 40px;
 }
 

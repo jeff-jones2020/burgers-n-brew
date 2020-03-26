@@ -15,25 +15,29 @@ app.use(express.json());
 const passport = require('./passport')(app);
 
 app.post('/api/signup', (req, res) => {
-  const { email, pwd, pwd2, name, city } = req.body;
-  if (pwd !== pwd2) {
-    res.json({ err: 'please check your password' });
-  } else {
-    bcrypt.hash(pwd, 10, (err, hash) => {
+  const { email, pwd, name, city } = req.body;
+  bcrypt.hash(pwd, 10, (err, hash) => {
+    const duplication = db
+      .get('user')
+      .find({ email })
+      .value();
+    if (duplication) {
+      res.json({ err: 'Email already exist here' });
+    } else {
       const users = db.get('user').value();
       const user = {
         id: users.length + 1,
-        name: name,
-        city: city,
-        email: email,
+        name: name.toLowerCase(),
+        city: city.toLowerCase(),
+        email: email.toLowerCase(),
         password: hash
       };
       db.get('user')
         .push(user)
         .write();
       res.json([user, true]);
-    });
-  }
+    }
+  });
 });
 
 app.post('/api/user', passport.authenticate('local'), (req, res) => {
@@ -48,7 +52,7 @@ app.get('/api/user', (req, res) => {
 });
 
 app.get('/api/home/user', (req, res) => {
-  if (req.session.passport.user === req.user.email) {
+  if (req.session.passport.user === req.user[0].email) {
     const data = db.get('user').value();
     const newUser = data.filter((user, i) => {
       return user.name === req.session.name;
@@ -61,8 +65,8 @@ app.get('/api/home/user', (req, res) => {
 
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
-  const city = req.body.city.toUpperCase();
-  if (req.session.passport.user === req.user.email) {
+  const city = req.body.city.toLowerCase();
+  if (req.session.passport.user === req.user[0].email) {
     db.get('user')
       .find({ id })
       .assign({ city })
