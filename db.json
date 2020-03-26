@@ -3,59 +3,24 @@
   "user": [
     {
       "id": 1,
-      "name": "tim",
+      "name": "jeff",
       "city": "irvine",
-      "email": "tim@tim.com",
-      "password": "$2b$10$e1IDGgLKcUy.t3QMS1n3deHuuXI.TsuAf8GIiFyoBNaAgsFNZ9Kua"
+      "email": "jeff@jeff.jeff",
+      "password": "$2b$10$X.DCZKZgsjon2v3xnhvYpO9kn79O2774Df0ENAsqFfxah6RTzM0T2"
     },
     {
       "id": 2,
-      "name": "jeff@jeff.com",
-      "city": "Irvine",
-      "email": "jeff@jeff.com",
-      "password": "$2b$10$c0cv4RAM9hdgn4sqa7R7e.K9hMqoKk2kc1oxAruwPuy.2OaQcNhC2"
+      "name": "jinho",
+      "city": "irvine",
+      "email": "jinho@jinho.com",
+      "password": "$2b$10$IEf39ADU2xteHtovjJ/xeO/dFURNuXR6HQeSzb6XCDQIh693D0t8C"
     },
     {
       "id": 3,
-      "name": "tim",
-      "city": "San Diego",
-      "email": "tim@tim.com",
-      "password": "$2b$10$OWxUEvh4rOBnZOW29piNeOO0P.5DgDHl1BSENKU7H.te/HtpaitTW"
-    },
-    {
-      "id": 4,
-      "name": "Tim",
-      "city": "San Diego",
-      "email": "tim@tim.com",
-      "password": "$2b$10$EdskXoDnOtFZsG/SKwT4JedD.fsO1cDdZeXgEa6FjXjcRKChpkqry"
-    },
-    {
-      "id": 5,
-      "name": "tim",
-      "city": "San Diego",
-      "email": "tim@tim.com",
-      "password": "$2b$10$Pe6aAuet5D4D0R6BDT7sXuSoyIYsrSvr9Lt9C8ibAExTGpUIyLTZ6"
-    },
-    {
-      "id": 6,
-      "name": "tim",
-      "city": "Hacienda Heights",
-      "email": "tim@tim.com",
-      "password": "$2b$10$PytTg0XS8VOBTvkX/z50IOAGp7qmmo1lDLMczyKpMc.e3ZevFz8.C"
-    },
-    {
-      "id": 7,
-      "name": "tim",
-      "city": "Orange",
-      "email": "tim@tim.com",
-      "password": "$2b$10$zxky5.ZOrXjD5Lm5vz8tNuIG66SenKQCTkPz9RYo0L2ArlohbGPOy"
-    },
-    {
-      "id": 8,
-      "name": "Lawrence Kim",
-      "city": "Irvine",
-      "email": "lawrence@lawrence.com",
-      "password": "$2b$10$Qis0u9Vbib7amngj/vRdgu7.EOXNH236fpqF78HxmGpHS9q5H6hpS"
+      "name": "jinho",
+      "city": " torrance",
+      "email": "jinho1@jinho.com",
+      "password": "$2b$10$O2qOk8NcDcRcMjchGcV44usVexrW95kCz9gB2B30UfUe8Of7auoDC"
     }
   ]
 }

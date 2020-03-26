@@ -26,43 +26,55 @@ class LocationDropDown extends Component {
     return (
       <>
         <Consumer>
-          {({ city, zipCode, updateLatAndLong, user, updateUserDefault, isSignedIn }) => (
+          {({
+            city,
+            zipCode,
+            updateLatAndLong,
+            user,
+            updateUserDefault,
+            isSignedIn,
+            updatecity
+          }) => (
             <>
-              <div className='d-flex current-city'>
+              <div className="d-flex current-city">
                 <CurrentLocation
-                  updateLatAndLong={updateLatAndLong} isSignedIn={isSignedIn} />
+                  updateLatAndLong={updateLatAndLong}
+                  isSignedIn={isSignedIn}
+                />
                 {city ? (
-                  <CurrentCity city={city} zipCode={zipCode} className='ml-3' toggleSearchHidden={this.toggleSearchHidden}/>
+                  <CurrentCity
+                    city={city}
+                    zipCode={zipCode}
+                    className="ml-3"
+                    toggleSearchHidden={this.toggleSearchHidden}
+                  />
                 ) : (
-                  <span className='ml-3' onClick={this.toggleSearchHidden}>&nbsp;current location</span>
+                  <div className="d-flex">
+                    <span className="ml-3" onClick={this.toggleSearchHidden}>
+                      &nbsp;current location
+                    </span>
+                  </div>
                 )}
               </div>
               {user.id ? (
-                <p className='default-checkbox'>
+                <p className="default-checkbox">
                   <input
                     type="checkbox"
                     onClick={() => {
                       updateUserDefault(city);
                     }}
                   />
-                &nbsp; Default
+                  &nbsp; Default
                 </p>
-              ) : null
-              }
-            </>
-          )}
-        </Consumer>
-        <Consumer>
-          {({ updatecity }) => {
-            return (
+              ) : null}
               <SearchCityForm
                 toggleSearchHidden={this.toggleSearchHidden}
                 searchHasOpened={this.state.searchHasOpened}
                 isHidden={this.state.isSearchHidden}
-                updatecity={updatecity} />
-            );
-          }
-          }
+                updatecity={updatecity}
+              />
+            </>
+          )}
         </Consumer>
       </>
     );

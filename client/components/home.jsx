@@ -10,7 +10,8 @@ class Home extends Component {
         <>
           <Header />
           <h3 className="fill-background">
-            No restaurants found. Please enter a city name or use your default location.
+            No restaurants found. Please enter a city name or use your default
+            location.
           </h3>
         </>
       );
@@ -18,7 +19,7 @@ class Home extends Component {
       return (
         <>
           <Header />
-          <h3 className="fill-background">Loading...</h3>;
+          <h3 className="fill-background">Loading...</h3>
         </>
       );
     } else if (restaurants.length === 1 && typeof restaurants[0] === 'string') {

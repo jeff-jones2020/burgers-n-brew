@@ -9,14 +9,14 @@ import { Provider } from '../store.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.updateUserDefault = city => {
+    this.updateUserDefault = newCity => {
       const { user } = this.state;
       fetch(`/api/home/user/${user.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ city: city })
+        body: JSON.stringify({ city: newCity })
       })
         .then(data => data.json())
         .then(user => {
@@ -206,11 +206,29 @@ class App extends Component {
   }
 
   signUp(name, city, email, pwd, pwd2) {
-    if (!email.includes('@') || !email.includes('.')) {
+    const chkEmail = str => {
+      // const regexEmail = /^\w{1,64}@[a-zA-Z]{1,227}\.[a-zA-Z]{2,24}$/g;
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+      return !!regExp.test(str);
+    };
+    const chkPwd = str => {
+      var regPwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+      return !!regPwd.test(str);
+    };
+    if (chkEmail(email) === false) {
+      alert('this is not valid email format');
       return false;
-    } else if (pwd.length < 8) {
+    }
+    if (chkPwd(pwd) === false) {
+      alert(
+        'this is not valid password format. please combine letter and number. length should be between 6-20 lengths'
+      );
       return false;
-    } else if (pwd !== pwd2) {
+    }
+    if (pwd !== pwd2) {
+      alert(
+        'password and confirm password are not matched. please check again '
+      );
       return false;
     }
     fetch('/api/signup/', {
@@ -218,7 +236,12 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, city, email, pwd, pwd2 })
+      body: JSON.stringify({
+        name,
+        city,
+        email,
+        pwd
+      })
     })
       .then(data => data.json())
       .then(user => {
