@@ -3,7 +3,9 @@ import React from 'react';
 class PriceFilter extends React.Component {
   constructor(props) {
     super(props);
-    const priceFilter = props.priceFilter ? Array.from(props.priceFilter) : [true, true, true];
+    const priceFilter = props.currentPriceFilter
+      ? Array.from(props.currentPriceFilter)
+      : [true, true, true];
     this.state = {
       editFilterMode: false,
       priceFilter: priceFilter
@@ -21,7 +23,7 @@ class PriceFilter extends React.Component {
   }
 
   doneEditing() {
-    this.props.setFilters({ priceFilter: this.state.priceFilter });
+    this.props.setFilters({ currentPriceFilter: this.state.priceFilter });
     this.setState({
       editFilterMode: false
     });
@@ -37,14 +39,17 @@ class PriceFilter extends React.Component {
 
   render() {
     const filters = this.state.priceFilter;
-    const isActiveClass = filters.map(filter => filter ? '' : ' dollar-light');
+    const isActiveClass = filters.map(filter =>
+      filter ? '' : ' dollar-light'
+    );
 
     if (!this.state.editFilterMode) {
       return (
         <div
-          className='d-flex justify-content-between align-mid'
-          onClick={this.setEditFilterView}>
-          <img src='images/filter-icon.svg' className='filter-icon'></img>
+          className="d-flex justify-content-between align-mid"
+          onClick={this.setEditFilterView}
+        >
+          <img src="images/filter-icon.svg" className="filter-icon"></img>
           <span className={'dollar' + isActiveClass[0]}>$</span>
           <span className={'dollar' + isActiveClass[1]}>$$</span>
           <span className={'dollar' + isActiveClass[2]}>$$$</span>
@@ -52,13 +57,26 @@ class PriceFilter extends React.Component {
       );
     } else {
       return (
-        <div className='d-flex justify-content-between align-mid focus-darken'>
-          <span onClick={() => this.togglePriceFilter(0)} className={'dollar' + isActiveClass[0]}>$</span>
-          <span onClick={() => this.togglePriceFilter(1)} className={'dollar' + isActiveClass[1]}>$$</span>
-          <span onClick={() => this.togglePriceFilter(2)} className={'dollar' + isActiveClass[2]}>$$$</span>
+        <div className="d-flex justify-content-between align-mid focus-darken">
           <span
-            onClick={this.doneEditing}
-            className='check' >
+            onClick={() => this.togglePriceFilter(0)}
+            className={'dollar' + isActiveClass[0]}
+          >
+            $
+          </span>
+          <span
+            onClick={() => this.togglePriceFilter(1)}
+            className={'dollar' + isActiveClass[1]}
+          >
+            $$
+          </span>
+          <span
+            onClick={() => this.togglePriceFilter(2)}
+            className={'dollar' + isActiveClass[2]}
+          >
+            $$$
+          </span>
+          <span onClick={this.doneEditing} className="check">
             &#10004;
           </span>
         </div>
