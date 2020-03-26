@@ -29,7 +29,6 @@ class Home extends Component {
           <h3 className="fill-background">
             No restaurants found. Try changing filters in the burger menu.
           </h3>
-          ;
         </>
       );
     } else {
