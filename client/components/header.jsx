@@ -24,6 +24,7 @@ class Header extends Component {
     return (
       <div id="bnb-banner" className="mb-3 header">
         <div id="banner-background" />
+        <i className="arrow" />
         <h1>Burgers N Brew</h1>
         <SideBar
           signOutUser={signOutUser}
