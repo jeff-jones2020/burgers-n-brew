@@ -191,18 +191,20 @@ class App extends Component {
 
   fetchGoogleAPI(city) {
     const GOOGLE_KEY = KEY();
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        const currentLat = data.results[0].geometry.location.lat;
-        const currentLong = data.results[0].geometry.location.lng;
-        this.setState({
-          currentLat,
-          currentLong
+    if (city) {
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
+      )
+        .then(res => res.json())
+        .then(data => {
+          const currentLat = data.results[0].geometry.location.lat;
+          const currentLong = data.results[0].geometry.location.lng;
+          this.setState({
+            currentLat,
+            currentLong
+          });
         });
-      });
+    }
   }
 
   signUp(name, city, email, pwd, pwd2) {
@@ -289,7 +291,8 @@ class App extends Component {
           isSignedIn: user[1],
           restaurants: [],
           restaurant: null,
-          zipCode: null
+          zipCode: null,
+          city: null
         });
       });
   }
@@ -320,8 +323,7 @@ class App extends Component {
     ) {
       if (currentLat === null || currentLong === null) {
         return false;
-      }
-      if (currentLat !== null && currentLong !== null) {
+      } else if (currentLat !== null && currentLong !== null) {
         this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
       }
     }

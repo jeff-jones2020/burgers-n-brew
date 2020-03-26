@@ -21,6 +21,13 @@
       "city": " torrance",
       "email": "jinho1@jinho.com",
       "password": "$2b$10$O2qOk8NcDcRcMjchGcV44usVexrW95kCz9gB2B30UfUe8Of7auoDC"
+    },
+    {
+      "id": 4,
+      "name": "lawrence",
+      "city": "irvine",
+      "email": "lawrence@lawrence.lawrence",
+      "password": "$2b$10$LYxykG.10OQQOyQ9QogWu.vL1ouYgLVi5Qs3Pkp77ai8sZ.Va6Euq"
     }
   ]
 }
