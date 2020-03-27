@@ -321,6 +321,12 @@ a {
 .signForm .signin {
   color: white;
 }
+.signForm .hidden {
+  display: none;
+}
+.signForm .red {
+  color: red;
+}
 
 @keyframes search-scrolldown {
   0% {
