@@ -12,6 +12,7 @@ class SignUpSignIn extends Component {
       signUpEmail: '',
       signUpPwd: '',
       signUpPwd2: '',
+      isName: true,
       isEmail: true,
       isPwd: true,
       pwdMatch: true
@@ -20,6 +21,7 @@ class SignUpSignIn extends Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
+    this.regName = /([a-z][A-Z]){2,32}/;
     this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
@@ -68,21 +70,29 @@ class SignUpSignIn extends Component {
       signUpPwd2
     } = this.state;
     const { signUp } = this.props;
+    if (!this.regName.test(signUpName)) {
+      this.setState({
+        isName: false
+      });
+    }
     if (!this.regEmail.test(signUpEmail)) {
       this.setState({
         isEmail: false
       });
-    } else if (!this.regPwd.test(signUpPwd)) {
+    }
+    if (!this.regPwd.test(signUpPwd)) {
       this.setState({
         isPwd: false
       });
-    } else if (signUpPwd !== signUpPwd2) {
+    }
+    if (signUpPwd !== signUpPwd2) {
       this.setState({
         pwdMatch: false
       });
     }
     setTimeout(() => {
       this.setState({
+        isName: true,
         isEmail: true,
         isPwd: true,
         pwdMatch: true
@@ -183,6 +193,7 @@ class SignUpSignIn extends Component {
                     value={signUpName}
                     onChange={this.handleChange}
                     placeholder="Name"
+                    required
                   />
                 </div>
                 <div>
@@ -193,6 +204,9 @@ class SignUpSignIn extends Component {
                     value={signUpCity}
                     onChange={this.handleChange}
                     placeholder="City"
+                    minLength="3"
+                    maxLength="50"
+                    required
                   />
                 </div>
                 <div>
