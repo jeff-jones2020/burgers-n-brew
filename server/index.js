@@ -70,19 +70,23 @@ app.get('/api/home/user', (req, res) => {
   }
 });
 
+/*
+update "products"
+   set "price" = 100
+ where "productId" = 24;
+*/
+
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
-  const city = req.body.city.toLowerCase();
+  const city = req.body.city;
   if (req.session.passport.user === req.user[0].email) {
-    db.get('user')
-      .find({ id })
-      .assign({ city })
-      .write();
-    const data = db
-      .get('user')
-      .find({ id })
-      .value();
-    res.json(data);
+    const sql = `update "users" set "default_city" = '${city}' where "user_id" = ${id} returning *;`;
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error(err);
+      }
+      res.json(result.rows[0]);
+    });
   } else {
     return false;
   }

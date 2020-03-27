@@ -12,11 +12,16 @@ module.exports = app => {
     done(null, user.email);
   });
   passport.deserializeUser((id, done) => {
-    const users = db.get('user').value();
-    const currentUser = users.filter((user, i) => {
-      return user.email === id;
+    const sql = 'select * from "users";';
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error(err);
+      }
+      const currentUser = result.rows.filter((user, i) => {
+        return user.email === id;
+      });
+      done(null, currentUser);
     });
-    done(null, currentUser);
   });
 
   passport.use(
