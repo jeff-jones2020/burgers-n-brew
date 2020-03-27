@@ -182,7 +182,13 @@ CREATE TABLE public.restaurants (
     yelp_id text NOT NULL,
     name text NOT NULL,
     default_latlong point,
-    rating numeric
+    rating numeric,
+    suggested_dish1 text,
+    suggested_dish2 text,
+    suggested_dish3 text,
+    suggested_brew1 text,
+    suggested_brew2 text,
+    suggested_brew3 text
 );
 
 
@@ -196,12 +202,8 @@ CREATE TABLE public.reviews (
     yelp_id text,
     rating numeric NOT NULL,
     review_text text,
-    suggested_dish_1 text,
-    suggested_dish_2 text,
-    suggested_dish_3 text,
-    suggested_brew_1 text,
-    suggested_brew_2 text,
-    suggested_brew_3 text
+    suggested_brew text,
+    suggested_dish text
 );
 
 
@@ -323,8 +325,8 @@ COPY public.favorites (favorite_id, user_id, yelp_id, restaurant_name) FROM stdi
 -- Data for Name: restaurants; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.restaurants (yelp_id, name, default_latlong, rating) FROM stdin;
-aind08SDF	Schmorgasboard	(-32.5235532499999991,30.3524534999999993)	4.5
+COPY public.restaurants (yelp_id, name, default_latlong, rating, suggested_dish1, suggested_dish2, suggested_dish3, suggested_brew1, suggested_brew2, suggested_brew3) FROM stdin;
+aind08SDF	Schmorgasboard	(-32.5235532499999991,30.3524534999999993)	4.5	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -332,11 +334,13 @@ aind08SDF	Schmorgasboard	(-32.5235532499999991,30.3524534999999993)	4.5
 -- Data for Name: reviews; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested_dish_1, suggested_dish_2, suggested_dish_3, suggested_brew_1, suggested_brew_2, suggested_brew_3) FROM stdin;
-1	1	aind08SDF	4.5	\N	\N	\N	\N	\N	\N	\N
-2	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
-3	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
-4	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
+COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested_brew, suggested_dish) FROM stdin;
+1	1	aind08SDF	4.5	\N	\N	\N
+2	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+3	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+4	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+12	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+13	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
 \.
 
 
@@ -374,7 +378,7 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, true);
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.reviews_review_id_seq', 4, true);
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 13, true);
 
 
 --
