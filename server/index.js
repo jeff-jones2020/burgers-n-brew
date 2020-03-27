@@ -132,33 +132,58 @@ app.get('/api/yelp/businesses/:id', (req, res) => {
 
 app.post('/api/reviews', (req, res) => {
   const { body } = req;
-  const { yelpId, reviewText } = body;
+  const { yelpId, reviewText, suggestedDish, suggestedBrew } = body;
   const userId = parseInt(body.userId, 10);
   const rating = parseFloat(body.rating);
   if (!userId || userId < 1 || (userId !== parseFloat(body.userId))) {
-    res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
-    return;
+    return res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
   } else if (!rating || rating < 1 || rating > 5) {
-    res.status(400).json({ message: 'Invalid rating: rating must be a positive decimal between 1 and 5' });
-    return;
+    return res.status(400).json({ message: 'Invalid rating: rating must be a positive decimal between 1 and 5' });
   }
 
-  const params = [userId, yelpId, rating, reviewText];
+  const reviewParams = [userId, yelpId, rating, reviewText, suggestedDish, suggestedBrew];
   const sql = `
-    INSERT INTO reviews (user_id, yelp_id, rating, review_text)
-      VALUES ($1, $2, $3, $4)
+    INSERT INTO reviews (user_id, yelp_id, rating, review_text, suggested_dish, suggested_brew)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
   `;
 
-  db.query(sql, params)
+  const dishParams = [yelpId, suggestedDish];
+  const findDuplicateDishSql = `
+    SELECT * FROM (dish_suggestions)
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const incrementDishSql = `
+    UPDATE dish_suggestions
+      SET count = count + 1
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const postNewDishSql = `
+    INSERT INTO dish_suggestions (yelp_id, name, count)
+      VALUES ($1, $2, 1)
+  `;
+  const brewParams = [yelpId, suggestedBrew];
+  const findDuplicateBrewSql = `
+    SELECT * FROM (brew_suggestions)
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const incrementBrewSql = `
+    UPDATE brew_suggestions
+      SET count = count + 1
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const postNewBrewSql = `
+    INSERT INTO brew_suggestions (yelp_id, name, count)
+      VALUES ($1, $2, 1)
+  `;
+
+  db.query(sql, reviewParams)
     .then(result => {
       const review = result.rows[0];
       if (!review) {
         res.status(500).json({ message: 'Nothing returned from psql' });
-
       } else {
         res.json(review);
-
       }
     })
     .catch(err => {
@@ -170,11 +195,6 @@ app.post('/api/reviews', (req, res) => {
     });
 
 });
-
-// app.put('/api/dish-suggestions', (req, res) => {
-//   const {yelpId, name} = req.body;
-
-// });
 
 // eslint-disable-next-line no-console
 app.listen(process.env.PORT, () => { console.log(`App listening on port ${process.env.PORT}`); });
