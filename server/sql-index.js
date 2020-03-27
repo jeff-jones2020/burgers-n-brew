@@ -1,8 +1,15 @@
 // const express = require('express');
-// const pg = require('pg');
+const { Pool } = require('pg');
 // const app = express();
 // app.use(express.json());
 
-// const db = new pg.Pool({
-//   connectionString: 'postgres://dev:lfz@localhost/studentGradeTable'
-// })
+const db = new Pool({
+  // connectionString: 'postgres://dev:lfz@localhost/studentGradeTable'
+  connectionString: process.env.DATABASE_URL
+});
+
+db.query(res => {
+  // console.log('connect');
+});
+
+module.exports = db;

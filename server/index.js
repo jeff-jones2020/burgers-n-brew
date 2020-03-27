@@ -4,9 +4,10 @@ const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
 const app = express();
-const db = require('./lowdb');
+// const db = require('./lowdb');
 const fetch = require('node-fetch');
 const bcrypt = require('bcrypt');
+const db = require('./sql-index');
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
@@ -15,28 +16,29 @@ app.use(express.json());
 const passport = require('./passport')(app);
 
 app.post('/api/signup', (req, res) => {
-  const { email, pwd, name, city } = req.body;
-  bcrypt.hash(pwd, 10, (err, hash) => {
-    const duplication = db
-      .get('user')
-      .find({ email })
-      .value();
-    if (duplication) {
-      res.json({ err: 'Email already exist here' });
-    } else {
-      const users = db.get('user').value();
-      const user = {
-        id: users.length + 1,
-        name: name.toLowerCase(),
-        city: city.toLowerCase(),
-        email: email.toLowerCase(),
-        password: hash
-      };
-      db.get('user')
-        .push(user)
-        .write();
-      res.json([user, true]);
-    }
+  const { email, password, name, city } = req.body;
+  bcrypt.hash(password, 10, (err, hash) => {
+    const sql = 'select "email" from "users";';
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error(err);
+      }
+      const duplication = result.rows.filter((user, i) => {
+        return user.email === email;
+      });
+      if (duplication.length !== 0) {
+        res.json({ err: 'Email already exist here' });
+      }
+      const sql = `insert into "users" ("email", "password", "name", "default_city")
+                    values ('${email}', '${hash}', '${name}', '${city}')
+                    returning *;`;
+      db.query(sql, (err, result) => {
+        if (err) {
+          console.error(err);
+        }
+        res.json([result.rows[0], true]);
+      });
+    });
   });
 });
 
@@ -53,11 +55,16 @@ app.get('/api/user', (req, res) => {
 
 app.get('/api/home/user', (req, res) => {
   if (req.session.passport.user === req.user[0].email) {
-    const data = db.get('user').value();
-    const newUser = data.filter((user, i) => {
-      return user.name === req.session.name;
+    const sql = 'select * from "users"';
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error(err);
+      }
+      const newUser = result.rows.filter((user, i) => {
+        return user.name === req.session.name;
+      });
+      res.json(newUser[0]);
     });
-    res.json(newUser[0]);
   } else {
     return false;
   }
