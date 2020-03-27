@@ -35,6 +35,13 @@
       "city": "123123",
       "email": "email@email.email",
       "password": "$2b$10$kBL.9mDd8Xu/5j7RHc7.V.A0kf.jzgsdAEjgIMROEXwPjTdlVZYmG"
+    },
+    {
+      "id": 6,
+      "name": "some guy",
+      "city": "los angeles",
+      "email": "lol@lol.lol",
+      "password": "$2b$10$piRUCQYHD8zWgTekVnnMqemNiky2juVtQFdU3M.cGJOOiqTaNKHvu"
     }
   ]
 }

@@ -304,7 +304,7 @@ a {
 .signForm button {
   background-color: #ff4f4f;
   border-radius: 16px;
-  border: 1px solid #ff4f4f;
+  border: 0;
   color: white;
 }
 .signForm form {

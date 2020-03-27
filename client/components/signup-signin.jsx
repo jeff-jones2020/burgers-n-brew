@@ -22,8 +22,9 @@ class SignUpSignIn extends Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
-    this.regName = /([a-z][A-Z]){2,32}/;
-    this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
+    this.regCity = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
+    this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{4,16}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
 
@@ -45,23 +46,6 @@ class SignUpSignIn extends Component {
     }
   }
 
-  resetForm() {
-    this.setState({
-      signInEmail: '',
-      signInPassword: ''
-    });
-  }
-
-  resetSignUpForm() {
-    this.setState({
-      signUpName: '',
-      signUpCity: '',
-      signUpEmail: '',
-      signUpPwd: '',
-      signUpPwd2: ''
-    });
-  }
-
   handleSubmit2(e) {
     const {
       signUpName,
@@ -76,7 +60,7 @@ class SignUpSignIn extends Component {
         isName: false
       });
     }
-    if (!signUpCity) {
+    if (!this.regCity.test(signUpCity)) {
       this.setState({
         isCity: false
       });
@@ -107,7 +91,6 @@ class SignUpSignIn extends Component {
     }, 3000);
     e.preventDefault();
     signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
-    this.resetSignUpForm();
   }
 
   handleSubmit1(e) {
@@ -115,7 +98,6 @@ class SignUpSignIn extends Component {
     const { signInUser } = this.props;
     e.preventDefault();
     signInUser(signInEmail, signInPassword);
-    this.resetForm();
   }
 
   handleChange(e) {
@@ -174,7 +156,6 @@ class SignUpSignIn extends Component {
                     value={signInPassword}
                     onChange={this.handleChange}
                     placeholder="Password"
-                    minLength="8"
                   />
                 </div>
                 <div>
@@ -197,7 +178,7 @@ class SignUpSignIn extends Component {
             <section>
               <form>
                 <div>
-                  <label htmlFor="sign-up-name">Name: </label>
+                  <label htmlFor="sign-up-name">First Name: </label>
                   <input
                     type="text"
                     id="sign-up-name"
@@ -208,7 +189,7 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <p className={isName ? 'hidden' : 'red'}>
-                  Please enter a name.
+                  Please enter a first name.
                 </p>
                 <div>
                   <label htmlFor="sign-up-city">City: </label>
@@ -249,7 +230,6 @@ class SignUpSignIn extends Component {
                     value={signUpPwd}
                     onChange={this.handleChange}
                     placeholder="Password"
-                    minLength="8"
                   />
                 </div>
                 <div>
@@ -261,7 +241,6 @@ class SignUpSignIn extends Component {
                     value={signUpPwd2}
                     onChange={this.handleChange}
                     placeholder="Confirm Password"
-                    minLength="8"
                   />
                 </div>
                 <p className={isPwd ? 'hidden' : 'red'}>
