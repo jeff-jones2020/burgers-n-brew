@@ -36,7 +36,12 @@ app.post('/api/signup', (req, res) => {
         if (err) {
           console.error(err);
         }
-        res.json([result.rows[0], true]);
+        const user = {};
+        user.id = result.rows[0].user_id;
+        user.email = result.rows[0].email;
+        user.name = result.rows[0].name;
+        user.city = result.rows[0].default_city;
+        res.json([user, true]);
       });
     });
   });
@@ -80,7 +85,12 @@ app.put('/api/home/user/:id', (req, res) => {
       if (err) {
         console.error(err);
       }
-      res.json(result.rows[0]);
+      const user = {};
+      user.id = result.rows[0].user_id;
+      user.email = result.rows[0].email;
+      user.name = result.rows[0].name;
+      user.city = result.rows[0].default_city;
+      res.json(user);
     });
   } else {
     return false;

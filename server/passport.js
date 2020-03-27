@@ -47,7 +47,12 @@ module.exports = app => {
               if (err) {
                 throw err;
               } else if (result) {
-                return done(null, userInfo[0]);
+                const user = {};
+                user.id = result.rows[0].user_id;
+                user.email = result.rows[0].email;
+                user.name = result.rows[0].name;
+                user.city = result.rows[0].default_city;
+                return done(null, user);
               } else {
                 return done(null, false, {
                   message: 'Incorrect password.'
