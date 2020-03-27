@@ -301,11 +301,14 @@ a {
 
 .signForm {
   padding: 4%;
-
+  font-size: 0.75em;
+  input {
+    font-size: 0.75em;
+  }
   button {
     background-color: rgb(255, 79, 79);
     border-radius: 16px;
-    border: 1px solid rgb(255, 79, 79);
+    border: 0;
     color: white;
   }
   form {
@@ -314,7 +317,7 @@ a {
     align-items: flex-end;
   }
   a {
-    color: #5a4894;
+    color: #5a48fa;
     text-decoration: none;
   }
   h3 {
@@ -327,10 +330,11 @@ a {
     color: white;
   }
   .hidden {
-    display: none;
+    visibility: hidden;
   }
   .red {
     color: red;
+    text-align: right;
   }
 }
 
