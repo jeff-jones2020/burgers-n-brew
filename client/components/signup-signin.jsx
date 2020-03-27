@@ -155,9 +155,10 @@ class SignUpSignIn extends Component {
             <section>
               <form>
                 <div>
-                  <label htmlFor="">Email: </label>
+                  <label htmlFor="sign-in-email">Email: </label>
                   <input
                     type="email"
+                    id="sign-in-email"
                     name="signInEmail"
                     value={signInEmail}
                     onChange={this.handleChange}
@@ -165,9 +166,10 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <div>
-                  <label htmlFor="">Password: </label>
+                  <label htmlFor="sign-in-password">Password: </label>
                   <input
                     type="password"
+                    id="sign-in-password"
                     name="signInPassword"
                     value={signInPassword}
                     onChange={this.handleChange}
@@ -195,9 +197,10 @@ class SignUpSignIn extends Component {
             <section>
               <form>
                 <div>
-                  <label htmlFor="">Name: </label>
+                  <label htmlFor="sign-up-name">Name: </label>
                   <input
                     type="text"
+                    id="sign-up-name"
                     name="signUpName"
                     value={signUpName}
                     onChange={this.handleChange}
@@ -209,9 +212,10 @@ class SignUpSignIn extends Component {
                   Please enter a valid name.
                 </p>
                 <div>
-                  <label htmlFor="">City: </label>
+                  <label htmlFor="sign-up-city">City: </label>
                   <input
                     type="text"
+                    id="sign-up-city"
                     name="signUpCity"
                     value={signUpCity}
                     onChange={this.handleChange}
@@ -225,9 +229,10 @@ class SignUpSignIn extends Component {
                   Please enter a city.
                 </p>
                 <div>
-                  <label htmlFor="">Email: </label>
+                  <label htmlFor="sign-up-email">Email: </label>
                   <input
                     type="email"
+                    id="sign-up-email"
                     name="signUpEmail"
                     value={signUpEmail}
                     onChange={this.handleChange}
@@ -238,9 +243,10 @@ class SignUpSignIn extends Component {
                   Please enter a valid Email.
                 </p>
                 <div>
-                  <label htmlFor="">Password: </label>
+                  <label htmlFor="sign-up-password-1">Password: </label>
                   <input
                     type="password"
+                    id="sign-up-password-1"
                     name="signUpPwd"
                     value={signUpPwd}
                     onChange={this.handleChange}
@@ -249,9 +255,10 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <div>
-                  <label htmlFor="">Confirm Password: </label>
+                  <label htmlFor="sign-up-password-2">Confirm Password: </label>
                   <input
                     type="password"
+                    id="sign-up-password-2"
                     name="signUpPwd2"
                     value={signUpPwd2}
                     onChange={this.handleChange}
