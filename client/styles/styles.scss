@@ -301,7 +301,10 @@ a {
 
 .signForm {
   padding: 4%;
-
+  font-size: 0.75em;
+  input {
+    font-size: 0.75em;
+  }
   button {
     background-color: rgb(255, 79, 79);
     border-radius: 16px;
@@ -327,7 +330,7 @@ a {
     color: white;
   }
   .hidden {
-    display: none;
+    visibility: hidden;
   }
   .red {
     color: red;

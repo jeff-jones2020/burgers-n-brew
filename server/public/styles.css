@@ -296,6 +296,10 @@ a {
 
 .signForm {
   padding: 4%;
+  font-size: 0.75em;
+}
+.signForm input {
+  font-size: 0.75em;
 }
 .signForm button {
   background-color: #ff4f4f;
@@ -322,7 +326,7 @@ a {
   color: white;
 }
 .signForm .hidden {
-  display: none;
+  visibility: hidden;
 }
 .signForm .red {
   color: red;

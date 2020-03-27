@@ -5,14 +5,15 @@ class SignUpSignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signInemail: '',
-      signInpassword: '',
+      signInEmail: '',
+      signInPassword: '',
       signUpName: '',
       signUpCity: '',
       signUpEmail: '',
       signUpPwd: '',
       signUpPwd2: '',
       isName: true,
+      isCity: true,
       isEmail: true,
       isPwd: true,
       pwdMatch: true
@@ -46,8 +47,8 @@ class SignUpSignIn extends Component {
 
   resetForm() {
     this.setState({
-      signInemail: '',
-      signInpassword: ''
+      signInEmail: '',
+      signInPassword: ''
     });
   }
 
@@ -75,6 +76,11 @@ class SignUpSignIn extends Component {
         isName: false
       });
     }
+    if (!signUpCity) {
+      this.setState({
+        isCity: false
+      });
+    }
     if (!this.regEmail.test(signUpEmail)) {
       this.setState({
         isEmail: false
@@ -93,6 +99,7 @@ class SignUpSignIn extends Component {
     setTimeout(() => {
       this.setState({
         isName: true,
+        isCity: true,
         isEmail: true,
         isPwd: true,
         pwdMatch: true
@@ -104,10 +111,10 @@ class SignUpSignIn extends Component {
   }
 
   handleSubmit1(e) {
-    const { signInemail, signInpassword } = this.state;
+    const { signInEmail, signInPassword } = this.state;
     const { signInUser } = this.props;
     e.preventDefault();
-    signInUser(signInemail, signInpassword);
+    signInUser(signInEmail, signInPassword);
     this.resetForm();
   }
 
@@ -120,13 +127,15 @@ class SignUpSignIn extends Component {
 
   render() {
     const {
-      signInemail,
-      signInpassword,
+      signInEmail,
+      signInPassword,
       signUpName,
       signUpCity,
       signUpEmail,
       signUpPwd,
       signUpPwd2,
+      isName,
+      isCity,
       isEmail,
       isPwd,
       pwdMatch
@@ -149,8 +158,8 @@ class SignUpSignIn extends Component {
                   <label htmlFor="">Email: </label>
                   <input
                     type="email"
-                    name="signInemail"
-                    value={signInemail}
+                    name="signInEmail"
+                    value={signInEmail}
                     onChange={this.handleChange}
                     placeholder="Email"
                   />
@@ -159,8 +168,8 @@ class SignUpSignIn extends Component {
                   <label htmlFor="">Password: </label>
                   <input
                     type="password"
-                    name="signInpassword"
-                    value={signInpassword}
+                    name="signInPassword"
+                    value={signInPassword}
                     onChange={this.handleChange}
                     placeholder="Password"
                     minLength="8"
@@ -196,6 +205,9 @@ class SignUpSignIn extends Component {
                     required
                   />
                 </div>
+                <p className={isName ? 'hidden' : 'red'}>
+                  Please enter a valid name.
+                </p>
                 <div>
                   <label htmlFor="">City: </label>
                   <input
@@ -209,6 +221,9 @@ class SignUpSignIn extends Component {
                     required
                   />
                 </div>
+                <p className={isCity ? 'hidden' : 'red' }>
+                  Please enter a city.
+                </p>
                 <div>
                   <label htmlFor="">Email: </label>
                   <input
@@ -219,6 +234,9 @@ class SignUpSignIn extends Component {
                     placeholder="Email"
                   />
                 </div>
+                <p className={isEmail ? 'hidden' : 'red'}>
+                  Please enter a valid Email.
+                </p>
                 <div>
                   <label htmlFor="">Password: </label>
                   <input
@@ -231,7 +249,7 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <div>
-                  <label htmlFor="">confirm: </label>
+                  <label htmlFor="">Confirm Password: </label>
                   <input
                     type="password"
                     name="signUpPwd2"
@@ -241,6 +259,12 @@ class SignUpSignIn extends Component {
                     minLength="8"
                   />
                 </div>
+                <p className={isPwd ? 'hidden' : 'red'}>
+                  Passwords require a capital letter, special character, and number.
+                </p>
+                <p className={pwdMatch ? 'hidden' : 'red'}>
+                  Passwords should match.
+                </p>
                 <div>
                   <button
                     type="submit"
@@ -251,15 +275,6 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
-                <p className={isEmail ? 'hidden' : 'red'}>
-                  Please enter a valid Email.
-                </p>
-                <p className={isPwd ? 'hidden' : 'red'}>
-                  Your password must include a capital letter, number, and special character.
-                </p>
-                <p className={pwdMatch ? 'hidden' : 'red'}>
-                  Passwords should match.
-                </p>
               </form>
             </section>
           </div>
