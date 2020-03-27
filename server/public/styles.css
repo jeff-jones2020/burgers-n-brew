@@ -296,11 +296,15 @@ a {
 
 .signForm {
   padding: 4%;
+  font-size: 0.75em;
 }
-.signForm .button {
+.signForm input {
+  font-size: 0.75em;
+}
+.signForm button {
   background-color: #ff4f4f;
   border-radius: 16px;
-  border: 1px solid #ff4f4f;
+  border: 0;
   color: white;
 }
 .signForm form {
@@ -309,7 +313,7 @@ a {
   align-items: flex-end;
 }
 .signForm a {
-  color: #5a4894;
+  color: #5a48fa;
   text-decoration: none;
 }
 .signForm h3 {
@@ -320,6 +324,13 @@ a {
 }
 .signForm .signin {
   color: white;
+}
+.signForm .hidden {
+  visibility: hidden;
+}
+.signForm .red {
+  color: red;
+  text-align: right;
 }
 
 @keyframes search-scrolldown {

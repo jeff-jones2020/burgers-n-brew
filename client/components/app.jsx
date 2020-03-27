@@ -21,7 +21,8 @@ class App extends Component {
         .then(data => data.json())
         .then(user => {
           this.setState({ user });
-        });
+        })
+        .catch(err => console.error('There was an error retrieving the user.', err));
     };
     this.setFilters = filterPair => {
       const key = Object.keys(filterPair)[0];
@@ -108,7 +109,8 @@ class App extends Component {
             ++index,
             newRestaurants
           )
-        );
+        )
+        .catch(err => console.error('There was an error retrieving restaurants', err));
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
@@ -160,7 +162,8 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
-      });
+      })
+      .catch(err => console.error('There was an error with the search filters.', err));
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -191,46 +194,29 @@ class App extends Component {
 
   fetchGoogleAPI(city) {
     const GOOGLE_KEY = KEY();
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        const currentLat = data.results[0].geometry.location.lat;
-        const currentLong = data.results[0].geometry.location.lng;
-        this.setState({
-          currentLat,
-          currentLong
-        });
-      });
+    if (city) {
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+CA&key=${GOOGLE_KEY}`
+      )
+        .then(res => res.json())
+        .then(data => {
+          const currentLat = data.results[0].geometry.location.lat;
+          const currentLong = data.results[0].geometry.location.lng;
+          this.setState({
+            currentLat,
+            currentLong
+          });
+        })
+        .catch(err => console.error('There was an error with the location request.', err));
+    }
   }
 
   signUp(name, city, email, pwd, pwd2) {
-    const chkEmail = str => {
-      // const regexEmail = /^\w{1,64}@[a-zA-Z]{1,227}\.[a-zA-Z]{2,24}$/g;
-      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-      return !!regExp.test(str);
-    };
-    const chkPwd = str => {
-      var regPwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-      return !!regPwd.test(str);
-    };
-    if (chkEmail(email) === false) {
-      alert('this is not valid email format');
-      return false;
-    }
-    if (chkPwd(pwd) === false) {
-      alert(
-        'this is not valid password format. please combine letter and number. length should be between 6-20 lengths'
-      );
-      return false;
-    }
-    if (pwd !== pwd2) {
-      alert(
-        'password and confirm password are not matched. please check again '
-      );
-      return false;
-    }
+    const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+    const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    if (!regEmail.test(email)) return;
+    if (!regPwd.test(pwd)) return;
+    if (pwd !== pwd2) return;
     fetch('/api/signup/', {
       method: 'POST',
       headers: {
@@ -251,15 +237,11 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing up.', err));
   }
 
   signInUser(email, password) {
-    if (!email.includes('@') || !email.includes('.')) {
-      return false;
-    } else if (password.length < 8) {
-      return false;
-    }
     fetch('/api/user/', {
       method: 'POST',
       headers: {
@@ -275,7 +257,8 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing in.', err));
   }
 
   signOutUser() {
@@ -289,9 +272,11 @@ class App extends Component {
           isSignedIn: user[1],
           restaurants: [],
           restaurant: null,
-          zipCode: null
+          zipCode: null,
+          city: null
         });
-      });
+      })
+      .catch(err => console.error('There was an error with signing out.', err));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -320,8 +305,7 @@ class App extends Component {
     ) {
       if (currentLat === null || currentLong === null) {
         return false;
-      }
-      if (currentLat !== null && currentLong !== null) {
+      } else if (currentLat !== null && currentLong !== null) {
         this.getCityNameAndZipCodeFromLatLong(currentLat, currentLong);
       }
     }

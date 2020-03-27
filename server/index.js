@@ -150,9 +150,12 @@ app.post('/api/reviews', (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'An unexpected error occurred' });
+      let status;
+      if (err.code === '23503') status = 400;
+      res.status(status).json({ error: err.detail });
     });
 
 });
 
-app.listen(process.env.PORT, () => {});
+// eslint-disable-next-line no-console
+app.listen(process.env.PORT, () => { console.log(`App listening on port ${process.env.port}`); });
