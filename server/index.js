@@ -152,8 +152,13 @@ app.post('/api/reviews', (req, res) => {
       console.error(err);
       let status;
       if (err.code === '23503') status = 400;
+      else status = 500;
       res.status(status).json({ error: err.detail });
     });
+
+});
+
+app.post('/api/dish-suggestions', (req, res) => {
 
 });
 
