@@ -48,10 +48,10 @@ module.exports = app => {
                 throw err;
               } else if (result) {
                 const user = {};
-                user.id = result.rows[0].user_id;
-                user.email = result.rows[0].email;
-                user.name = result.rows[0].name;
-                user.city = result.rows[0].default_city;
+                user.id = userInfo[0].user_id;
+                user.email = userInfo[0].email;
+                user.name = userInfo[0].name;
+                user.city = userInfo[0].default_city;
                 return done(null, user);
               } else {
                 return done(null, false, {
