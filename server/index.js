@@ -11,12 +11,11 @@ app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
 
-// For PostgreSQL ********
 const pg = require('pg');
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL
 });
-// For PostgreSQL ********
+module.exports = db;
 
 const passport = require('./passport')(app);
 
@@ -172,9 +171,10 @@ app.post('/api/reviews', (req, res) => {
 
 });
 
-app.post('/api/dish-suggestions', (req, res) => {
+// app.put('/api/dish-suggestions', (req, res) => {
+//   const {yelpId, name} = req.body;
 
-});
+// });
 
 // eslint-disable-next-line no-console
-app.listen(process.env.PORT, () => { console.log(`App listening on port ${process.env.port}`); });
+app.listen(process.env.PORT, () => { console.log(`App listening on port ${process.env.PORT}`); });
