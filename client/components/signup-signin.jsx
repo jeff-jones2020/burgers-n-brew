@@ -221,7 +221,7 @@ class SignUpSignIn extends Component {
                   Invalid password now
                 </p>
                 <p className={signUpPwd === signUpPwd2 ? 'hidden' : 'red'}>
-                  should be same password
+                  Passwords should match
                 </p>
               </form>
             </section>
