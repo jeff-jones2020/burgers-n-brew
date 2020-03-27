@@ -208,23 +208,11 @@ class App extends Component {
   }
 
   signUp(name, city, email, pwd, pwd2) {
-    const chkEmail = str => {
-      const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-      return !!regEmail.test(str);
-    };
-    const chkPwd = str => {
-      const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
-      return !!regPwd.test(str);
-    };
-    if (chkEmail(email) === false) {
-      return false;
-    }
-    if (chkPwd(pwd) === false) {
-      return false;
-    }
-    if (pwd !== pwd2) {
-      return false;
-    }
+    const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+    const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    if (!regEmail.test(email)) return;
+    if (!regPwd.test(pwd)) return;
+    if (pwd !== pwd2) return;
     fetch('/api/signup/', {
       method: 'POST',
       headers: {
@@ -249,11 +237,6 @@ class App extends Component {
   }
 
   signInUser(email, password) {
-    if (!email.includes('@') || !email.includes('.')) {
-      return false;
-    } else if (password.length < 8) {
-      return false;
-    }
     fetch('/api/user/', {
       method: 'POST',
       headers: {
