@@ -4,7 +4,6 @@ import { Link, withRouter } from 'react-router-dom';
 class SignUpSignIn extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       signInemail: '',
       signInpassword: '',
@@ -12,12 +11,17 @@ class SignUpSignIn extends Component {
       signUpCity: '',
       signUpEmail: '',
       signUpPwd: '',
-      signUpPwd2: ''
+      signUpPwd2: '',
+      isEmail: true,
+      isPwd: true,
+      pwdMatch: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
+    this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
 
   routeChange() {
@@ -64,8 +68,28 @@ class SignUpSignIn extends Component {
       signUpPwd2
     } = this.state;
     const { signUp } = this.props;
-    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
+    if (!this.regEmail.test(signUpEmail)) {
+      this.setState({
+        isEmail: false
+      });
+    } else if (!this.regPwd.test(signUpPwd)) {
+      this.setState({
+        isPwd: false
+      });
+    } else if (signUpPwd !== signUpPwd2) {
+      this.setState({
+        pwdMatch: false
+      });
+    }
+    setTimeout(() => {
+      this.setState({
+        isEmail: true,
+        isPwd: true,
+        pwdMatch: true
+      });
+    }, 3000);
     e.preventDefault();
+    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
     this.resetSignUpForm();
   }
 
@@ -92,8 +116,12 @@ class SignUpSignIn extends Component {
       signUpCity,
       signUpEmail,
       signUpPwd,
-      signUpPwd2
+      signUpPwd2,
+      isEmail,
+      isPwd,
+      pwdMatch
     } = this.state;
+
     return (
       <>
         <div id="bnb-banner" className="mb-3 header">
@@ -125,6 +153,7 @@ class SignUpSignIn extends Component {
                     value={signInpassword}
                     onChange={this.handleChange}
                     placeholder="Password"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -140,7 +169,6 @@ class SignUpSignIn extends Component {
               </form>
             </section>
           </div>
-
           <div className="container">
             <header>
               <h3>Sign Up</h3>
@@ -185,6 +213,7 @@ class SignUpSignIn extends Component {
                     value={signUpPwd}
                     onChange={this.handleChange}
                     placeholder="Password"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -194,7 +223,8 @@ class SignUpSignIn extends Component {
                     name="signUpPwd2"
                     value={signUpPwd2}
                     onChange={this.handleChange}
-                    placeholder="Password again"
+                    placeholder="Confirm Password"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -207,6 +237,15 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
+                <p className={isEmail ? 'hidden' : 'red'}>
+                  Please enter a valid Email.
+                </p>
+                <p className={isPwd ? 'hidden' : 'red'}>
+                  Your password must include a capital letter, number, and special character.
+                </p>
+                <p className={pwdMatch ? 'hidden' : 'red'}>
+                  Passwords should match.
+                </p>
               </form>
             </section>
           </div>

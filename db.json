@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "city": [],
   "user": [
@@ -30,4 +31,17 @@
       "password": "$2b$10$LYxykG.10OQQOyQ9QogWu.vL1ouYgLVi5Qs3Pkp77ai8sZ.Va6Euq"
     }
   ]
+=======
+{
+  "city": [],
+  "user": [
+    {
+      "id": 1,
+      "name": "law",
+      "city": "irvine",
+      "email": "law@law.law",
+      "password": "$2b$10$M6gzI0i0VOVK8v04N6AP/OQYgYHzjwCR59izTtkUnI9b6x15Xi.GS"
+    }
+  ]
+>>>>>>> 07e2f5cd7e32ef303bfa1d900a899a705c786c6d
 }
