@@ -205,11 +205,10 @@ class SignUpSignIn extends Component {
                     value={signUpName}
                     onChange={this.handleChange}
                     placeholder="Name"
-                    required
                   />
                 </div>
                 <p className={isName ? 'hidden' : 'red'}>
-                  Please enter a valid name.
+                  Please enter a name.
                 </p>
                 <div>
                   <label htmlFor="sign-up-city">City: </label>
@@ -222,7 +221,6 @@ class SignUpSignIn extends Component {
                     placeholder="City"
                     minLength="3"
                     maxLength="50"
-                    required
                   />
                 </div>
                 <p className={isCity ? 'hidden' : 'red' }>
@@ -240,7 +238,7 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <p className={isEmail ? 'hidden' : 'red'}>
-                  Please enter a valid Email.
+                  Please enter a valid email.
                 </p>
                 <div>
                   <label htmlFor="sign-up-password-1">Password: </label>

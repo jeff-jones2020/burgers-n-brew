@@ -313,7 +313,7 @@ a {
   align-items: flex-end;
 }
 .signForm a {
-  color: #5a4894;
+  color: #5a48fa;
   text-decoration: none;
 }
 .signForm h3 {
@@ -330,6 +330,7 @@ a {
 }
 .signForm .red {
   color: red;
+  text-align: right;
 }
 
 @keyframes search-scrolldown {
