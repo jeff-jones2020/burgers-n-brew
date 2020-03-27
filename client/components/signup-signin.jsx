@@ -14,7 +14,8 @@ class SignUpSignIn extends Component {
       signUpPwd2: '',
       isEmail: true,
       isPwd: true,
-      pwdMatch: true
+      pwdMatch: true,
+      isName: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -65,9 +66,15 @@ class SignUpSignIn extends Component {
       signUpCity,
       signUpEmail,
       signUpPwd,
-      signUpPwd2
+      signUpPwd2,
+      isName
     } = this.state;
     const { signUp } = this.props;
+    if (isName) {
+      this.setState({
+        isName: false
+      });
+    }
     if (!this.regEmail.test(signUpEmail)) {
       this.setState({
         isEmail: false
@@ -83,6 +90,7 @@ class SignUpSignIn extends Component {
     }
     setTimeout(() => {
       this.setState({
+        isName: true,
         isEmail: true,
         isPwd: true,
         pwdMatch: true
@@ -119,7 +127,8 @@ class SignUpSignIn extends Component {
       signUpPwd2,
       isEmail,
       isPwd,
-      pwdMatch
+      pwdMatch,
+      isName
     } = this.state;
 
     return (
@@ -183,6 +192,7 @@ class SignUpSignIn extends Component {
                     value={signUpName}
                     onChange={this.handleChange}
                     placeholder="Name"
+                    minLength="1"
                   />
                 </div>
                 <div>
@@ -237,11 +247,15 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
+                <p className={isName ? 'hidden' : 'red'}>
+                  Please enter Your Name.
+                </p>
                 <p className={isEmail ? 'hidden' : 'red'}>
                   Please enter a valid Email.
                 </p>
                 <p className={isPwd ? 'hidden' : 'red'}>
-                  Your password must include a capital letter, number, and special character.
+                  Your password must include a capital letter, number, and
+                  special character.
                 </p>
                 <p className={pwdMatch ? 'hidden' : 'red'}>
                   Passwords should match.
