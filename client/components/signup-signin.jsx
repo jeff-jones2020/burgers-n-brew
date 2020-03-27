@@ -223,7 +223,7 @@ class SignUpSignIn extends Component {
                     name="signUpPwd2"
                     value={signUpPwd2}
                     onChange={this.handleChange}
-                    placeholder="Password again"
+                    placeholder="Confirm Password"
                     minLength="8"
                   />
                 </div>
@@ -238,13 +238,13 @@ class SignUpSignIn extends Component {
                   </button>
                 </div>
                 <p className={isEmail ? 'hidden' : 'red'}>
-                  Invalid Email format
+                  Please enter a valid Email.
                 </p>
                 <p className={isPwd ? 'hidden' : 'red'}>
-                  Invalid password format
+                  Your password must include a capital letter, number, and special character.
                 </p>
                 <p className={pwdMatch ? 'hidden' : 'red'}>
-                  Passwords should match
+                  Passwords should match.
                 </p>
               </form>
             </section>
