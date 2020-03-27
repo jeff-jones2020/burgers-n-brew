@@ -16,8 +16,8 @@ app.use(express.json());
 const passport = require('./passport')(app);
 
 app.post('/api/signup', (req, res) => {
-  const { email, password, name, city } = req.body;
-  bcrypt.hash(password, 10, (err, hash) => {
+  const { email, pwd, name, city } = req.body;
+  bcrypt.hash(pwd, 10, (err, hash) => {
     const sql = 'select "email" from "users";';
     db.query(sql, (err, result) => {
       if (err) {
@@ -75,7 +75,7 @@ app.put('/api/home/user/:id', (req, res) => {
   const city = req.body.city;
   if (req.session.passport.user === req.user[0].email) {
     const sql =
-      'update "users" set "default_city" = \'$1\' where "user_id" = $2 returning *;';
+      'update "users" set "default_city" = $1 where "user_id" = $2 returning *;';
     db.query(sql, [city, id], (err, result) => {
       if (err) {
         console.error(err);

@@ -14,8 +14,7 @@ class SignUpSignIn extends Component {
       signUpPwd2: '',
       isEmail: true,
       isPwd: true,
-      pwdMatch: true,
-      isName: true
+      pwdMatch: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -66,15 +65,9 @@ class SignUpSignIn extends Component {
       signUpCity,
       signUpEmail,
       signUpPwd,
-      signUpPwd2,
-      isName
+      signUpPwd2
     } = this.state;
     const { signUp } = this.props;
-    if (isName) {
-      this.setState({
-        isName: false
-      });
-    }
     if (!this.regEmail.test(signUpEmail)) {
       this.setState({
         isEmail: false
@@ -127,8 +120,7 @@ class SignUpSignIn extends Component {
       signUpPwd2,
       isEmail,
       isPwd,
-      pwdMatch,
-      isName
+      pwdMatch
     } = this.state;
 
     return (
@@ -247,9 +239,6 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
-                <p className={isName ? 'hidden' : 'red'}>
-                  Please enter Your Name.
-                </p>
                 <p className={isEmail ? 'hidden' : 'red'}>
                   Please enter a valid Email.
                 </p>

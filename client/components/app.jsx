@@ -185,7 +185,7 @@ class App extends Component {
 
   getLatitudeAndLongitudeFromCityName() {
     const { user } = this.state;
-    const CITYNAME = user.city;
+    const CITYNAME = user.default_city;
     this.fetchGoogleAPI(CITYNAME);
   }
 
