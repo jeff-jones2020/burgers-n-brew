@@ -30,9 +30,9 @@ app.post('/api/signup', (req, res) => {
         res.json({ err: 'Email already exist here' });
       }
       const sql = `insert into "users" ("email", "password", "name", "default_city")
-                    values ('${email}', '${hash}', '${name}', '${city}')
+                    values ($1, $2, $3, $4)
                     returning *;`;
-      db.query(sql, (err, result) => {
+      db.query(sql, [email, hash, name, city], (err, result) => {
         if (err) {
           console.error(err);
         }
@@ -70,18 +70,13 @@ app.get('/api/home/user', (req, res) => {
   }
 });
 
-/*
-update "products"
-   set "price" = 100
- where "productId" = 24;
-*/
-
 app.put('/api/home/user/:id', (req, res) => {
   const id = Number(req.params.id);
   const city = req.body.city;
   if (req.session.passport.user === req.user[0].email) {
-    const sql = `update "users" set "default_city" = '${city}' where "user_id" = ${id} returning *;`;
-    db.query(sql, (err, result) => {
+    const sql =
+      'update "users" set "default_city" = \'$1\' where "user_id" = $2 returning *;';
+    db.query(sql, [city, id], (err, result) => {
       if (err) {
         console.error(err);
       }
