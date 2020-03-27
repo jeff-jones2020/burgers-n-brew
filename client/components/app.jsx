@@ -21,7 +21,8 @@ class App extends Component {
         .then(data => data.json())
         .then(user => {
           this.setState({ user });
-        });
+        })
+        .catch(err => console.error('There was an error retrieving the user.', err));
     };
     this.setFilters = filterPair => {
       const key = Object.keys(filterPair)[0];
@@ -108,7 +109,8 @@ class App extends Component {
             ++index,
             newRestaurants
           )
-        );
+        )
+        .catch(err => console.error('There was an error retrieving restaurants', err));
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
@@ -160,7 +162,8 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
-      });
+      })
+      .catch(err => console.error('There was an error with the search filters.', err));
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -203,7 +206,8 @@ class App extends Component {
             currentLat,
             currentLong
           });
-        });
+        })
+        .catch(err => console.error('There was an error with the location request.', err));
     }
   }
 
@@ -233,7 +237,8 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing up.', err));
   }
 
   signInUser(email, password) {
@@ -252,7 +257,8 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing in.', err));
   }
 
   signOutUser() {
@@ -269,7 +275,8 @@ class App extends Component {
           zipCode: null,
           city: null
         });
-      });
+      })
+      .catch(err => console.error('There was an error with signing out.', err));
   }
 
   componentDidUpdate(prevProps, prevState) {
