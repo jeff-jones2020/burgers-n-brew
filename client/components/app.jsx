@@ -21,7 +21,8 @@ class App extends Component {
         .then(data => data.json())
         .then(user => {
           this.setState({ user });
-        });
+        })
+        .catch(err => console.error('There was an error retrieving the user.', err));
     };
     this.setFilters = filterPair => {
       const key = Object.keys(filterPair)[0];
@@ -108,7 +109,8 @@ class App extends Component {
             ++index,
             newRestaurants
           )
-        );
+        )
+        .catch(err => console.error('There was an error retrieving restaurants', err));
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
@@ -160,7 +162,8 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
-      });
+      })
+      .catch(err => console.error('There was an error with the search filters.', err));
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -203,28 +206,17 @@ class App extends Component {
             currentLat,
             currentLong
           });
-        });
+        })
+        .catch(err => console.error('There was an error with the location request.', err));
     }
   }
 
   signUp(name, city, email, pwd, pwd2) {
-    const chkEmail = str => {
-      const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-      return !!regEmail.test(str);
-    };
-    const chkPwd = str => {
-      const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
-      return !!regPwd.test(str);
-    };
-    if (chkEmail(email) === false) {
-      return false;
-    }
-    if (chkPwd(pwd) === false) {
-      return false;
-    }
-    if (pwd !== pwd2) {
-      return false;
-    }
+    const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+    const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    if (!regEmail.test(email)) return;
+    if (!regPwd.test(pwd)) return;
+    if (pwd !== pwd2) return;
     fetch('/api/signup/', {
       method: 'POST',
       headers: {
@@ -245,15 +237,11 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing up.', err));
   }
 
   signInUser(email, password) {
-    if (!email.includes('@') || !email.includes('.')) {
-      return false;
-    } else if (password.length < 8) {
-      return false;
-    }
     fetch('/api/user/', {
       method: 'POST',
       headers: {
@@ -269,7 +257,8 @@ class App extends Component {
             isSignedIn: user[1]
           });
         }
-      });
+      })
+      .catch(err => console.error('There was an error with signing in.', err));
   }
 
   signOutUser() {
@@ -286,7 +275,8 @@ class App extends Component {
           zipCode: null,
           city: null
         });
-      });
+      })
+      .catch(err => console.error('There was an error with signing out.', err));
   }
 
   componentDidUpdate(prevProps, prevState) {
