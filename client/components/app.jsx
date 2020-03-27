@@ -209,11 +209,11 @@ class App extends Component {
 
   signUp(name, city, email, pwd, pwd2) {
     const chkEmail = str => {
-      var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+      const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
       return !!regEmail.test(str);
     };
     const chkPwd = str => {
-      var regPwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+      const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
       return !!regPwd.test(str);
     };
     if (chkEmail(email) === false) {

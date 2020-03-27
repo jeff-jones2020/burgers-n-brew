@@ -4,7 +4,6 @@ import { Link, withRouter } from 'react-router-dom';
 class SignUpSignIn extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       signInemail: '',
       signInpassword: '',
@@ -12,7 +11,10 @@ class SignUpSignIn extends Component {
       signUpCity: '',
       signUpEmail: '',
       signUpPwd: '',
-      signUpPwd2: ''
+      signUpPwd2: '',
+      isEmail: true,
+      isPwd: true,
+      pwdMatch: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -66,8 +68,28 @@ class SignUpSignIn extends Component {
       signUpPwd2
     } = this.state;
     const { signUp } = this.props;
-    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
+    if (!this.regEmail.test(signUpEmail)) {
+      this.setState({
+        isEmail: false
+      });
+    } else if (!this.regPwd.test(signUpPwd)) {
+      this.setState({
+        isPwd: false
+      });
+    } else if (signUpPwd !== signUpPwd2) {
+      this.setState({
+        pwdMatch: false
+      });
+    }
+    setTimeout(() => {
+      this.setState({
+        isEmail: true,
+        isPwd: true,
+        pwdMatch: true
+      });
+    }, 3000);
     e.preventDefault();
+    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
     this.resetSignUpForm();
   }
 
@@ -94,8 +116,12 @@ class SignUpSignIn extends Component {
       signUpCity,
       signUpEmail,
       signUpPwd,
-      signUpPwd2
+      signUpPwd2,
+      isEmail,
+      isPwd,
+      pwdMatch
     } = this.state;
+
     return (
       <>
         <div id="bnb-banner" className="mb-3 header">
@@ -127,7 +153,7 @@ class SignUpSignIn extends Component {
                     value={signInpassword}
                     onChange={this.handleChange}
                     placeholder="Password"
-                    minLength="6"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -143,7 +169,6 @@ class SignUpSignIn extends Component {
               </form>
             </section>
           </div>
-
           <div className="container">
             <header>
               <h3>Sign Up</h3>
@@ -199,7 +224,7 @@ class SignUpSignIn extends Component {
                     value={signUpPwd2}
                     onChange={this.handleChange}
                     placeholder="Password again"
-                    minLength="6"
+                    minLength="8"
                   />
                 </div>
                 <div>
@@ -212,15 +237,13 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
-                <p
-                  className={this.regEmail.test(signUpEmail) ? 'hidden' : 'red'}
-                >
-                  Invalid Email now
+                <p className={isEmail ? 'hidden' : 'red'}>
+                  Invalid Email format
                 </p>
-                <p className={this.regPwd.test(signUpPwd) ? 'hidden' : 'red'}>
-                  Invalid password now
+                <p className={isPwd ? 'hidden' : 'red'}>
+                  Invalid password format
                 </p>
-                <p className={signUpPwd === signUpPwd2 ? 'hidden' : 'red'}>
+                <p className={pwdMatch ? 'hidden' : 'red'}>
                   Passwords should match
                 </p>
               </form>

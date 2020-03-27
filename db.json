@@ -3,31 +3,10 @@
   "user": [
     {
       "id": 1,
-      "name": "jeff",
+      "name": "law",
       "city": "irvine",
-      "email": "jeff@jeff.jeff",
-      "password": "$2b$10$X.DCZKZgsjon2v3xnhvYpO9kn79O2774Df0ENAsqFfxah6RTzM0T2"
-    },
-    {
-      "id": 2,
-      "name": "jinho",
-      "city": "irvine",
-      "email": "jinho@jinho.com",
-      "password": "$2b$10$IEf39ADU2xteHtovjJ/xeO/dFURNuXR6HQeSzb6XCDQIh693D0t8C"
-    },
-    {
-      "id": 3,
-      "name": "jinho",
-      "city": " torrance",
-      "email": "jinho1@jinho.com",
-      "password": "$2b$10$O2qOk8NcDcRcMjchGcV44usVexrW95kCz9gB2B30UfUe8Of7auoDC"
-    },
-    {
-      "id": 4,
-      "name": "lawrence",
-      "city": "irvine",
-      "email": "lawrence@lawrence.lawrence",
-      "password": "$2b$10$LYxykG.10OQQOyQ9QogWu.vL1ouYgLVi5Qs3Pkp77ai8sZ.Va6Euq"
+      "email": "law@law.law",
+      "password": "$2b$10$M6gzI0i0VOVK8v04N6AP/OQYgYHzjwCR59izTtkUnI9b6x15Xi.GS"
     }
   ]
 }
