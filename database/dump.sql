@@ -19,14 +19,20 @@ SET row_security = off;
 ALTER TABLE ONLY public.reviews DROP CONSTRAINT reviews_yelp_id_fkey;
 ALTER TABLE ONLY public.reviews DROP CONSTRAINT reviews_user_id_fkey;
 ALTER TABLE ONLY public.favorites DROP CONSTRAINT favorites_yelp_id_fkey;
+ALTER TABLE ONLY public.dish_suggestions DROP CONSTRAINT dish_suggestions_yelp_id_fkey;
+ALTER TABLE ONLY public.brew_suggestions DROP CONSTRAINT brew_suggestions_yelp_id_fkey;
 ALTER TABLE ONLY public.users DROP CONSTRAINT users_pkey;
 ALTER TABLE ONLY public.users DROP CONSTRAINT users_email_key;
 ALTER TABLE ONLY public.reviews DROP CONSTRAINT reviews_pkey;
 ALTER TABLE ONLY public.restaurants DROP CONSTRAINT restaurants_pkey;
 ALTER TABLE ONLY public.favorites DROP CONSTRAINT favorites_pkey;
+ALTER TABLE ONLY public.dish_suggestions DROP CONSTRAINT dish_suggestions_pkey;
+ALTER TABLE ONLY public.brew_suggestions DROP CONSTRAINT brew_suggestions_pkey;
 ALTER TABLE public.users ALTER COLUMN user_id DROP DEFAULT;
 ALTER TABLE public.reviews ALTER COLUMN review_id DROP DEFAULT;
 ALTER TABLE public.favorites ALTER COLUMN favorite_id DROP DEFAULT;
+ALTER TABLE public.dish_suggestions ALTER COLUMN suggestion_id DROP DEFAULT;
+ALTER TABLE public.brew_suggestions ALTER COLUMN suggestion_id DROP DEFAULT;
 DROP SEQUENCE public.users_user_id_seq;
 DROP TABLE public.users;
 DROP SEQUENCE public.reviews_review_id_seq;
@@ -34,6 +40,10 @@ DROP TABLE public.reviews;
 DROP TABLE public.restaurants;
 DROP SEQUENCE public.favorites_favorite_id_seq;
 DROP TABLE public.favorites;
+DROP SEQUENCE public.dish_suggestions_suggestion_id_seq;
+DROP TABLE public.dish_suggestions;
+DROP SEQUENCE public.brew_suggestions_suggestion_id_seq;
+DROP TABLE public.brew_suggestions;
 DROP EXTENSION plpgsql;
 DROP SCHEMA public;
 --
@@ -67,6 +77,70 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: brew_suggestions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.brew_suggestions (
+    suggestion_id integer NOT NULL,
+    yelp_id text,
+    name text NOT NULL,
+    count integer NOT NULL
+);
+
+
+--
+-- Name: brew_suggestions_suggestion_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.brew_suggestions_suggestion_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: brew_suggestions_suggestion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.brew_suggestions_suggestion_id_seq OWNED BY public.brew_suggestions.suggestion_id;
+
+
+--
+-- Name: dish_suggestions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.dish_suggestions (
+    suggestion_id integer NOT NULL,
+    yelp_id text,
+    name text NOT NULL,
+    count integer NOT NULL
+);
+
+
+--
+-- Name: dish_suggestions_suggestion_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.dish_suggestions_suggestion_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: dish_suggestions_suggestion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.dish_suggestions_suggestion_id_seq OWNED BY public.dish_suggestions.suggestion_id;
+
 
 --
 -- Name: favorites; Type: TABLE; Schema: public; Owner: -
@@ -186,6 +260,20 @@ ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
+-- Name: brew_suggestions suggestion_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brew_suggestions ALTER COLUMN suggestion_id SET DEFAULT nextval('public.brew_suggestions_suggestion_id_seq'::regclass);
+
+
+--
+-- Name: dish_suggestions suggestion_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dish_suggestions ALTER COLUMN suggestion_id SET DEFAULT nextval('public.dish_suggestions_suggestion_id_seq'::regclass);
+
+
+--
 -- Name: favorites favorite_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -204,6 +292,22 @@ ALTER TABLE ONLY public.reviews ALTER COLUMN review_id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: brew_suggestions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.brew_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dish_suggestions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.dish_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
+\.
 
 
 --
@@ -230,6 +334,9 @@ aind08SDF	Schmorgasboard	(-32.5235532499999991,30.3524534999999993)	4.5
 
 COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested_dish_1, suggested_dish_2, suggested_dish_3, suggested_brew_1, suggested_brew_2, suggested_brew_3) FROM stdin;
 1	1	aind08SDF	4.5	\N	\N	\N	\N	\N	\N	\N
+2	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
+3	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
+4	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -243,6 +350,20 @@ COPY public.users (user_id, email, password, name, default_latlong, default_city
 
 
 --
+-- Name: brew_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.brew_suggestions_suggestion_id_seq', 1, false);
+
+
+--
+-- Name: dish_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.dish_suggestions_suggestion_id_seq', 1, false);
+
+
+--
 -- Name: favorites_favorite_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -253,7 +374,7 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, true);
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.reviews_review_id_seq', 1, true);
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 4, true);
 
 
 --
@@ -261,6 +382,22 @@ SELECT pg_catalog.setval('public.reviews_review_id_seq', 1, true);
 --
 
 SELECT pg_catalog.setval('public.users_user_id_seq', 1, true);
+
+
+--
+-- Name: brew_suggestions brew_suggestions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brew_suggestions
+    ADD CONSTRAINT brew_suggestions_pkey PRIMARY KEY (suggestion_id);
+
+
+--
+-- Name: dish_suggestions dish_suggestions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dish_suggestions
+    ADD CONSTRAINT dish_suggestions_pkey PRIMARY KEY (suggestion_id);
 
 
 --
@@ -304,6 +441,22 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: brew_suggestions brew_suggestions_yelp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brew_suggestions
+    ADD CONSTRAINT brew_suggestions_yelp_id_fkey FOREIGN KEY (yelp_id) REFERENCES public.restaurants(yelp_id);
+
+
+--
+-- Name: dish_suggestions dish_suggestions_yelp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dish_suggestions
+    ADD CONSTRAINT dish_suggestions_yelp_id_fkey FOREIGN KEY (yelp_id) REFERENCES public.restaurants(yelp_id);
+
+
+--
 -- Name: favorites favorites_yelp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -337,3 +490,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
