@@ -148,65 +148,14 @@ app.post('/api/reviews', (req, res) => {
       RETURNING *
   `;
 
-  const dishParams = [yelpId, suggestedDish];
-  const findDuplicateDishSql = `
-    SELECT * FROM dish_suggestions
-      WHERE (yelp_id=$1 AND name=$2)
-  `;
-  const incrementDishSql = `
-    UPDATE dish_suggestions
-      SET count = count + 1
-      WHERE (yelp_id=$1 AND name=$2)
-  `;
-  const postNewDishSql = `
-    INSERT INTO dish_suggestions (yelp_id, name, count)
-      VALUES ($1, $2, 1)
-  `;
-  const brewParams = [yelpId, suggestedBrew];
-  const findDuplicateBrewSql = `
-    SELECT * FROM brew_suggestions
-      WHERE (yelp_id=$1 AND name=$2)
-  `;
-  const incrementBrewSql = `
-    UPDATE brew_suggestions
-      SET count = count + 1
-      WHERE (yelp_id=$1 AND name=$2)
-  `;
-  const postNewBrewSql = `
-    INSERT INTO brew_suggestions (yelp_id, name, count)
-      VALUES ($1, $2, 1)
-  `;
-
   db.query(reviewSql, reviewParams)
     .then(result => {
       const review = result.rows[0];
       if (!review) {
         return res.status(500).json({ message: 'Nothing returned from psql' });
       } else {
-        if (suggestedDish) {
-          db.query(findDuplicateDishSql, dishParams)
-            .then(result => {
-              const dish = result.rows[0];
-              if (!dish) {
-                db.query(postNewDishSql, dishParams);
-              } else {
-                db.query(incrementDishSql, dishParams);
-              }
-            })
-            .catch(err => console.error(err));
-        }
-        if (suggestedBrew) {
-          db.query(findDuplicateBrewSql, brewParams)
-            .then(result => {
-              const brew = result.rows[0];
-              if (!brew) {
-                db.query(postNewBrewSql, brewParams);
-              } else {
-                db.query(incrementBrewSql, brewParams);
-              }
-            })
-            .catch(err => console.error(err));
-        }
+        if (suggestedDish) postDish(yelpId, suggestedDish);
+        if (suggestedBrew) postBrew(yelpId, suggestedBrew);
         return res.json(review);
       }
     })
@@ -219,6 +168,62 @@ app.post('/api/reviews', (req, res) => {
     });
 
 });
+
+function postDish(yelpId, suggestion) {
+  const params = [yelpId, suggestion];
+  const findDuplicateSql = `
+    SELECT * FROM dish_suggestions
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const incrementSql = `
+    UPDATE dish_suggestions
+      SET count = count + 1
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const postNewSql = `
+    INSERT INTO dish_suggestions (yelp_id, name, count)
+      VALUES ($1, $2, 1)
+  `;
+
+  db.query(findDuplicateSql, params)
+    .then(result => {
+      const dish = result.rows[0];
+      if (!dish) {
+        db.query(postNewSql, params);
+      } else {
+        db.query(incrementSql, params);
+      }
+    })
+    .catch(err => console.error(err));
+}
+
+function postBrew(yelpId, suggestion) {
+  const params = [yelpId, suggestion];
+  const findDuplicateSql = `
+    SELECT * FROM brew_suggestions
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const incrementSql = `
+    UPDATE brew_suggestions
+      SET count = count + 1
+      WHERE (yelp_id=$1 AND name=$2)
+  `;
+  const postNewSql = `
+    INSERT INTO brew_suggestions (yelp_id, name, count)
+      VALUES ($1, $2, 1)
+  `;
+
+  db.query(findDuplicateSql, params)
+    .then(result => {
+      const brew = result.rows[0];
+      if (!brew) {
+        db.query(postNewSql, params);
+      } else {
+        db.query(incrementSql, params);
+      }
+    })
+    .catch(err => console.error(err));
+}
 
 // eslint-disable-next-line no-console
 app.listen(process.env.PORT, () => { console.log(`App listening on port ${process.env.PORT}`); });

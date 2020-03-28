@@ -116,7 +116,7 @@ ALTER SEQUENCE public.brew_suggestions_suggestion_id_seq OWNED BY public.brew_su
 
 CREATE TABLE public.dish_suggestions (
     suggestion_id integer NOT NULL,
-    yelp_id text,
+    yelp_id text NOT NULL,
     name text NOT NULL,
     count integer NOT NULL
 );
@@ -149,7 +149,7 @@ ALTER SEQUENCE public.dish_suggestions_suggestion_id_seq OWNED BY public.dish_su
 CREATE TABLE public.favorites (
     favorite_id integer NOT NULL,
     user_id integer NOT NULL,
-    yelp_id text,
+    yelp_id text NOT NULL,
     restaurant_name text NOT NULL
 );
 
@@ -181,7 +181,6 @@ ALTER SEQUENCE public.favorites_favorite_id_seq OWNED BY public.favorites.favori
 CREATE TABLE public.restaurants (
     yelp_id text NOT NULL,
     name text NOT NULL,
-    default_latlong point,
     rating numeric,
     suggested_dish1 text,
     suggested_dish2 text,
@@ -198,8 +197,8 @@ CREATE TABLE public.restaurants (
 
 CREATE TABLE public.reviews (
     review_id integer NOT NULL,
-    user_id integer,
-    yelp_id text,
+    user_id integer NOT NULL,
+    yelp_id text NOT NULL,
     rating numeric NOT NULL,
     review_text text,
     suggested_brew text,
@@ -301,6 +300,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 --
 
 COPY public.brew_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
+2	aind08SDF	Oyster Shooter	3
 \.
 
 
@@ -309,6 +309,8 @@ COPY public.brew_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
 --
 
 COPY public.dish_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
+1	aind08SDF	Jalapeno Cheddar Bacon Sliders	2
+2	aind08SDF	Mushroom Swiss Burger	3
 \.
 
 
@@ -325,8 +327,8 @@ COPY public.favorites (favorite_id, user_id, yelp_id, restaurant_name) FROM stdi
 -- Data for Name: restaurants; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.restaurants (yelp_id, name, default_latlong, rating, suggested_dish1, suggested_dish2, suggested_dish3, suggested_brew1, suggested_brew2, suggested_brew3) FROM stdin;
-aind08SDF	Schmorgasboard	(-32.5235532499999991,30.3524534999999993)	4.5	\N	\N	\N	\N	\N	\N
+COPY public.restaurants (yelp_id, name, rating, suggested_dish1, suggested_dish2, suggested_dish3, suggested_brew1, suggested_brew2, suggested_brew3) FROM stdin;
+aind08SDF	Schmorgasboard	4.5	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -341,6 +343,16 @@ COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested
 4	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
 12	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
 13	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+14	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+15	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+16	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+17	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	Jalapeno Cheddar Bacon Sliders
+18	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	Jalapeno Cheddar Bacon Sliders
+20	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
+21	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
+22	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
+23	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
+24	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
 \.
 
 
@@ -357,14 +369,14 @@ COPY public.users (user_id, email, password, name, default_latlong, default_city
 -- Name: brew_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.brew_suggestions_suggestion_id_seq', 1, false);
+SELECT pg_catalog.setval('public.brew_suggestions_suggestion_id_seq', 2, true);
 
 
 --
 -- Name: dish_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.dish_suggestions_suggestion_id_seq', 1, false);
+SELECT pg_catalog.setval('public.dish_suggestions_suggestion_id_seq', 2, true);
 
 
 --
@@ -378,7 +390,7 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, true);
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.reviews_review_id_seq', 13, true);
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 26, true);
 
 
 --
