@@ -142,7 +142,7 @@ app.post('/api/reviews', (req, res) => {
   }
 
   const reviewParams = [userId, yelpId, rating, reviewText, suggestedDish, suggestedBrew];
-  const sql = `
+  const reviewSql = `
     INSERT INTO reviews (user_id, yelp_id, rating, review_text, suggested_dish, suggested_brew)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
@@ -150,7 +150,7 @@ app.post('/api/reviews', (req, res) => {
 
   const dishParams = [yelpId, suggestedDish];
   const findDuplicateDishSql = `
-    SELECT * FROM (dish_suggestions)
+    SELECT * FROM dish_suggestions
       WHERE (yelp_id=$1 AND name=$2)
   `;
   const incrementDishSql = `
@@ -164,7 +164,7 @@ app.post('/api/reviews', (req, res) => {
   `;
   const brewParams = [yelpId, suggestedBrew];
   const findDuplicateBrewSql = `
-    SELECT * FROM (brew_suggestions)
+    SELECT * FROM brew_suggestions
       WHERE (yelp_id=$1 AND name=$2)
   `;
   const incrementBrewSql = `
@@ -177,13 +177,37 @@ app.post('/api/reviews', (req, res) => {
       VALUES ($1, $2, 1)
   `;
 
-  db.query(sql, reviewParams)
+  db.query(reviewSql, reviewParams)
     .then(result => {
       const review = result.rows[0];
       if (!review) {
-        res.status(500).json({ message: 'Nothing returned from psql' });
+        return res.status(500).json({ message: 'Nothing returned from psql' });
       } else {
-        res.json(review);
+        if (suggestedDish) {
+          db.query(findDuplicateDishSql, dishParams)
+            .then(result => {
+              const dish = result.rows[0];
+              if (!dish) {
+                db.query(postNewDishSql, dishParams);
+              } else {
+                db.query(incrementDishSql, dishParams);
+              }
+            })
+            .catch(err => console.error(err));
+        }
+        if (suggestedBrew) {
+          db.query(findDuplicateBrewSql, brewParams)
+            .then(result => {
+              const brew = result.rows[0];
+              if (!brew) {
+                db.query(postNewBrewSql, brewParams);
+              } else {
+                db.query(incrementBrewSql, brewParams);
+              }
+            })
+            .catch(err => console.error(err));
+        }
+        return res.json(review);
       }
     })
     .catch(err => {
