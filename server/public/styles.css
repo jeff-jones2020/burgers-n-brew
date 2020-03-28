@@ -453,5 +453,18 @@ a {
   align-items: center;
   margin-top: 50px;
 }
+.review .rating,
+.review .writeReview {
+  display: flex;
+  justify-content: center;
+  margin: 1%;
+  padding: 1%;
+}
+.review span {
+  font-size: 0.5rem;
+}
+.review h5 {
+  display: inline;
+}
 
 /*# sourceMappingURL=styles.css.map */

@@ -15,17 +15,26 @@ class ReviewPage extends Component {
           </p>
           <h2>Leave Review:</h2>
           <h2>{restaurant.name}</h2>
-          <div>
-            <i className="far fa-star fa-2x"></i>
-            <i className="far fa-star fa-2x"></i>
-            <i className="far fa-star fa-2x"></i>
-            <i className="far fa-star fa-2x"></i>
-            <i className="far fa-star fa-2x"></i>
-          </div>
         </header>
         <main>
-          <section className="rating"></section>
-          <section className="writeReview"></section>
+          <section className="rating">
+            <div>
+              <i className="far fa-star fa-2x"></i>
+              <i className="far fa-star fa-2x"></i>
+              <i className="far fa-star fa-2x"></i>
+              <i className="far fa-star fa-2x"></i>
+              <i className="far fa-star fa-2x"></i>
+            </div>
+          </section>
+          <section className="writeReview">
+            <div>
+              <h5>Write A Review?</h5>
+              <span>&#40;optional&#41;</span>
+              <form action="">
+                <textarea name="" id="" cols="30" rows="3"></textarea>
+              </form>
+            </div>
+          </section>
           <section className="suggestDish"></section>
           <section className="suggestBrew"></section>
         </main>

@@ -464,4 +464,17 @@ a {
     align-items: center;
     margin-top: 50px;
   }
+  .rating,
+  .writeReview {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    padding: 1%;
+  }
+  span {
+    font-size: 0.5rem;
+  }
+  h5 {
+    display: inline;
+  }
 }
