@@ -2,9 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class ReviewPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      review: '',
+      dish: '',
+      brew: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
     const { restaurant } = this.props;
-
+    const { review, dish, brew } = this.state;
     return (
       <div className="review">
         <header>
@@ -33,7 +51,14 @@ class ReviewPage extends Component {
                   <h5>Write A Review?</h5>
                   <span>&#40;optional&#41;</span>
                 </div>
-                <textarea name="" id="" cols="40" rows="3"></textarea>
+                <textarea
+                  name="review"
+                  value={review}
+                  onChange={this.handleChange}
+                  id=""
+                  cols="40"
+                  rows="3"
+                ></textarea>
                 <div>
                   <h5>Suggest A Dish?</h5>
                   <span>&#40;optional&#41;</span>
@@ -45,7 +70,12 @@ class ReviewPage extends Component {
                   </p>
                   <p>
                     <label htmlFor="">Add New: </label>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="dish"
+                      value={dish}
+                      onChange={this.handleChange}
+                    />
                   </p>
                 </div>
                 <div>
@@ -59,7 +89,12 @@ class ReviewPage extends Component {
                   </p>
                   <p>
                     <label htmlFor="">Add New: </label>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="brew"
+                      value={brew}
+                      onChange={this.handleChange}
+                    />
                   </p>
                   <button>Submit</button>
                 </div>
