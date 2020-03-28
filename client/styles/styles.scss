@@ -265,9 +265,13 @@ img {
 
 .restaurant-details {
   font-size: 0.75em;
+
   .restaurant-tags {
     margin-bottom: 1em;
     text-align: center;
+  }
+  button {
+    color: white;
   }
   .restaurant-hours {
     display: flex;
@@ -441,5 +445,23 @@ a {
     border-radius: 50%;
     background: white;
     opacity: 1;
+  }
+}
+
+.review {
+  .arrow {
+    background-image: url('images/arrow.svg');
+    width: 30px;
+    height: 28px;
+    object-fit: cover;
+    top: 2em;
+    left: 1.5em;
+    position: absolute;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
   }
 }
