@@ -26,17 +26,46 @@ class ReviewPage extends Component {
               <i className="far fa-star fa-2x"></i>
             </div>
           </section>
-          <section className="writeReview">
+          <section>
             <div>
-              <h5>Write A Review?</h5>
-              <span>&#40;optional&#41;</span>
-              <form action="">
-                <textarea name="" id="" cols="30" rows="3"></textarea>
+              <form className="writeReview">
+                <div className="title">
+                  <h5>Write A Review?</h5>
+                  <span>&#40;optional&#41;</span>
+                </div>
+                <textarea name="" id="" cols="40" rows="3"></textarea>
+                <div>
+                  <h5>Suggest A Dish?</h5>
+                  <span>&#40;optional&#41;</span>
+                </div>
+                <div className="suggest">
+                  <p>
+                    <label htmlFor="">Choose: </label>
+                    <input type="text" />
+                  </p>
+                  <p>
+                    <label htmlFor="">Add New: </label>
+                    <input type="text" />
+                  </p>
+                </div>
+                <div>
+                  <h5>Suggest A Brew?</h5>
+                  <span>&#40;optional&#41;</span>
+                </div>
+                <div className="suggest">
+                  <p>
+                    <label htmlFor="">Choose: </label>
+                    <input type="text" />
+                  </p>
+                  <p>
+                    <label htmlFor="">Add New: </label>
+                    <input type="text" />
+                  </p>
+                  <button>Submit</button>
+                </div>
               </form>
             </div>
           </section>
-          <section className="suggestDish"></section>
-          <section className="suggestBrew"></section>
         </main>
       </div>
     );
