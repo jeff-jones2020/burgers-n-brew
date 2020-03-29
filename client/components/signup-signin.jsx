@@ -216,7 +216,7 @@ class SignUpSignIn extends Component {
                     maxLength="50"
                   />
                 </div>
-                <p className={isCity ? 'hidden' : 'red' }>
+                <p className={isCity ? 'hidden' : 'red'}>
                   Please enter a city.
                 </p>
                 <div>
@@ -256,7 +256,8 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <p className={isPwd ? 'hidden' : 'red'}>
-                  Passwords require a capital letter, special character, and number.
+                  Passwords require a capital letter, special character, and
+                  number.
                 </p>
                 <p className={pwdMatch ? 'hidden' : 'red'}>
                   Passwords should match.

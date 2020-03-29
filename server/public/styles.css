@@ -265,6 +265,9 @@ img {
   margin-bottom: 1em;
   text-align: center;
 }
+.restaurant-details button {
+  color: white;
+}
 .restaurant-details .restaurant-hours {
   display: flex;
   flex-direction: column;
@@ -433,6 +436,58 @@ a {
   border-radius: 50%;
   background: white;
   opacity: 1;
+}
+
+.review .arrow {
+  background-image: url("images/arrow.svg");
+  width: 30px;
+  height: 28px;
+  object-fit: cover;
+  top: 2em;
+  left: 1.5em;
+  position: absolute;
+}
+.review .suggest {
+  width: 100%;
+  margin: 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 4%;
+}
+.review header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+.review .rating,
+.review .writeReview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1%;
+  padding: 1%;
+}
+.review .rating h5,
+.review .writeReview h5 {
+  display: inline;
+}
+.review .rating span,
+.review .writeReview span {
+  font-size: 0.5rem;
+}
+.review p {
+  margin: 3% 0;
+}
+.review label {
+  font-size: 0.75rem;
+}
+.review button {
+  background-color: #ff4f4f;
+  border-radius: 5px;
+  border: 0;
+  color: white;
 }
 
 /*# sourceMappingURL=styles.css.map */
