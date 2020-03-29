@@ -130,9 +130,47 @@ app.get('/api/yelp/businesses/:id', (req, res) => {
     });
 });
 
+app.get('/api/suggestions/:yelpId/:table', (req, res) => {
+  const { yelpId, table } = req.params;
+  if (table !== 'brew_suggestions' && table !== 'dish_suggestions') return res.status(404).send();
+
+  const sql = `
+    SELECT * FROM ${table}
+    WHERE yelp_id = $1
+    ORDER BY count DESC
+    LIMIT 3
+  `;
+
+  const verifyYelpIdSql = `
+    SELECT * FROM restaurants
+    WHERE yelp_id = $1
+  `;
+
+  db.query(sql, [yelpId])
+    .then(result => {
+      if (result.rows.length === 0) {
+        return (
+          db.query(verifyYelpIdSql, [yelpId])
+            .then(result => {
+              if (result.rows.length === 0) {
+                return res.status(404).send(`No restaurant found with yelp ID ${yelpId}.`);
+              }
+              return res.status(200).send([]);
+            })
+        );
+      }
+      return res.status(200).send(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.send({ error: err });
+    });
+
+});
+
 app.post('/api/reviews', (req, res) => {
   const { body } = req;
-  const { yelpId, reviewText, suggestedDish, suggestedBrew } = body;
+  const { yelpId, yelpName, reviewText, suggestedDish, suggestedBrew } = body;
   const userId = parseInt(body.userId, 10);
   const rating = parseFloat(body.rating);
   if (!userId || userId < 1 || (userId !== parseFloat(body.userId))) {
@@ -148,25 +186,38 @@ app.post('/api/reviews', (req, res) => {
       RETURNING *
   `;
 
-  db.query(reviewSql, reviewParams)
-    .then(result => {
-      const review = result.rows[0];
-      if (!review) {
-        return res.status(500).json({ message: 'Nothing returned from psql' });
-      } else {
-        if (suggestedDish) postDish(yelpId, suggestedDish);
-        if (suggestedBrew) postBrew(yelpId, suggestedBrew);
-        return res.json(review);
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      let status;
-      if (err.code === '23503') status = 400;
-      else status = 500;
-      res.status(status).json({ error: err.detail });
-    });
+  const postRestaurantParams = [yelpId, yelpName, rating];
+  const postRestaurantSql = `
+    INSERT INTO restaurants (yelp_id, name, rating)
+      VALUES ($1, $2, $3)
+  `;
 
+  db.query(postRestaurantSql, postRestaurantParams)
+    .then(result => postReview())
+    .catch(err => postReview());
+
+  // add code to restrict each user to 1 review per restaurant
+
+  function postReview() {
+    db.query(reviewSql, reviewParams)
+      .then(result => {
+        const review = result.rows[0];
+        if (!review) {
+          return res.status(500).json({ message: 'Nothing returned from psql' });
+        } else {
+          if (suggestedDish) postDish(yelpId, suggestedDish);
+          if (suggestedBrew) postBrew(yelpId, suggestedBrew);
+          return res.json(review);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        let status;
+        if (err.code === '23503') status = 400;
+        else status = 500;
+        res.status(status).json({ error: err.detail });
+      });
+  }
 });
 
 function postDish(yelpId, suggestion) {
