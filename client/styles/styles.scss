@@ -265,9 +265,13 @@ img {
 
 .restaurant-details {
   font-size: 0.75em;
+
   .restaurant-tags {
     margin-bottom: 1em;
     text-align: center;
+  }
+  button {
+    color: white;
   }
   .restaurant-hours {
     display: flex;
@@ -441,5 +445,57 @@ a {
     border-radius: 50%;
     background: white;
     opacity: 1;
+  }
+}
+
+.review {
+  .arrow {
+    background-image: url('images/arrow.svg');
+    width: 30px;
+    height: 28px;
+    object-fit: cover;
+    top: 2em;
+    left: 1.5em;
+    position: absolute;
+  }
+  .suggest {
+    width: 100%;
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 4%;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .rating,
+  .writeReview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1%;
+    padding: 1%;
+    h5 {
+      display: inline;
+    }
+    span {
+      font-size: 0.5rem;
+    }
+  }
+  p {
+    margin: 3% 0;
+  }
+  label {
+    font-size: 0.75rem;
+  }
+  button {
+    background-color: rgb(255, 79, 79);
+    border-radius: 5px;
+    border: 0;
+    color: white;
   }
 }

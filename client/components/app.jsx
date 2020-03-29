@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './home.jsx';
 import SignUpSignIn from './signup-signin.jsx';
 import DetailView from './detail-view';
+import ReviewPage from './review-page';
 import KEY from './key.jsx';
 import { Provider } from '../store.jsx';
 
@@ -22,7 +23,9 @@ class App extends Component {
         .then(user => {
           this.setState({ user });
         })
-        .catch(err => console.error('There was an error retrieving the user.', err));
+        .catch(err =>
+          console.error('There was an error retrieving the user.', err)
+        );
     };
     this.setFilters = filterPair => {
       const key = Object.keys(filterPair)[0];
@@ -110,7 +113,9 @@ class App extends Component {
             newRestaurants
           )
         )
-        .catch(err => console.error('There was an error retrieving restaurants', err));
+        .catch(err =>
+          console.error('There was an error retrieving restaurants', err)
+        );
     } else {
       this.getMatchingRestaurantDetails(restaurants, ++index, newRestaurants);
     }
@@ -163,7 +168,9 @@ class App extends Component {
       .then(data => {
         this.getMatchingRestaurantDetails(data.businesses);
       })
-      .catch(err => console.error('There was an error with the search filters.', err));
+      .catch(err =>
+        console.error('There was an error with the search filters.', err)
+      );
   }
 
   getCityNameAndZipCodeFromLatLong(latitude, longitude) {
@@ -207,13 +214,15 @@ class App extends Component {
             currentLong
           });
         })
-        .catch(err => console.error('There was an error with the location request.', err));
+        .catch(err =>
+          console.error('There was an error with the location request.', err)
+        );
     }
   }
 
   signUp(name, city, email, pwd, pwd2) {
     const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-    const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{8,16}$/;
+    const regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{4,16}$/;
     if (!regEmail.test(email)) return;
     if (!regPwd.test(pwd)) return;
     if (pwd !== pwd2) return;
@@ -326,6 +335,9 @@ class App extends Component {
             </Route>
             <Route exact path="/details/:id">
               <DetailView restaurant={this.state.restaurant} />
+            </Route>
+            <Route exact path="/details/:id/review">
+              <ReviewPage restaurant={this.state.restaurant} />
             </Route>
             <Route exact path="/home">
               <Provider value={this.state}>

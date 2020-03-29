@@ -42,6 +42,62 @@
       "city": "los angeles",
       "email": "lol@lol.lol",
       "password": "$2b$10$piRUCQYHD8zWgTekVnnMqemNiky2juVtQFdU3M.cGJOOiqTaNKHvu"
+    },
+    {
+      "id": 7,
+      "name": "sandy",
+      "city": "irvine",
+      "email": "man@man.man",
+      "password": "$2b$10$nYqvFKa7m7pVStUHOuK6b.Ibx0YWT/bCtMpR2AQk.DrP0BPM4Jwk2"
+    },
+    {
+      "id": 8,
+      "name": "car",
+      "city": "irvine",
+      "email": "car@car.car",
+      "password": "$2b$10$7ebfwW6EDmUPOk/H8J7QgOkAcF1WR/UKgPgoy5sPczjjBNhXgst3a"
+    },
+    {
+      "id": 9,
+      "name": "cart",
+      "city": "irvine",
+      "email": "cart@cart.cart",
+      "password": "$2b$10$cLfbc7uBQQkx90riZgTeLuLe4VaxvsW.5fJWWD7bO9dtbYADxU3LC"
+    },
+    {
+      "id": 10,
+      "name": "cart",
+      "city": "irvine",
+      "email": "cart@cart.cart",
+      "password": "$2b$10$3FpWCihVBbgwKeTJZ5zAp.f/gDlmco5Iw1BuhkVjitCb7LSGViGI6"
+    },
+    {
+      "id": 11,
+      "name": "andy",
+      "city": "irvine",
+      "email": "andy@andy.andy",
+      "password": "$2b$10$zODmJN4eAK3J9k4EU/JScekARQUTPMxyRzWdgRw4LIkFKaF9dNi0a"
+    },
+    {
+      "id": 12,
+      "name": "city",
+      "city": "irvine",
+      "email": "city@city.city",
+      "password": "$2b$10$AG0PUULA34yzdkEH7P9t2eqtZZbnbNDiuVkhE2GO4dHF7D8VhpFci"
+    },
+    {
+      "id": 13,
+      "name": "foo",
+      "city": "irvine",
+      "email": "foo@foo.foo",
+      "password": "$2b$10$5WOD.1x885/KJb191pCrKeMQHEW6VfHr/dJeUHKzrkVzQx07wglYC"
+    },
+    {
+      "id": 14,
+      "name": "bar",
+      "city": "irvine",
+      "email": "bar@bar.bar",
+      "password": "$2b$10$iNdiTg65bNb/qd0VqctU/ediAuQDas4wcVEHKP9gcN5iTOgwI2DHa"
     }
   ]
 }

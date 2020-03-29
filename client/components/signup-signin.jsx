@@ -16,12 +16,14 @@ class SignUpSignIn extends Component {
       isCity: true,
       isEmail: true,
       isPwd: true,
-      pwdMatch: true
+      pwdMatch: true,
+      resetState: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.routeChange = this.routeChange.bind(this);
+    this.resetState = this.resetState.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regCity = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regPwd = /^(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]{4,16}$/;
@@ -80,7 +82,13 @@ class SignUpSignIn extends Component {
         pwdMatch: false
       });
     }
-    setTimeout(() => {
+    this.resetState();
+    e.preventDefault();
+    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
+  }
+
+  resetState() {
+    const resetState = setTimeout(() => {
       this.setState({
         isName: true,
         isCity: true,
@@ -89,8 +97,11 @@ class SignUpSignIn extends Component {
         pwdMatch: true
       });
     }, 3000);
-    e.preventDefault();
-    signUp(signUpName, signUpCity, signUpEmail, signUpPwd, signUpPwd2);
+    this.setState({ resetState });
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.state.resetState);
   }
 
   handleSubmit1(e) {
@@ -205,7 +216,7 @@ class SignUpSignIn extends Component {
                     maxLength="50"
                   />
                 </div>
-                <p className={isCity ? 'hidden' : 'red' }>
+                <p className={isCity ? 'hidden' : 'red'}>
                   Please enter a city.
                 </p>
                 <div>
@@ -245,7 +256,8 @@ class SignUpSignIn extends Component {
                   />
                 </div>
                 <p className={isPwd ? 'hidden' : 'red'}>
-                  Passwords require a capital letter, special character, and number.
+                  Passwords require a capital letter, special character, and
+                  number.
                 </p>
                 <p className={pwdMatch ? 'hidden' : 'red'}>
                   Passwords should match.
