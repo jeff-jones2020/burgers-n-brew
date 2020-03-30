@@ -20,8 +20,8 @@ class SignUpSignIn extends Component {
       resetState: null
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit1 = this.handleSubmit1.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
     this.routeChange = this.routeChange.bind(this);
     this.resetState = this.resetState.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
@@ -48,7 +48,7 @@ class SignUpSignIn extends Component {
     }
   }
 
-  handleSubmit2(e) {
+  handleSignUp(e) {
     const {
       signUpName,
       signUpCity,
@@ -104,7 +104,7 @@ class SignUpSignIn extends Component {
     clearTimeout(this.state.resetState);
   }
 
-  handleSubmit1(e) {
+  handleSignIn(e) {
     const { signInEmail, signInPassword } = this.state;
     const { signInUser } = this.props;
     e.preventDefault();
@@ -173,7 +173,7 @@ class SignUpSignIn extends Component {
                   <button
                     type="submit"
                     onClick={e => {
-                      this.handleSubmit1(e);
+                      this.handleSignIn(e);
                     }}
                   >
                     Sign In
@@ -266,7 +266,7 @@ class SignUpSignIn extends Component {
                   <button
                     type="submit"
                     onClick={e => {
-                      this.handleSubmit2(e);
+                      this.handleSignUp(e);
                     }}
                   >
                     Sign Up

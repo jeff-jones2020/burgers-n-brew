@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CurrentCity from './currentCity.jsx';
+import CurrentCity from './current-city.jsx';
 import SearchCityForm from './search-city-form.jsx';
-import CurrentLocation from './currentlocation.jsx';
+import CurrentLocation from './current-location.jsx';
 import { Consumer } from '../store.jsx';
 
 class LocationDropDown extends Component {
