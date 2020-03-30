@@ -205,7 +205,13 @@ app.post('/api/reviews', (req, res) => {
   function postRestaurant() {
     db.query(postRestaurantSql, postRestaurantParams)
       .then(result => postReview())
-      .catch(err => postReview());
+      .catch(err => {
+        if (err.code === '23505') {
+          postReview();
+        } else {
+          return res.status(500).json({ err: err.detail });
+        }
+      });
   }
 
   function postReview() {
