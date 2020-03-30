@@ -159,8 +159,12 @@ app.get('/api/has-reviewed/:userId/:yelpId', (req, res) => {
 });
 
 app.get('/api/suggestions/:yelpId/:table/:count', (req, res) => {
-  const { yelpId, table, count } = req.params;
+  const { yelpId, table } = req.params;
+  const count = parseFloat(req.params.count);
   if (table !== 'brew_suggestions' && table !== 'dish_suggestions') return res.status(404).send();
+  else if (!count || count < 1 || (count !== parseInt(req.params.count, 10))) {
+    return res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
+  }
 
   const sql = `
     SELECT * FROM ${table}
