@@ -196,6 +196,16 @@ app.post('/api/reviews', (req, res) => {
       RETURNING *
   `;
 
+  const getRatingsSql = `
+    SELECT rating FROM reviews
+      WHERE yelp_id = $1
+  `;
+  const updateRatingSql = `
+    UPDATE restaurants
+      SET rating = $1
+      WHERE yelp_id = $2
+  `;
+
   checkUserReviews(yelpId, yelpName, userId)
     .then(result => {
       postRestaurant();
@@ -223,6 +233,7 @@ app.post('/api/reviews', (req, res) => {
         } else {
           if (suggestedDish) postDish(yelpId, suggestedDish);
           if (suggestedBrew) postBrew(yelpId, suggestedBrew);
+          updateAverageRating();
           return res.json(review);
         }
       })
@@ -232,6 +243,18 @@ app.post('/api/reviews', (req, res) => {
         if (err.code === '23503') status = 400;
         else status = 500;
         res.status(status).json({ error: err.detail });
+      });
+  }
+
+  function updateAverageRating() {
+    db.query(getRatingsSql, [yelpId])
+      .then(result => {
+        const reducer = (sum, currentValue) => sum + parseInt(currentValue.rating, 10);
+        const sum = result.rows.reduce(reducer, 0);
+        return (sum / result.rows.length);
+      })
+      .then(average => {
+        db.query(updateRatingSql, [average, yelpId]);
       });
   }
 });
