@@ -7,9 +7,31 @@ class ReviewPage extends Component {
     this.state = {
       review: '',
       dish: '',
-      brew: ''
+      brew: '',
+      dishSuggestions: [],
+      brewSuggestions: []
     };
+
     this.handleChange = this.handleChange.bind(this);
+    this.getSuggestions = this.getSuggestions.bind(this);
+  }
+
+  getSuggestions() {
+    const restaurantId = this.props.restaurant.id;
+    fetch(`/api/suggestions/${restaurantId}/dish_suggestions/20`)
+      .then(result => {
+        this.setState({
+          dishSuggestions: result
+        });
+      })
+      .catch(err => console.error(err));
+    fetch(`/api/suggestions/${restaurantId}/brew_suggestions/20`)
+      .then(result => {
+        this.setState({
+          brewSuggestions: result
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   handleChange(e) {
@@ -20,9 +42,21 @@ class ReviewPage extends Component {
     });
   }
 
+  componentDidMount() {
+    this.getSuggestions();
+  }
+
   render() {
     const { restaurant } = this.props;
     const { review, dish, brew } = this.state;
+
+    const dishOptions = this.state.dishSuggestions.map((option, index) => {
+      return <option key={index} value={option}>{option}</option>;
+    });
+    const brewOptions = this.state.brewSuggestions.map((option, index) => {
+      return <option key={index} value={option}>{option}</option>;
+    });
+
     return (
       <div className="review">
         <header>
@@ -66,7 +100,10 @@ class ReviewPage extends Component {
                 <div className="suggest">
                   <p>
                     <label htmlFor="">Choose: </label>
-                    <input type="text" />
+                    <select name='dish-suggestions' id='dish-select'>
+                      <option value=''>--Choose a dish--</option>
+                      {dishOptions}
+                    </select>
                   </p>
                   <p>
                     <label htmlFor="">Add New: </label>
@@ -85,7 +122,10 @@ class ReviewPage extends Component {
                 <div className="suggest">
                   <p>
                     <label htmlFor="">Choose: </label>
-                    <input type="text" />
+                    <select name='dish-suggestions' id='dish-select'>
+                      <option value=''>--Choose a brew--</option>
+                      {brewOptions}
+                    </select>
                   </p>
                   <p>
                     <label htmlFor="">Add New: </label>
