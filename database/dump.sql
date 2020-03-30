@@ -328,7 +328,13 @@ COPY public.favorites (favorite_id, user_id, yelp_id, restaurant_name) FROM stdi
 --
 
 COPY public.restaurants (yelp_id, name, rating, suggested_dish1, suggested_dish2, suggested_dish3, suggested_brew1, suggested_brew2, suggested_brew3) FROM stdin;
-aind08SDF	Schmorgasboard	4.5	\N	\N	\N	\N	\N	\N
+0006	Pattiez	2.75	\N	\N	\N	\N	\N	\N
+0002	Smash Burger	3.75	\N	\N	\N	\N	\N	\N
+0003	Krusty Krab	2.75	\N	\N	\N	\N	\N	\N
+0005	5	2.75	\N	\N	\N	\N	\N	\N
+0000	The Laughing Burger	3.75	\N	\N	\N	\N	\N	\N
+0001	Sloppy Joe	2.5	\N	\N	\N	\N	\N	\N
+aind08SDF	Schmorgasboard	3.8823529411764706	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -353,6 +359,27 @@ COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested
 22	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
 23	1	aind08SDF	4.5	Best burgers around! Beer to die for!	Oyster Shooter	Mushroom Swiss Burger
 24	1	aind08SDF	4.5	Best burgers around! Beer to die for!	\N	\N
+63	2	0000	3	\N	\N	\N
+64	2	0001	3	\N	\N	\N
+66	2	0002	3	\N	\N	\N
+67	2	0003	3	\N	\N	\N
+68	1	0003	3	\N	\N	\N
+69	1	0005	3	\N	\N	\N
+70	4	0003	3	\N	\N	\N
+73	4	0005	3	\N	\N	\N
+74	2	0005	3	\N	\N	\N
+75	1	0002	5	\N	\N	\N
+76	4	0002	5	\N	\N	\N
+77	4	0006	5	\N	\N	\N
+78	1	0006	2	\N	\N	\N
+79	2	0006	2	\N	\N	\N
+80	5	0006	2	\N	\N	\N
+81	5	0002	2	\N	\N	\N
+82	5	0003	2	\N	\N	\N
+83	5	0005	2	\N	\N	\N
+84	5	0000	2	\N	\N	\N
+85	5	0001	2	\N	\N	\N
+86	5	aind08SDF	2	\N	\N	\N
 \.
 
 
@@ -362,6 +389,9 @@ COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested
 
 COPY public.users (user_id, email, password, name, default_latlong, default_city) FROM stdin;
 1	jeff@jeff.gov	abc123	Jeff Biggz	(30,-30)	Irvine
+2	jeff@jeff.me	$2b$10$PJWamFr33ffeGyhiKSbbMOB3/9uTvQu4qRm5/oH86xFT9gzBnZIga	Jeff	\N	Orange
+4	burgers@brew.edu	7777777	Julio	\N	\N
+5	burgers@brew.gov	7777777	Don Julio	\N	\N
 \.
 
 
@@ -390,14 +420,14 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, true);
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.reviews_review_id_seq', 26, true);
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 86, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 5, true);
 
 
 --
