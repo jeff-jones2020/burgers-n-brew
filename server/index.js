@@ -130,6 +130,23 @@ app.get('/api/yelp/businesses/:id', (req, res) => {
     });
 });
 
+app.get('/api/has-reviewed/:userId/:yelpId', (req, res) => {
+  const { yelpId } = req.params;
+  const userId = parseFloat(req.params.userId);
+  if (!userId || userId < 1 || (userId % 1 > 0)) {
+    return res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
+  } else if (!yelpId) {
+    return res.status(400).json({ message: 'Request must include a yelpId' });
+  }
+
+  checkUserReviews(yelpId, userId)
+    .then(result => {
+      return res.status(200).json({ hasReviewed: false });
+    })
+    .catch(err => res.status(200).json({ hasReviewed: true }));
+
+});
+
 app.get('/api/suggestions/:yelpId/:table', (req, res) => {
   const { yelpId, table } = req.params;
   if (table !== 'brew_suggestions' && table !== 'dish_suggestions') return res.status(404).send();
@@ -206,7 +223,7 @@ app.post('/api/reviews', (req, res) => {
       WHERE yelp_id = $2
   `;
 
-  checkUserReviews(yelpId, yelpName, userId)
+  checkUserReviews(yelpId, userId)
     .then(result => {
       postRestaurant();
     })
@@ -259,7 +276,7 @@ app.post('/api/reviews', (req, res) => {
   }
 });
 
-function checkUserReviews(yelpId, yelpName, userId) {
+function checkUserReviews(yelpId, userId) {
   const uniqueCheckParams = [yelpId, userId];
   const uniqueCheckSql = `
     SELECT * FROM reviews
@@ -270,7 +287,7 @@ function checkUserReviews(yelpId, yelpName, userId) {
     db.query(uniqueCheckSql, uniqueCheckParams)
       .then(result => {
         if (result.rows.length !== 0) {
-          throw new Error(`User with id ${userId} has already left a review for ${yelpName}`);
+          throw new Error(`User with id ${userId} has already left a review for yelp ID ${yelpId}`);
         } else {
           return result;
         }
