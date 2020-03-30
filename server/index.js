@@ -19,6 +19,17 @@ module.exports = db;
 
 const passport = require('./passport')(app);
 
+app.get('/api/health-check', (req, res, next) => {
+  try {
+    db.getState();
+    res.json({ message: 'Connected to lowdb successfully!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to connect to database' });
+  }
+
+});
+
 app.post('/api/signup', (req, res) => {
   const { email, pwd, name, city } = req.body;
   bcrypt.hash(pwd, 10, (err, hash) => {

@@ -272,16 +272,6 @@ class SignUpSignIn extends Component {
                     Sign Up
                   </button>
                 </div>
-                <p className={isEmail ? 'hidden' : 'red'}>
-                  Please enter a valid Email.
-                </p>
-                <p className={isPwd ? 'hidden' : 'red'}>
-                  Your password must include a capital letter, number, and
-                  special character.
-                </p>
-                <p className={pwdMatch ? 'hidden' : 'red'}>
-                  Passwords should match.
-                </p>
               </form>
             </section>
           </div>
