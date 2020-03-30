@@ -177,7 +177,17 @@ app.post('/api/reviews', (req, res) => {
     return res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
   } else if (!rating || rating < 1 || rating > 5) {
     return res.status(400).json({ message: 'Invalid rating: rating must be a positive decimal between 1 and 5' });
+  } else if (!yelpId) {
+    return res.status(400).json({ message: 'Request must include a yelpId' });
+  } else if (!yelpName) {
+    return res.status(400).json({ message: 'Request must include a yelpName' });
   }
+
+  const postRestaurantParams = [yelpId, yelpName, rating];
+  const postRestaurantSql = `
+    INSERT INTO restaurants (yelp_id, name, rating)
+      VALUES ($1, $2, $3)
+  `;
 
   const reviewParams = [userId, yelpId, rating, reviewText, suggestedDish, suggestedBrew];
   const reviewSql = `
@@ -186,17 +196,17 @@ app.post('/api/reviews', (req, res) => {
       RETURNING *
   `;
 
-  const postRestaurantParams = [yelpId, yelpName, rating];
-  const postRestaurantSql = `
-    INSERT INTO restaurants (yelp_id, name, rating)
-      VALUES ($1, $2, $3)
-  `;
+  checkUserReviews(yelpId, yelpName, userId)
+    .then(result => {
+      postRestaurant();
+    })
+    .catch(err => res.status(403).json({ error: err.message }));
 
-  db.query(postRestaurantSql, postRestaurantParams)
-    .then(result => postReview())
-    .catch(err => postReview());
-
-  // add code to restrict each user to 1 review per restaurant
+  function postRestaurant() {
+    db.query(postRestaurantSql, postRestaurantParams)
+      .then(result => postReview())
+      .catch(err => postReview());
+  }
 
   function postReview() {
     db.query(reviewSql, reviewParams)
@@ -219,6 +229,25 @@ app.post('/api/reviews', (req, res) => {
       });
   }
 });
+
+function checkUserReviews(yelpId, yelpName, userId) {
+  const uniqueCheckParams = [yelpId, userId];
+  const uniqueCheckSql = `
+    SELECT * FROM reviews
+      WHERE (yelp_id = $1 AND user_id = $2)
+  `;
+
+  return (
+    db.query(uniqueCheckSql, uniqueCheckParams)
+      .then(result => {
+        if (result.rows.length !== 0) {
+          throw new Error(`User with id ${userId} has already left a review for ${yelpName}`);
+        } else {
+          return result;
+        }
+      })
+  );
+}
 
 function postDish(yelpId, suggestion) {
   const params = [yelpId, suggestion];
