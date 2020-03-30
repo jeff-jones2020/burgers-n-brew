@@ -9,11 +9,13 @@ class ReviewPage extends Component {
       dish: '',
       brew: '',
       dishSuggestions: [],
-      brewSuggestions: []
+      brewSuggestions: [],
+      starClicked: null
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleStarClick = this.handleStarClick.bind(this);
   }
 
   getSuggestions() {
@@ -34,6 +36,13 @@ class ReviewPage extends Component {
       .catch(err => console.error(err));
   }
 
+  handleStarClick(e) {
+    const num = parseInt(e.currentTarget.getAttribute('num'), 10);
+    this.setState({
+      starClicked: num
+    });
+  }
+
   handleChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
@@ -42,20 +51,38 @@ class ReviewPage extends Component {
     });
   }
 
+  submitReview() {
+
+  }
+
   componentDidMount() {
     this.getSuggestions();
   }
 
   render() {
     const { restaurant } = this.props;
-    const { review, dish, brew } = this.state;
+    const { review, dish, brew, starClicked, dishSuggestions, brewSuggestions } = this.state;
+    const stars = [];
+    let dishOptions; let brewOptions = [];
 
-    const dishOptions = this.state.dishSuggestions.map((option, index) => {
-      return <option key={index} value={option}>{option}</option>;
-    });
-    const brewOptions = this.state.brewSuggestions.map((option, index) => {
-      return <option key={index} value={option}>{option}</option>;
-    });
+    for (let i = 1; i <= 5; i++) {
+      if (i <= starClicked) {
+        stars.push(<i key={i.toString()} num={i.toString()} onClick={this.handleStarClick} className="fas fa-star fa-2x"></i>);
+      } else {
+        stars.push(<i key={i.toString()} num={i.toString()} onClick={this.handleStarClick} className="far fa-star fa-2x"></i>);
+      }
+    }
+
+    if (dishSuggestions.length) {
+      dishOptions = dishSuggestions.map((option, index) => {
+        return <option key={index} value={option}>{option}</option>;
+      });
+    }
+    if (brewSuggestions.length) {
+      brewOptions = brewSuggestions.map((option, index) => {
+        return <option key={index} value={option}>{option}</option>;
+      });
+    }
 
     return (
       <div className="review">
@@ -65,17 +92,13 @@ class ReviewPage extends Component {
               <i className="arrow" />
             </Link>
           </p>
-          <h2>Leave Review:</h2>
-          <h2>{restaurant.name}</h2>
+          <h2 className='leave-review'>Leave Review:</h2>
+          <h2 className='review-title'>{restaurant.name}</h2>
         </header>
         <main>
           <section className="rating">
             <div>
-              <i className="far fa-star fa-2x"></i>
-              <i className="far fa-star fa-2x"></i>
-              <i className="far fa-star fa-2x"></i>
-              <i className="far fa-star fa-2x"></i>
-              <i className="far fa-star fa-2x"></i>
+              {stars}
             </div>
           </section>
           <section>

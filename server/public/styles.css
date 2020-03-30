@@ -490,4 +490,13 @@ a {
   color: white;
 }
 
+.leave-review {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.review-title {
+  text-align: center;
+}
+
 /*# sourceMappingURL=styles.css.map */
