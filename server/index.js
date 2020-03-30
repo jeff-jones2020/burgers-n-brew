@@ -158,15 +158,15 @@ app.get('/api/has-reviewed/:userId/:yelpId', (req, res) => {
 
 });
 
-app.get('/api/suggestions/:yelpId/:table', (req, res) => {
-  const { yelpId, table } = req.params;
+app.get('/api/suggestions/:yelpId/:table/:count', (req, res) => {
+  const { yelpId, table, count } = req.params;
   if (table !== 'brew_suggestions' && table !== 'dish_suggestions') return res.status(404).send();
 
   const sql = `
     SELECT * FROM ${table}
     WHERE yelp_id = $1
     ORDER BY count DESC
-    LIMIT 3
+    LIMIT $2
   `;
 
   const verifyYelpIdSql = `
@@ -174,7 +174,7 @@ app.get('/api/suggestions/:yelpId/:table', (req, res) => {
     WHERE yelp_id = $1
   `;
 
-  db.query(sql, [yelpId])
+  db.query(sql, [yelpId, count])
     .then(result => {
       if (result.rows.length === 0) {
         return (
