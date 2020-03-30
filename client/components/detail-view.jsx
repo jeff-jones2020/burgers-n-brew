@@ -131,6 +131,9 @@ class DetailView extends Component {
             {restaurant.price}
             {restaurantTags}
           </div>
+          <Link to={`/details/:${restaurant.id}/review`}>
+            <button>review</button>
+          </Link>
           <div className="restaurant-hours">
             <ul>{restaurantOpen}</ul>
           </div>
@@ -138,8 +141,7 @@ class DetailView extends Component {
             <iframe
               frameBorder="0"
               src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&center=${latitude},${longitude}&q=${mapName}&zoom=15`}
-            >
-            </iframe>
+            ></iframe>
           </div>
         </div>
       </>
