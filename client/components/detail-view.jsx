@@ -165,9 +165,9 @@ class DetailView extends Component {
           </div>
           <section className='container'>
             <div className="row mb-4">
-              <div className="col-6 mx-0 pl-3 pr-0">
+              <div className="bnb-column col-6 mx-0 pl-3 pr-0">
                 <div>B&amp;B User Rating</div>
-                {bnbStarRating}
+                <div id='bnb-stars'>{bnbStarRating}</div>
                 <Link to={`/details/:${restaurant.id}/review`}>
                   <button>review</button>
                 </Link>

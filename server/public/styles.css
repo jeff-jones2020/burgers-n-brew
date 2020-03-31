@@ -266,6 +266,9 @@ img {
   text-align: center;
 }
 .restaurant-details button {
+  background-color: #ff4f4f;
+  border-radius: 5px;
+  border: 0;
   color: white;
 }
 .restaurant-details .restaurant-hours {
@@ -506,6 +509,14 @@ a {
 
 .suggestion {
   font-size: 10px;
+}
+
+.favorites {
+  font-size: 11px;
+}
+
+.bnb-column {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -271,6 +271,9 @@ img {
     text-align: center;
   }
   button {
+    background-color: rgb(255, 79, 79);
+    border-radius: 5px;
+    border: 0;
     color: white;
   }
   .restaurant-hours {
@@ -520,4 +523,8 @@ a {
 
 .favorites {
   font-size: 11px;
+}
+
+.bnb-column {
+  text-align: center;
 }
