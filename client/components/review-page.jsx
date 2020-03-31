@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
 class ReviewPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       review: '',
       dish: '',
+      isDishTextDisabled: false,
       brew: '',
+      isBrewTextDisabled: false,
       dishSuggestions: [],
       brewSuggestions: [],
       starClicked: null
@@ -16,11 +17,13 @@ class ReviewPage extends Component {
     this.getSuggestions = this.getSuggestions.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleStarClick = this.handleStarClick.bind(this);
+    this.submitReview = this.submitReview.bind(this);
   }
 
   getSuggestions() {
     const restaurantId = this.props.restaurant.id;
     fetch(`/api/suggestions/${restaurantId}/dish_suggestions/20`)
+      .then(response => response.json())
       .then(result => {
         this.setState({
           dishSuggestions: result
@@ -28,6 +31,7 @@ class ReviewPage extends Component {
       })
       .catch(err => console.error(err));
     fetch(`/api/suggestions/${restaurantId}/brew_suggestions/20`)
+      .then(response => response.json())
       .then(result => {
         this.setState({
           brewSuggestions: result
@@ -46,13 +50,43 @@ class ReviewPage extends Component {
   handleChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
+    let isDishTextDisabled = false;
+    let isBrewTextDisabled = false;
+    if (e.target.getAttribute('id') === 'dish-select' && e.target.value !== '') {
+      isDishTextDisabled = true;
+    }
+    if (e.target.getAttribute('id') === 'brew-select' && e.target.value !== '') {
+      isBrewTextDisabled = true;
+    }
     this.setState({
-      [name]: value
+      [name]: value,
+      isDishTextDisabled: isDishTextDisabled,
+      isBrewTextDisabled: isBrewTextDisabled
     });
   }
 
-  submitReview() {
+  submitReview(e) {
+    e.preventDefault();
+    const submitBody = {
+      userId: parseInt(this.props.userId, 10),
+      yelpId: this.props.restaurant.id,
+      yelpName: this.props.restaurant.name,
+      rating: this.state.starClicked,
+      reviewText: this.state.review,
+      suggestedDish: this.state.dish,
+      suggestedBrew: this.state.brew
+    };
 
+    fetch('/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify(submitBody),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(() => {
+        this.props.history.push(`/details/:${this.props.restaurant.id}`);
+      });
   }
 
   componentDidMount() {
@@ -75,12 +109,12 @@ class ReviewPage extends Component {
 
     if (dishSuggestions.length) {
       dishOptions = dishSuggestions.map((option, index) => {
-        return <option key={index} value={option}>{option}</option>;
+        return <option key={index} value={option.name}>{option.name}</option>;
       });
     }
     if (brewSuggestions.length) {
       brewOptions = brewSuggestions.map((option, index) => {
-        return <option key={index} value={option}>{option}</option>;
+        return <option key={index} value={option.name}>{option.name}</option>;
       });
     }
 
@@ -103,7 +137,7 @@ class ReviewPage extends Component {
           </section>
           <section>
             <div>
-              <form className="writeReview">
+              <form onSubmit={this.submitReview} className="writeReview">
                 <div className="title">
                   <h5>Write A Review?</h5>
                   <span>&#40;optional&#41;</span>
@@ -122,19 +156,20 @@ class ReviewPage extends Component {
                 </div>
                 <div className="suggest">
                   <p>
-                    <label htmlFor="">Choose: </label>
-                    <select name='dish-suggestions' id='dish-select'>
+                    <label htmlFor='dish'>Choose: </label>
+                    <select name='dish' id='dish-select' onChange={this.handleChange}>
                       <option value=''>--Choose a dish--</option>
                       {dishOptions}
                     </select>
                   </p>
                   <p>
-                    <label htmlFor="">Add New: </label>
+                    <label>Add New: </label>
                     <input
                       type="text"
                       name="dish"
                       value={dish}
                       onChange={this.handleChange}
+                      disabled={this.state.isDishTextDisabled}
                     />
                   </p>
                 </div>
@@ -144,22 +179,23 @@ class ReviewPage extends Component {
                 </div>
                 <div className="suggest">
                   <p>
-                    <label htmlFor="">Choose: </label>
-                    <select name='dish-suggestions' id='dish-select'>
+                    <label htmlFor='brew'>Choose: </label>
+                    <select name='brew' id='brew-select' onChange={this.handleChange}>
                       <option value=''>--Choose a brew--</option>
                       {brewOptions}
                     </select>
                   </p>
                   <p>
-                    <label htmlFor="">Add New: </label>
+                    <label>Add New: </label>
                     <input
                       type="text"
                       name="brew"
                       value={brew}
                       onChange={this.handleChange}
+                      disabled={this.state.isBrewTextDisabled}
                     />
                   </p>
-                  <button>Submit</button>
+                  <button type='submit'>Submit</button>
                 </div>
               </form>
             </div>
@@ -170,4 +206,4 @@ class ReviewPage extends Component {
   }
 }
 
-export default ReviewPage;
+export default withRouter(ReviewPage);
