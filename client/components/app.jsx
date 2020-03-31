@@ -337,7 +337,7 @@ class App extends Component {
               <DetailView restaurant={this.state.restaurant} />
             </Route>
             <Route exact path="/details/:id/review">
-              <ReviewPage restaurant={this.state.restaurant} />
+              <ReviewPage restaurant={this.state.restaurant} userId={this.state.user.id}/>
             </Route>
             <Route exact path="/home">
               <Provider value={this.state}>

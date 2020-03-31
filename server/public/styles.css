@@ -266,16 +266,19 @@ img {
   text-align: center;
 }
 .restaurant-details button {
+  background-color: #ff4f4f;
+  border-radius: 5px;
+  border: 0;
   color: white;
 }
 .restaurant-details .restaurant-hours {
   display: flex;
+  font-size: 10px;
   flex-direction: column;
   align-items: flex-end;
 }
 .restaurant-details .restaurant-hours ul {
   list-style: none;
-  margin-right: 2em;
 }
 
 a {
@@ -488,6 +491,32 @@ a {
   border-radius: 5px;
   border: 0;
   color: white;
+}
+
+.leave-review {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.review-title {
+  text-align: center;
+}
+
+#dish-select,
+#brew-select {
+  max-width: 210px;
+}
+
+.suggestion {
+  font-size: 10px;
+}
+
+.favorites {
+  font-size: 11px;
+}
+
+.bnb-column {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

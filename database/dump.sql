@@ -181,13 +181,7 @@ ALTER SEQUENCE public.favorites_favorite_id_seq OWNED BY public.favorites.favori
 CREATE TABLE public.restaurants (
     yelp_id text NOT NULL,
     name text NOT NULL,
-    rating numeric,
-    suggested_dish1 text,
-    suggested_dish2 text,
-    suggested_dish3 text,
-    suggested_brew1 text,
-    suggested_brew2 text,
-    suggested_brew3 text
+    rating numeric
 );
 
 
@@ -301,6 +295,10 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 
 COPY public.brew_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
 2	aind08SDF	Oyster Shooter	3
+3	EFiFyj1pSVP8iEzeSo0w5Q	Budweiser	1
+4	EFiFyj1pSVP8iEzeSo0w5Q	The patsy	1
+5	EFiFyj1pSVP8iEzeSo0w5Q	Dragon's Milk Stout	1
+6	EFiFyj1pSVP8iEzeSo0w5Q	Belching Beaver Peanut Butter Stout	1
 \.
 
 
@@ -311,6 +309,10 @@ COPY public.brew_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
 COPY public.dish_suggestions (suggestion_id, yelp_id, name, count) FROM stdin;
 1	aind08SDF	Jalapeno Cheddar Bacon Sliders	2
 2	aind08SDF	Mushroom Swiss Burger	3
+3	EFiFyj1pSVP8iEzeSo0w5Q	Sloppy Joe	1
+4	EFiFyj1pSVP8iEzeSo0w5Q	Pepper Jelly Cheeseburger Sliders	1
+5	EFiFyj1pSVP8iEzeSo0w5Q	Double Quarter Pounder	1
+6	EFiFyj1pSVP8iEzeSo0w5Q	Cheesy Tots	1
 \.
 
 
@@ -327,14 +329,15 @@ COPY public.favorites (favorite_id, user_id, yelp_id, restaurant_name) FROM stdi
 -- Data for Name: restaurants; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.restaurants (yelp_id, name, rating, suggested_dish1, suggested_dish2, suggested_dish3, suggested_brew1, suggested_brew2, suggested_brew3) FROM stdin;
-0006	Pattiez	2.75	\N	\N	\N	\N	\N	\N
-0002	Smash Burger	3.75	\N	\N	\N	\N	\N	\N
-0003	Krusty Krab	2.75	\N	\N	\N	\N	\N	\N
-0005	5	2.75	\N	\N	\N	\N	\N	\N
-0000	The Laughing Burger	3.75	\N	\N	\N	\N	\N	\N
-0001	Sloppy Joe	2.5	\N	\N	\N	\N	\N	\N
-aind08SDF	Schmorgasboard	3.8823529411764706	\N	\N	\N	\N	\N	\N
+COPY public.restaurants (yelp_id, name, rating) FROM stdin;
+0006	Pattiez	2.75
+0002	Smash Burger	3.75
+0003	Krusty Krab	2.75
+0005	5	2.75
+0000	The Laughing Burger	3.75
+0001	Sloppy Joe	2.5
+aind08SDF	Schmorgasboard	3.8823529411764706
+EFiFyj1pSVP8iEzeSo0w5Q	Slater's 50/50 - Anaheim Hills	3.5
 \.
 
 
@@ -380,6 +383,10 @@ COPY public.reviews (review_id, user_id, yelp_id, rating, review_text, suggested
 84	5	0000	2	\N	\N	\N
 85	5	0001	2	\N	\N	\N
 86	5	aind08SDF	2	\N	\N	\N
+87	7	EFiFyj1pSVP8iEzeSo0w5Q	4	This place ROX!!!11!	Budweiser	Sloppy Joe
+88	8	EFiFyj1pSVP8iEzeSo0w5Q	2		The patsy	Pepper Jelly Cheeseburger Sliders
+89	9	EFiFyj1pSVP8iEzeSo0w5Q	3		Dragon's Milk Stout	Double Quarter Pounder
+90	10	EFiFyj1pSVP8iEzeSo0w5Q	5		Belching Beaver Peanut Butter Stout	Cheesy Tots
 \.
 
 
@@ -392,6 +399,11 @@ COPY public.users (user_id, email, password, name, default_latlong, default_city
 2	jeff@jeff.me	$2b$10$PJWamFr33ffeGyhiKSbbMOB3/9uTvQu4qRm5/oH86xFT9gzBnZIga	Jeff	\N	Orange
 4	burgers@brew.edu	7777777	Julio	\N	\N
 5	burgers@brew.gov	7777777	Don Julio	\N	\N
+6	jeff@jeff.jeff	$2b$10$.tZW8/VDahePXWJGANK.XuxTlyOi5qGIKE6INNa/JRSeM7AYXr9Mq	Jeff	\N	Orange
+7	jeff1@jeff.jeff	$2b$10$NA1P0rKXsAOGqVJdDZMHvOCvkFffRn7oHXE5EhJPMu3uFV18cZLSO	Jeff	\N	Orange
+8	Jeff2@jeff.jeff	$2b$10$fWLe2peteS1NzdMFyJbVfOq855V7GF45l/1FJDwBXFlQpPouF0am6	jeff	\N	Orange
+9	jeff3@jeff.jeff	$2b$10$bRTp0hfMpIS09nLLeZhfBeCnxu4yQjZ3rCKnuk1xBq.YEWS6u6VPC	jeff	\N	Orange
+10	jeff4@jeff.jeff	$2b$10$X4a8gBUYuqvwJK9AzOljN.pXSzkzwYB7q7u0A7KTQbQjWAdjRJPFe	Jeff	\N	Orange
 \.
 
 
@@ -399,14 +411,14 @@ COPY public.users (user_id, email, password, name, default_latlong, default_city
 -- Name: brew_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.brew_suggestions_suggestion_id_seq', 2, true);
+SELECT pg_catalog.setval('public.brew_suggestions_suggestion_id_seq', 6, true);
 
 
 --
 -- Name: dish_suggestions_suggestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.dish_suggestions_suggestion_id_seq', 2, true);
+SELECT pg_catalog.setval('public.dish_suggestions_suggestion_id_seq', 6, true);
 
 
 --
@@ -420,14 +432,14 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, true);
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.reviews_review_id_seq', 86, true);
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 90, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 5, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 10, true);
 
 
 --
