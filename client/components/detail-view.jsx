@@ -92,7 +92,7 @@ class DetailView extends Component {
       return <div key={index} className='suggestion mb-1'>{suggestion.name}</div>;
     });
 
-    const restaurantOpen = restaurant.hours[0].open.map(day => {
+    const restaurantOpen = restaurant.hours[0].open.map((day, index) => {
       const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       const isOpen = restaurant.hours[0].is_open_now;
@@ -130,7 +130,7 @@ class DetailView extends Component {
       }
       return (
         <li
-          key={day.day}
+          key={index}
           style={{ color: currentDay === day.day ? 'white' : 'lightslategray' }}
         >
           <div>
