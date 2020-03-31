@@ -158,15 +158,40 @@ app.get('/api/has-reviewed/:userId/:yelpId', (req, res) => {
 
 });
 
-app.get('/api/suggestions/:yelpId/:table', (req, res) => {
+app.get('/api/restaurants/:yelpId', (req, res) => {
+  const { yelpId } = req.params;
+
+  const sql = `
+    SELECT * FROM restaurants
+    WHERE yelp_id = $1
+  `;
+
+  db.query(sql, [yelpId])
+    .then(response => {
+      if (response.rows.length) {
+        return res.json(response.rows[0]);
+      } else {
+        return res.status(404).json({ error: `No restaurant found with yelpId ${yelpId}` });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'An unexpected error occurred' });
+    });
+});
+
+app.get('/api/suggestions/:yelpId/:table/:count', (req, res) => {
   const { yelpId, table } = req.params;
+  const count = parseFloat(req.params.count);
   if (table !== 'brew_suggestions' && table !== 'dish_suggestions') return res.status(404).send();
+  else if (!count || count < 1 || (count !== parseInt(req.params.count, 10))) {
+    return res.status(400).json({ message: 'Invalid userId: userId must be a positive integer' });
+  }
 
   const sql = `
     SELECT * FROM ${table}
     WHERE yelp_id = $1
     ORDER BY count DESC
-    LIMIT 3
+    LIMIT $2
   `;
 
   const verifyYelpIdSql = `
@@ -174,7 +199,7 @@ app.get('/api/suggestions/:yelpId/:table', (req, res) => {
     WHERE yelp_id = $1
   `;
 
-  db.query(sql, [yelpId])
+  db.query(sql, [yelpId, count])
     .then(result => {
       if (result.rows.length === 0) {
         return (
