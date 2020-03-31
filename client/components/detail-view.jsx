@@ -8,7 +8,7 @@ class DetailView extends Component {
     this.state = {
       intervalId: null,
       imageNumber: 0,
-      bnbRating: null,
+      bnbRating: 1,
       suggestedDishes: [],
       suggestedBrews: []
     };
@@ -24,19 +24,43 @@ class DetailView extends Component {
   }
 
   componentDidMount() {
-    const intervalId = setInterval(this.startTimer, 5000);
+    let bnbRating, suggestedDishes, suggestedBrews;
     fetch(`/api/restaurants/${this.props.restaurant.id}`)
       .then(response => response.json())
       .then(data => {
-        let bnbRating, suggestedDishes, suggestedBrews;
-        if (data.length) {
-          // do some stuff
+        if (data.rating) {
+          bnbRating = parseFloat(data.rating);
+          bnbRating = data.rating - (data.rating % 0.5);
+        } else {
+          bnbRating = 'Not Rated';
         }
+      })
+      .then(() => {
+        return fetch(`/api/suggestions/${this.props.restaurant.id}/dish_suggestions/3`)
+          .then(response => response.json())
+          .then(data => {
+            suggestedDishes = data;
+            return data;
+          });
+      })
+      .then(() => {
+        return fetch(`/api/suggestions/${this.props.restaurant.id}/brew_suggestions/3`)
+          .then(response => response.json())
+          .then(data => {
+            suggestedBrews = data;
+            return data;
+          });
+      })
+      .then(() => {
+        const intervalId = setInterval(this.startTimer, 5000);
         this.setState({
           intervalId,
-          bnbRating
+          bnbRating,
+          suggestedDishes: suggestedDishes,
+          suggestedBrews: suggestedBrews
         });
       });
+
   }
 
   componentWillUnmount() {
@@ -60,6 +84,13 @@ class DetailView extends Component {
     });
     const yelpStarRating = getStarArray(restaurant.rating);
     const bnbStarRating = getStarArray(this.state.bnbRating);
+
+    const suggestedDishes = this.state.suggestedDishes.map((suggestion, index) => {
+      return <div key={index} className='suggestion mb-1'>{suggestion.name}</div>;
+    });
+    const suggestedBrews = this.state.suggestedBrews.map((suggestion, index) => {
+      return <div key={index} className='suggestion mb-1'>{suggestion.name}</div>;
+    });
 
     const restaurantOpen = restaurant.hours[0].open.map(day => {
       const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
@@ -134,18 +165,20 @@ class DetailView extends Component {
           </div>
           <section className='container'>
             <div className="row mb-4">
-              <div className="col-5 mx-0 pl-3 pr-0">
+              <div className="col-6 mx-0 pl-3 pr-0">
                 <div>B&amp;B User Rating</div>
                 {bnbStarRating}
                 <Link to={`/details/:${restaurant.id}/review`}>
                   <button>review</button>
                 </Link>
-                <div>B&amp;B Favorite Dishes</div>
-                <div>B&amp;B Favorite Brews</div>
+                <div className='my-3 favorites'>B&amp;B Favorite Dishes</div>
+                {suggestedDishes}
+                <div className='my-3 favorites'>B&amp;B Favorite Brews</div>
+                {suggestedBrews}
               </div>
-              <div className="col-8 ml-1 mr-0">
+              <div className="col-6 mx-0 pl-0 pr-3">
                 <div className="restaurant-hours">
-                  <ul>{restaurantOpen}</ul>
+                  <ul className='px-0'>{restaurantOpen}</ul>
                 </div>
               </div>
             </div>

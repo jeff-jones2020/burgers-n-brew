@@ -270,12 +270,12 @@ img {
 }
 .restaurant-details .restaurant-hours {
   display: flex;
+  font-size: 10px;
   flex-direction: column;
   align-items: flex-end;
 }
 .restaurant-details .restaurant-hours ul {
   list-style: none;
-  margin-right: 2em;
 }
 
 a {
@@ -502,6 +502,10 @@ a {
 #dish-select,
 #brew-select {
   max-width: 210px;
+}
+
+.suggestion {
+  font-size: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -168,7 +168,11 @@ app.get('/api/restaurants/:yelpId', (req, res) => {
 
   db.query(sql, [yelpId])
     .then(response => {
-      res.json(response.rows);
+      if (response.rows.length) {
+        return res.json(response.rows[0]);
+      } else {
+        return res.status(404).json({ error: `No restaurant found with yelpId ${yelpId}` });
+      }
     })
     .catch(err => {
       res.status(500).json({ error: 'An unexpected error occurred' });
