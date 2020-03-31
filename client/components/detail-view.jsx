@@ -7,7 +7,8 @@ class DetailView extends Component {
     super(props);
     this.state = {
       intervalId: null,
-      imageNumber: 0
+      imageNumber: 0,
+      bnbRating: null
     };
     this.startTimer = this.startTimer.bind(this);
   }
@@ -22,7 +23,15 @@ class DetailView extends Component {
 
   componentDidMount() {
     const intervalId = setInterval(this.startTimer, 5000);
-    this.setState({ intervalId });
+    fetch(`/api/restaurants/${this.props.restaurant.id}`)
+      .then(response => response.json())
+      .then(data => {
+        const bnbRating = data.length ? data.rating : null;
+        this.setState({
+          intervalId,
+          bnbRating
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -44,22 +53,8 @@ class DetailView extends Component {
     const restaurantTags = restaurant.categories.map(category => {
       return <span key={category.alias}> | {category.title}</span>;
     });
-    const starArray = Array(Math.floor(restaurant.rating)).fill(1);
-    if (Math.floor(restaurant.rating) !== restaurant.rating) {
-      starArray.push(0.5);
-    }
-    for (let i = starArray.length; i < 5; i++) {
-      starArray.push(0);
-    }
-    const starRatings = starArray.map((rating, index) => {
-      if (rating === 1) {
-        return <i key={index} className="fas fa-star" />;
-      } else if (rating === 0.5) {
-        return <i key={index} className="fas fa-star-half-alt" />;
-      } else {
-        return <i key={index} className="far fa-star" />;
-      }
-    });
+    const yelpStarRating = getStarArray(restaurant.rating);
+
     const restaurantOpen = restaurant.hours[0].open.map(day => {
       const openTime = day.start.match(/^([01]\d|2[0-3])([0-5]\d)$/);
       const closeTime = day.end.match(/^([01]\d|2[0-3])([0-5]\d)$/);
@@ -124,7 +119,7 @@ class DetailView extends Component {
             <i className="arrow" />
           </Link>
           <div>{restaurant.name}</div>
-          <div>{starRatings}</div>
+          <div>{yelpStarRating}</div>
         </div>
         <div className="restaurant-details">
           <div className="restaurant-tags">
@@ -147,6 +142,27 @@ class DetailView extends Component {
       </>
     );
   }
+}
+
+function getStarArray(rating) {
+  const starArray = Array(Math.floor(rating)).fill(1);
+  if (Math.floor(rating) !== rating) {
+    starArray.push(0.5);
+  }
+  for (let i = starArray.length; i < 5; i++) {
+    starArray.push(0);
+  }
+  const starRatings = starArray.map((rating, index) => {
+    if (rating === 1) {
+      return <i key={index} className="fas fa-star" />;
+    } else if (rating === 0.5) {
+      return <i key={index} className="fas fa-star-half-alt" />;
+    } else {
+      return <i key={index} className="far fa-star" />;
+    }
+  });
+
+  return starRatings;
 }
 
 export default DetailView;

@@ -158,6 +158,23 @@ app.get('/api/has-reviewed/:userId/:yelpId', (req, res) => {
 
 });
 
+app.get('/api/restaurants/:yelpId', (req, res) => {
+  const { yelpId } = req.params;
+
+  const sql = `
+    SELECT * FROM restaurants
+    WHERE yelp_id = $1
+  `;
+
+  db.query(sql, [yelpId])
+    .then(response => {
+      res.json(response.rows);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'An unexpected error occurred' });
+    });
+});
+
 app.get('/api/suggestions/:yelpId/:table/:count', (req, res) => {
   const { yelpId, table } = req.params;
   const count = parseFloat(req.params.count);
