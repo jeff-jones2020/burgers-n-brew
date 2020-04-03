@@ -59,6 +59,10 @@ class DetailView extends Component {
           suggestedDishes: suggestedDishes,
           suggestedBrews: suggestedBrews
         });
+      })
+      .catch(() => {
+        const intervalId = setInterval(this.startTimer, 5000);
+        this.setState({ intervalId });
       });
 
   }
