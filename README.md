@@ -1,4 +1,4 @@
-# Burgers 'N' Brew
+# burgers-n-brew
 
 ## Description
 A dynamic mobile-first web application for hungry people who want to find deals on a classic combo - burgers and beer.
@@ -11,7 +11,7 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
 - SASS
 - Node.js
 - Express.js
-- Postgresql
+- PostgreSQL
 - Bootstrap 4
 - AWS EC2
 
@@ -27,3 +27,30 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
 - User can view top 3 suggestions of a restaurant
 
 ## Preview
+
+## Development
+
+#### System Requirements
+- Node.js 10 or higher
+- Express.js 4 or higher
+- NPM 6 or higher
+- PostgreSQL 10 or higher
+
+#### Getting Started
+1. Clone the repository.
+  ```shell
+  git clone https://github.com/jeff-jones2020/burgers-n-brew
+  cd burgers-n-brew
+  ```
+1. Install all dependencies with NPM.
+  ```shell
+  npm install
+  ```
+1. Import the example database to PostgreSQL.
+  ```shell
+  npm run db:import
+  ```
+1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+  ```shell
+  npm run dev
+  ```
