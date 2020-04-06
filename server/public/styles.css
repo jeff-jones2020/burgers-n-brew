@@ -505,6 +505,7 @@ a {
 #dish-select,
 #brew-select {
   max-width: 210px;
+  border: 0px;
 }
 
 .suggestion {
