@@ -22,6 +22,7 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
 - User can view details of specific restaurants
 - User can enter a location via text input
 - User can allow geolocation for their current location
+- User can view as a guest
 - User can create an account
 - User can set a default location to their account
 - User can post a suggested burger
