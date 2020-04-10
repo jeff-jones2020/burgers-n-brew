@@ -56,7 +56,9 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
     
 3. Create a database named 'bnb' in your PostgreSQL instance
 
-4. Modify the .env file to include
+4. Get an API key for Yelp Fusion. Go to https://www.yelp.com/fusion and create an account.
+
+5. Modify the .env file to include
 
     ```
     PORT=port
@@ -64,16 +66,16 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
     DATABASE_URL=postgres://user:password@host:port/bnb
     SESSION_SECRET=secret
     SESSION_EXPIRY=28800000
-    KEY=Bearer 9HcPGXUHzz5uL3aILr3VUEa1tJan5EDWc8KHQEsHNm-0BP5YnEgjRaH3letAt5mW7d1xkEiTYaQy1nnZ3aHXXBTpNCiATlesAI5ulAvYzdkSxSFv_iilb2Jnhr1rXnYx
+    KEY=Bearer your_yelp_api_key
     ```
 
-5. Import the bnb database to PostgreSQL.
+6. Import the bnb database to PostgreSQL.
 
     ```shell
     npm run db:import
     ```
 
-6. Create a file /client/components/key.jsx with the following content:
+7. Create a file /client/components/key.jsx with the following content:
 
     ```javascript
     const KEY = () => {
@@ -83,7 +85,7 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
     export default KEY;
     ```
 
-7. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
     ```shell
     npm run dev
