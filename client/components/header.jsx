@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SideBar from './sidebar';
+import DesktopSideBar from './desktop-sidebar';
 
 class Header extends Component {
   constructor(props) {
@@ -21,15 +22,14 @@ class Header extends Component {
 
   render() {
     const { signOutUser } = this.props;
+    const header = window.screen.width <= 1000
+      ? <SideBar signOutUser={signOutUser} opened={this.state.opened} displaySideBar={this.displaySideBar} />
+      : <DesktopSideBar signOutUser={signOutUser} />;
     return (
-      <div id="bnb-banner" className="mb-3 header">
+      <div id="bnb-banner" className="mb-3 header page-content with-sidebar">
         <div id="banner-background" />
         <h1>Burgers N Brew</h1>
-        <SideBar
-          signOutUser={signOutUser}
-          opened={this.state.opened}
-          displaySideBar={this.displaySideBar}
-        />
+        {header}
       </div>
     );
   }
