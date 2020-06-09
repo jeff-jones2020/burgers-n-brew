@@ -529,3 +529,33 @@ a {
 .bnb-column {
   text-align: center;
 }
+
+@media only screen and (min-width: 1000px) {
+  #bnb-banner.with-sidebar {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .page-content.with-sidebar, .page-content.with-sidebar + * {
+    width: 700px;
+  }
+  .page-content.with-sidebar > *:not(.sidebar) {
+    position: relative;
+    transform: translate(calc(50% + 500px))
+  }
+  .page-content.with-sidebar + * {
+    transform: translate(calc(50% + 500px));
+  }
+
+  .sidebar {
+    background-color: transparent;
+    width: 450px;
+  }
+
+  .sidebar-container {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 20px;
+  }
+}

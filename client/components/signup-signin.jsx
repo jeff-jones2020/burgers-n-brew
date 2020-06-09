@@ -135,7 +135,7 @@ class SignUpSignIn extends Component {
     } = this.state;
 
     return (
-      <>
+      <div id="signup-signin" className="page-content">
         <div id="bnb-banner" className="mb-3 header">
           <div id="banner-background" />
           <h1>Burgers N Brew</h1>
@@ -282,7 +282,7 @@ class SignUpSignIn extends Component {
             </h3>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
