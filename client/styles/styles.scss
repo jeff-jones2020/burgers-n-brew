@@ -12,6 +12,10 @@ body {
   color: white;
 }
 
+button {
+  cursor: pointer;
+}
+
 .deal-description {
   font-family: 'Scope One', serif;
 }
@@ -99,6 +103,10 @@ body {
   border-left: none;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.sidebar-container > *:hover {
+  cursor: pointer;
 }
 
 #bnb-title {
@@ -531,14 +539,19 @@ a {
 }
 
 @media only screen and (min-width: 1000px) {
+  .page-content, .page-content + * {
+    width: 700px;
+  }
+
+  #signup-signin {
+    margin: 0 auto;
+  }
+
   #bnb-banner.with-sidebar {
     flex-direction: column;
     align-items: flex-end;
   }
 
-  .page-content.with-sidebar, .page-content.with-sidebar + * {
-    width: 700px;
-  }
   .page-content.with-sidebar > *:not(.sidebar) {
     position: relative;
     transform: translate(calc(50% + 500px))
