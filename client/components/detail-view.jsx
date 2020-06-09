@@ -149,7 +149,7 @@ class DetailView extends Component {
       );
     });
     return (
-      <>
+      <div className="page-content">
         <div
           className="carousel"
           style={{
@@ -195,7 +195,7 @@ class DetailView extends Component {
             ></iframe>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -533,7 +533,7 @@ a {
     width: 700px;
   }
 
-  #signup-signin {
+  .page-content:not(.with-sidebar) {
     margin: 0 auto;
   }
 
@@ -561,6 +561,10 @@ a {
     width: 100%;
     left: 0;
     padding: 20px;
+  }
+
+  .review .suggest {
+    align-items: center;
   }
 }
 
