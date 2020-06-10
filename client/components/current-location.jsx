@@ -34,7 +34,6 @@ class CurrentLocation extends Component {
 
   render() {
     const arrowPromptClass = this.props.city === null ? ' arrow-prompt' : '';
-    console.log(this.props.city, arrowPromptClass);
     return (
       <span
         onClick={e => {
