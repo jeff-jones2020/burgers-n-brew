@@ -119,7 +119,7 @@ class ReviewPage extends Component {
     }
 
     return (
-      <div className="review">
+      <div className="review page-content">
         <header>
           <p>
             <Link to={`/details/:${restaurant.id}`}>

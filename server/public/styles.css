@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   box-sizing: border-box;
@@ -8,6 +9,10 @@
 body {
   background-color: black;
   color: white;
+}
+
+button {
+  cursor: pointer;
 }
 
 .deal-description {
@@ -96,6 +101,17 @@ body {
   border-left: none;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.sidebar-container > *:hover {
+  cursor: pointer;
+}
+
+.geo-icon.arrow-prompt:after {
+  content: "↘";
+  position: absolute;
+  font-size: 0.7em;
+  animation: arrow-bounce 0.5s ease-in-out infinite alternate;
 }
 
 #bnb-title {
@@ -407,6 +423,14 @@ a {
     height: 0;
   }
 }
+@keyframes arrow-bounce {
+  from {
+    transform: translate(-220%, -70%);
+  }
+  to {
+    transform: translate(-275%, -115%);
+  }
+}
 .google-map {
   display: flex;
   justify-content: center;
@@ -518,6 +542,56 @@ a {
 
 .bnb-column {
   text-align: center;
+}
+
+@media only screen and (min-width: 700px) {
+  .page-content, .page-content + * {
+    width: 400px;
+  }
+
+  .page-content:not(.with-sidebar) {
+    margin: 0 auto;
+  }
+
+  .page-content.with-sidebar > *:not(.sidebar),
+.page-content.with-sidebar + * {
+    position: relative;
+    left: calc(300px + (100vw - 300px - 400px) / 2);
+  }
+
+  .sidebar {
+    background-color: transparent;
+    width: 300px;
+  }
+
+  .sidebar-container {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 10px;
+  }
+
+  .review .suggest {
+    align-items: center;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .page-content, .page-content + * {
+    width: 700px;
+  }
+
+  .page-content.with-sidebar > *:not(.sidebar),
+.page-content.with-sidebar + * {
+    left: calc(400px + (100vw - 400px - 700px) / 2);
+  }
+
+  .sidebar {
+    width: 400px;
+  }
+
+  .sidebar-container {
+    padding: 20px;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

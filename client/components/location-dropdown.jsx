@@ -38,6 +38,7 @@ class LocationDropDown extends Component {
             <>
               <div className="d-flex current-city">
                 <CurrentLocation
+                  city={city}
                   updateLatAndLong={updateLatAndLong}
                   isSignedIn={isSignedIn}
                 />
