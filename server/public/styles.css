@@ -528,43 +528,53 @@ a {
   text-align: center;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 700px) {
   .page-content, .page-content + * {
-    width: 700px;
+    width: 400px;
   }
 
   .page-content:not(.with-sidebar) {
     margin: 0 auto;
   }
 
-  #bnb-banner.with-sidebar {
-    flex-direction: column;
-    align-items: flex-end;
-  }
-
-  .page-content.with-sidebar > *:not(.sidebar) {
+  .page-content.with-sidebar > *:not(.sidebar),
+.page-content.with-sidebar + * {
     position: relative;
-    transform: translate(calc(50% + 500px));
-  }
-
-  .page-content.with-sidebar + * {
-    transform: translate(calc(50% + 500px));
+    left: calc(300px + (100vw - 300px - 400px) / 2);
   }
 
   .sidebar {
     background-color: transparent;
-    width: 450px;
+    width: 300px;
   }
 
   .sidebar-container {
     position: absolute;
     width: 100%;
     left: 0;
-    padding: 20px;
+    padding: 10px;
   }
 
   .review .suggest {
     align-items: center;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .page-content, .page-content + * {
+    width: 700px;
+  }
+
+  .page-content.with-sidebar > *:not(.sidebar),
+.page-content.with-sidebar + * {
+    left: calc(400px + (100vw - 400px - 700px) / 2);
+  }
+
+  .sidebar {
+    width: 400px;
+  }
+
+  .sidebar-container {
+    padding: 20px;
   }
 }
 
