@@ -6,9 +6,14 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      opened: false
+      opened: false,
+      viewWidth: window.innerWidth
     };
     this.displaySideBar = this.displaySideBar.bind(this);
+
+    window.addEventListener('resize', () => {
+      this.setState({ viewWidth: window.innerWidth });
+    });
   }
 
   displaySideBar(event) {
@@ -22,7 +27,7 @@ class Header extends Component {
 
   render() {
     const { signOutUser } = this.props;
-    const header = window.screen.width <= 1000
+    const header = this.state.viewWidth < 700
       ? <SideBar signOutUser={signOutUser} opened={this.state.opened} displaySideBar={this.displaySideBar} />
       : <DesktopSideBar signOutUser={signOutUser} />;
     return (
