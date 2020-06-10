@@ -549,17 +549,10 @@ a {
     margin: 0 auto;
   }
 
-  #bnb-banner.with-sidebar {
-    flex-direction: column;
-    align-items: flex-end;
-  }
-
-  .page-content.with-sidebar > *:not(.sidebar) {
-    position: relative;
-    transform: translate(calc(50% + 500px))
-  }
+  .page-content.with-sidebar > *:not(.sidebar),
   .page-content.with-sidebar + * {
-    transform: translate(calc(50% + 500px));
+    position: relative;
+    left: calc(450px + (100vw - 450px - 700px) / 2);
   }
 
   .sidebar {
