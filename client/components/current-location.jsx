@@ -33,13 +33,15 @@ class CurrentLocation extends Component {
   }
 
   render() {
+    const arrowPromptClass = this.props.city === null ? ' arrow-prompt' : '';
+    console.log(this.props.city, arrowPromptClass);
     return (
       <span
         onClick={e => {
           this.handleSubmit(e);
         }}
       >
-        <i className="fas fa-map-marker-alt geo-icon ml-1"></i>
+        <i className={'fas fa-map-marker-alt geo-icon ml-1' + arrowPromptClass}></i>
       </span>
     );
   }
