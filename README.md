@@ -22,16 +22,17 @@ Try the application live at [https://bnb.jeff-j.me](https://bnb.jeff-j.me)
 
 ## Features
 
-- User can view local restaurants
-- User can view details of specific restaurants
-- User can enter a location via text input
-- User can allow geolocation for their current location
-- User can view as a guest
-- User can create an account
-- User can set a default location to their account
-- User can post a suggested burger
-- User can post a suggested brew
-- User can view top 3 suggestions of a restaurant
+User can:
+- view local restaurants
+- view details of specific restaurants
+- enter a location via text input
+- allow geolocation for their current location
+- view as a guest
+- create an account
+- set a default location to their account
+- post a suggested burger
+- post a suggested brew
+- view top 3 suggestions of a restaurant
 
 ## Preview
 
